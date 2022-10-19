@@ -1,0 +1,36 @@
+<mat-toolbar class="navbar" color="primary">
+  <div class="sidebar-icon">
+    <button mat-icon-button (click)="onToggleSidenav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div class="navigation-items">
+    <div>
+      <a mat-button routerLink="/">
+        <mat-icon>home</mat-icon>
+        <span>Home</span>
+      </a>
+    </div>
+    <div class="spacer"></div>
+    <ul>
+      <li>
+        <a mat-button routerLink="/feed">
+          <mat-icon>fact_check</mat-icon>
+          <span>Feed</span>
+        </a>
+      </li>
+      <li>
+        <a mat-button routerLink="/create">
+          <mat-icon>fact_check</mat-icon>
+          <span>Create</span>
+        </a>
+      </li>
+      <li>
+        <a mat-button routerLink="/profile">
+          <mat-icon>dataset</mat-icon>
+          <span>Profile</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</mat-toolbar>

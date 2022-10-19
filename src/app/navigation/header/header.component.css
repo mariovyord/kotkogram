@@ -1,0 +1,42 @@
+.sidebar-icon {
+    display: block;
+}
+
+.navigation-items {
+    display: none;
+}
+
+@media (min-width: 960px) {
+    .navigation-items {
+        display: flex;
+        justify-items: end;
+        width: 100%;
+    }
+
+    .sidebar-icon {
+        display: none;
+    }
+}
+
+a {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+}
+
+a span {
+    margin-left: 5px;
+}
+
+.spacer {
+    flex: 1 auto;
+}
+
+.navigation-items ul{
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+
