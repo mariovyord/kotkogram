@@ -26,6 +26,7 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CreateComponent } from './create/create.component';
 import { FeedComponent } from './feed/feed.component';
+import { SquareCardComponent } from './cards/square-card/square-card.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { FeedComponent } from './feed/feed.component';
     ProfileComponent,
     CreateComponent,
     FeedComponent,
+    SquareCardComponent,
   ],
   imports: [
     BrowserModule,

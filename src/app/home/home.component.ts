@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { posts } from 'src/mocks/posts';
+import { IPost } from '../../interfaces/IPost';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+    posts: IPost[] = posts;
 
-  ngOnInit(): void {
-  }
+    constructor() { }
+
+    ngOnInit(): void {
+    }
 
 }
