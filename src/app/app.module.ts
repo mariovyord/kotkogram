@@ -22,6 +22,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
+import { HomeComponent } from './home/home.component';
+import { ProfileComponent } from './profile/profile.component';
+import { CreateComponent } from './create/create.component';
+import { FeedComponent } from './feed/feed.component';
 
 
 @NgModule({
@@ -29,6 +33,10 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
     AppComponent,
     HeaderComponent,
     SidenavListComponent,
+    HomeComponent,
+    ProfileComponent,
+    CreateComponent,
+    FeedComponent,
   ],
   imports: [
     BrowserModule,
