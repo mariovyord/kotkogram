@@ -1,0 +1,27 @@
+:host {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+}
+
+.image-container {
+    max-height: 100vh;
+    max-width: 100%;
+}
+
+.image-container img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.menu-container {
+    padding: 0 0 0 15px;
+}
+
+.comment-form input, button {
+    display: block;
+}
+
+.full-width {
+    width: 100%;
+}

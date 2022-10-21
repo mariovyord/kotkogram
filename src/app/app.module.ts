@@ -27,40 +27,48 @@ import { ProfileComponent } from './profile/profile.component';
 import { CreateComponent } from './create/create.component';
 import { FeedComponent } from './feed/feed.component';
 import { SquareCardComponent } from './cards/square-card/square-card.component';
+import { PostDetailsComponent } from './post-details/post-details.component';
+import { ModalContainerComponent } from './modal-container/modal-container.component';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    SidenavListComponent,
-    HomeComponent,
-    ProfileComponent,
-    CreateComponent,
-    FeedComponent,
-    SquareCardComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    MatIconModule,
-    MatMenuModule,
-    MatSidenavModule,
-    MatToolbarModule,
-    MatListModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatChipsModule,
-    MatTooltipModule,
-    MatTableModule,
-    DragDropModule,
-    MatDialogModule,
-    MatProgressSpinnerModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        HeaderComponent,
+        SidenavListComponent,
+        HomeComponent,
+        ProfileComponent,
+        CreateComponent,
+        FeedComponent,
+        SquareCardComponent,
+        PostDetailsComponent,
+        ModalContainerComponent,
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatIconModule,
+        MatMenuModule,
+        MatSidenavModule,
+        MatToolbarModule,
+        MatListModule,
+        MatCardModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatChipsModule,
+        MatTooltipModule,
+        MatTableModule,
+        DragDropModule,
+        MatDialogModule,
+        MatProgressSpinnerModule,
+    ],
+    entryComponents: [
+        PostDetailsComponent,
+        ModalContainerComponent,
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
