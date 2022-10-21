@@ -1,5 +1,6 @@
 :host {
     display: flex;
+    position: relative;
     justify-content: center;
     align-items: center;
     overflow: hidden;
@@ -10,3 +11,50 @@
     min-width: 100%;
     min-height: 100%
 }
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    background-color: #96969680;
+}
+
+:host:hover .overlay {
+    opacity: 1;
+}
+
+.overlay__buttons {
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.like-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 20px;
+
+
+}
+
+.like-btn:hover {
+    cursor: pointer;
+}
+
+
+
+
