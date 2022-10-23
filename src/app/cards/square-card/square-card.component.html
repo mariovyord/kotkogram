@@ -1,5 +1,5 @@
 <div>
-    <img class="image" [src]="post.imageUrl" [alt]="post.description">
+    <img class="object-cover h-full w-full absolute top-0 left-0" [src]="post.imageUrl" [alt]="post.description">
     <a class="overlay" [routerLink]="[ {outlets: { m: 'post/' + post._id } } ]">
         <div class="overlay__buttons">
             <button class="like-btn" aria-label="like the picture">
