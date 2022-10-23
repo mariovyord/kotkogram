@@ -1,28 +1,55 @@
 <div class="image-container">
-    <img src="https://www.rd.com/wp-content/uploads/2021/01/GettyImages-1175550351.jpg" alt="">
+    <img src="https://media.wired.co.uk/photos/60c8730fa81eb7f50b44037e/3:2/w_3329,h_2219,c_limit/1521-WIRED-Cat.jpeg"
+        alt="">
 </div>
-<div class="menu-container">
-    <mat-card class="example-card">
-        <mat-card-subtitle>@supercatmaniac</mat-card-subtitle>
-        <mat-card-title>Tom The Cat</mat-card-title>
-        <mat-card-content>
+<div class="comments-container">
+    <div class="post">
+        <div class="post__title">
+            <h3><a routerLink="1">supercatmaniac</a></h3>
+            <button mat-button color="primary" hideToggle>Follow</button>
+        </div>
+        <div class="post__content">
             <p>This is me, Tom!</p>
-        </mat-card-content>
-    </mat-card>
-    <div>
-        <mat-card class="example-card">
-            <mat-card-content>
-                <span>@supercatmaniac </span> <span>Meow!</span>
-            </mat-card-content>
-        </mat-card>
+        </div>
+        <div class="post__menu">
+            <button mat-icon-button>
+                <mat-icon class="post__icons" color="primary" aria-hidden="false" aria-label="like">favorite</mat-icon>
+            </button>
+            <button mat-icon-button (click)="togglePanel()">
+                <mat-icon class="post__icons" color="primary" aria-hidden="false" aria-label="like">comment</mat-icon>
+            </button>
+        </div>
+        <mat-divider></mat-divider>
     </div>
-    <div>
-        <form class="comment-form">
-            <mat-form-field class="full-width" appearance="fill">
-                <mat-label>Leave a comment</mat-label>
-                <textarea matInput placeholder="Ex. Cute cat!..."></textarea>
-            </mat-form-field>
-            <button mat-button color="primary" class="full-width">Submit</button>
-        </form>
+    <div class="form-container">
+        <mat-expansion-panel [expanded]="panelOpenState" class="mat-elevation-z0">
+            <form class="comment-form">
+                <mat-form-field class="full-width" appearance="fill">
+                    <mat-label>Leave a comment</mat-label>
+                    <textarea matInput placeholder="Ex. Cute cat!..."></textarea>
+                </mat-form-field>
+                <button mat-raised-button color="primary" class="full-width">Submit</button>
+            </form>
+        </mat-expansion-panel>
     </div>
+    <div class="card">
+        <h3><a routerLink="1">supercatmaniac</a></h3>
+        <p>Hello World!</p>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="card">
+        <h3><a routerLink="1">catty</a></h3>
+        <p>Cool cat, man!</p>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="card">
+        <h3><a routerLink="1">kasudc</a></h3>
+        <p>My cat is the same color</p>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="card">
+        <h3><a routerLink="1">supercatmaniac</a></h3>
+        <p>Meow!</p>
+    </div>
+    <mat-divider></mat-divider>
 </div>

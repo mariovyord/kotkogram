@@ -8,10 +8,14 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class PostDetailsComponent implements OnInit {
     @Input() postId: string;
+    panelOpenState: boolean = false;
 
     constructor(public dialogRef: MatDialogRef<PostDetailsComponent>) { }
 
     ngOnInit(): void {
     }
 
+    togglePanel(): void {
+        this.panelOpenState = !this.panelOpenState;
+    }
 }
