@@ -21,6 +21,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatSelectModule } from '@angular/material/select';
+import { CdkMenuModule } from '@angular/cdk/menu';
 
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
@@ -73,6 +75,8 @@ import { FeedCardComponent } from './cards/feed-card/feed-card.component';
         MatProgressSpinnerModule,
         MatExpansionModule,
         MatDividerModule,
+        MatSelectModule,
+        CdkMenuModule,
     ],
     entryComponents: [
         PostDetailsComponent,

@@ -1,36 +1,44 @@
 <mat-toolbar class="navbar" color="primary">
-  <div class="sidebar-icon">
-    <button mat-icon-button (click)="onToggleSidenav()">
-      <mat-icon>menu</mat-icon>
-    </button>
-  </div>
-  <div class="navigation-items">
-    <div>
-      <a mat-button routerLink="/">
-        <mat-icon>home</mat-icon>
-        <span>Home</span>
-      </a>
+    <div class="sidebar-icon">
+        <button mat-icon-button (click)="onToggleSidenav()">
+            <mat-icon>menu</mat-icon>
+        </button>
     </div>
-    <div class="spacer"></div>
-    <ul>
-      <li>
-        <a mat-button routerLink="/feed">
-          <mat-icon>fact_check</mat-icon>
-          <span>Feed</span>
-        </a>
-      </li>
-      <li>
-        <a mat-button routerLink="/create">
-          <mat-icon>fact_check</mat-icon>
-          <span>Create</span>
-        </a>
-      </li>
-      <li>
-        <a mat-button routerLink="/profile">
-          <mat-icon>dataset</mat-icon>
-          <span>Profile</span>
-        </a>
-      </li>
-    </ul>
-  </div>
+    <div class="navigation-items">
+        <div>
+            <a mat-button routerLink="/">
+                <mat-icon>home</mat-icon>
+                <span>Home</span>
+            </a>
+        </div>
+        <div class="spacer"></div>
+        <ul>
+            <li>
+                <a mat-button routerLink="/feed">
+                    <mat-icon>fact_check</mat-icon>
+                    <span>Feed</span>
+                </a>
+            </li>
+            <li>
+                <a mat-button routerLink="/create">
+                    <mat-icon>fact_check</mat-icon>
+                    <span>Create</span>
+                </a>
+            </li>
+            <li>
+                <button mat-button [cdkMenuTriggerFor]="menu">
+                    <mat-icon>dataset</mat-icon>
+                    <span>Profile</span>
+                </button>
+            </li>
+            <ng-template #menu>
+                <div class="bg-white p-4 rounded-md" cdkMenu>
+                    <a mat-button routerLink="/profile" class="w-full" cdkMenuItem>View Profile</a>
+                    <a mat-button routerLink="/profile/settings" class="w-full" cdkMenuItem>Settings</a>
+                    <a mat-button routerLink="/signout" mat-button class="w-full text-red-800" cdkMenuItem>Sign
+                        out</a>
+                </div>
+            </ng-template>
+        </ul>
+    </div>
 </mat-toolbar>
