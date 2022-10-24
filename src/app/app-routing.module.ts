@@ -5,8 +5,8 @@ import { FeedComponent } from './feed/feed.component';
 import { HomeComponent } from './home/home.component';
 import { ModalContainerComponent } from './modal-container/modal-container.component';
 import { ProfileComponent } from './profile/profile.component';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
+import { SignInComponent } from './authentiction/sign-in/sign-in.component';
+import { SignUpComponent } from './authentiction/sign-up/sign-up.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
