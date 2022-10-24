@@ -31,6 +31,8 @@ import { FeedComponent } from './feed/feed.component';
 import { SquareCardComponent } from './cards/square-card/square-card.component';
 import { PostDetailsComponent } from './post-details/post-details.component';
 import { ModalContainerComponent } from './modal-container/modal-container.component';
+import { CardsGridComponent } from './cards-grid/cards-grid.component';
+import { ProfileHeaderComponent } from './profile/profile-header/profile-header.component';
 
 
 @NgModule({
@@ -45,6 +47,8 @@ import { ModalContainerComponent } from './modal-container/modal-container.compo
         SquareCardComponent,
         PostDetailsComponent,
         ModalContainerComponent,
+        CardsGridComponent,
+        ProfileHeaderComponent,
     ],
     imports: [
         BrowserModule,
