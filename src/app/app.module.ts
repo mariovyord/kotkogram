@@ -33,6 +33,7 @@ import { PostDetailsComponent } from './post-details/post-details.component';
 import { ModalContainerComponent } from './modal-container/modal-container.component';
 import { CardsGridComponent } from './cards-grid/cards-grid.component';
 import { ProfileHeaderComponent } from './profile/profile-header/profile-header.component';
+import { FeedCardComponent } from './cards/feed-card/feed-card.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { ProfileHeaderComponent } from './profile/profile-header/profile-header.
         ModalContainerComponent,
         CardsGridComponent,
         ProfileHeaderComponent,
+        FeedCardComponent,
     ],
     imports: [
         BrowserModule,
