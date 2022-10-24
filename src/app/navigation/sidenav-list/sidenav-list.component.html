@@ -11,13 +11,18 @@
         <mat-icon>fact_check</mat-icon>
         <span class="nav-caption">Create</span>
     </a>
-    <button mat-list-item [cdkMenuTriggerFor]="menu">
+    <a mat-list-item routerLink="/sign-in" (click)="onSidenavClose()">
+        <mat-icon>fact_check</mat-icon>
+        <span class="nav-caption">Sign In</span>
+    </a>
+    <button mat-list-item [cdkMenuTriggerFor]=" menu">
         <mat-icon>dataset</mat-icon>
         <span class="nav-caption">Profile</span>
     </button>
     <ng-template #menu>
         <div class="bg-white p-4 rounded-md" cdkMenu>
-            <a (click)="onSidenavClose()" routerLink="/profile" mat-button class="w-full" cdkMenuItem>View Profile</a>
+            <a (click)="onSidenavClose()" routerLink="/profile" mat-button class="w-full" cdkMenuItem>View
+                Profile</a>
             <a (click)="onSidenavClose()" routerLink="/profile/settings" mat-button class="w-full"
                 cdkMenuItem>Settings</a>
             <a (click)="onSidenavClose()" routerLink="/signout" mat-button class="w-full text-red-800" cdkMenuItem>Sign

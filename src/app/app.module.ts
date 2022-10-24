@@ -23,6 +23,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
 import { CdkMenuModule } from '@angular/cdk/menu';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
@@ -36,6 +37,8 @@ import { ModalContainerComponent } from './modal-container/modal-container.compo
 import { CardsGridComponent } from './cards-grid/cards-grid.component';
 import { ProfileHeaderComponent } from './profile/profile-header/profile-header.component';
 import { FeedCardComponent } from './cards/feed-card/feed-card.component';
+import { SignInComponent } from './sign-in/sign-in.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 
 @NgModule({
@@ -53,6 +56,8 @@ import { FeedCardComponent } from './cards/feed-card/feed-card.component';
         CardsGridComponent,
         ProfileHeaderComponent,
         FeedCardComponent,
+        SignInComponent,
+        SignUpComponent,
     ],
     imports: [
         BrowserModule,
@@ -77,6 +82,7 @@ import { FeedCardComponent } from './cards/feed-card/feed-card.component';
         MatDividerModule,
         MatSelectModule,
         CdkMenuModule,
+        MatCheckboxModule,
     ],
     entryComponents: [
         PostDetailsComponent,
