@@ -19,9 +19,9 @@
             <button mat-icon-button>
                 <mat-icon class="post__icons" color="primary" aria-hidden="false" aria-label="like">favorite</mat-icon>
             </button>
-            <button mat-icon-button>
+            <a mat-icon-button [routerLink]="[ {outlets: { m: 'post/' + '123' } } ]">
                 <mat-icon class="post__icons" color="primary" aria-hidden="false" aria-label="like">comment</mat-icon>
-            </button>
+            </a>
         </div>
     </mat-card-actions>
 </mat-card>

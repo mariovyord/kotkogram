@@ -10,18 +10,15 @@ import { ProfileModule } from './profile/profile.module';
 
 import { HomeComponent } from './home/home.component';
 import { CreateComponent } from './create/create.component';
-import { PostDetailsComponent } from './post-details/post-details.component';
-import { ModalContainerComponent } from './modal-container/modal-container.component';
 import { AppComponent } from './app.component';
 import { FeedModule } from './feed/feed.module';
+import { PostDetailsModalModule } from './post-details-modal/post-details-modal.module';
 
 @NgModule({
     declarations: [
         AppComponent,
         HomeComponent,
         CreateComponent,
-        PostDetailsComponent,
-        ModalContainerComponent,
     ],
     imports: [
         BrowserModule,
@@ -33,11 +30,9 @@ import { FeedModule } from './feed/feed.module';
         ProfileModule,
         FeedModule,
         SharedModule,
+        PostDetailsModalModule,
     ],
-    entryComponents: [
-        PostDetailsComponent,
-        ModalContainerComponent,
-    ],
+    entryComponents: [],
     providers: [],
     bootstrap: [AppComponent]
 })
