@@ -36,9 +36,25 @@ export class UserService {
         }
     }
 
-
     signIn(username: string, password: string) {
         return this.http.post<IUserServerResponse>(environment.apiUrl + '/users/login', { username, password },
+            { withCredentials: true })
+            .pipe(tap(res => {
+                if (res.data) {
+                    this._user.next(res.data);
+                }
+            }))
+    }
+
+    signOut() {
+        return this.http.delete(environment.apiUrl + '/users/logout',
+            { withCredentials: true }).pipe(tap(() => {
+                this._user.next(undefined);
+            }))
+    }
+
+    signUp(userData: any) {
+        return this.http.post<IUserServerResponse>(environment.apiUrl + '/users/signup', userData,
             { withCredentials: true })
             .pipe(tap(res => {
                 if (res.data) {

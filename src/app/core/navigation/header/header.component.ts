@@ -21,6 +21,10 @@ export class HeaderComponent implements OnInit {
         })
     }
 
+    onSignOut() {
+        this.userService.signOut().subscribe(() => { });
+    }
+
     public onToggleSidenav() {
         this.sidenavToggle.emit();
     }

@@ -1,37 +1,42 @@
 <div class="max-w-md mx-auto p-6">
-    <form>
+    <form #f="ngForm" (ngSubmit)="onFormSubmit()">
         <h1 class="font-bold text-4xl mb-5">Kotkogram</h1>
         <mat-form-field class="full-width" appearance="fill">
             <mat-label>Username</mat-label>
-            <input matInput placeholder="Ex. tomthecat">
+            <input ngModel name="username" id="username" matInput placeholder="Ex. tomthecat" [required]="true">
         </mat-form-field>
         <mat-form-field class="full-width" appearance="fill">
             <mat-label>First name</mat-label>
-            <input matInput placeholder="Ex. tomthecat">
+            <input ngModel name="firstName" id="firstName" matInput placeholder="Ex. tomthecat" [required]="true">
         </mat-form-field>
         <mat-form-field class="full-width" appearance="fill">
             <mat-label>Last name</mat-label>
-            <input matInput placeholder="Ex. tomthecat">
+            <input ngModel name="lastName" id="lastName" matInput placeholder="Ex. tomthecat" [required]="true">
         </mat-form-field>
         <mat-form-field class="full-width" appearance="fill">
             <mat-label>Image URL</mat-label>
-            <input matInput placeholder="Ex. tomthecat">
+            <input ngModel name="imageUrl" id="imageUrl" matInput placeholder="Ex. tomthecat" [required]="true">
         </mat-form-field>
         <mat-form-field class="full-width" appearance="fill">
             <mat-label>Description</mat-label>
-            <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+            <textarea name="description" id="description" matInput placeholder="Ex. It makes me feel..."></textarea>
         </mat-form-field>
         <mat-form-field class="full-width" appearance="fill">
             <mat-label>Password</mat-label>
-            <input matInput placeholder="Ex. supersecretpassword">
+            <input ngModel type="password" name="password" id="password" matInput placeholder="Ex. supersecretpassword"
+                [required]="true">
         </mat-form-field>
         <mat-form-field class="full-width" appearance="fill">
             <mat-label>Repeat password</mat-label>
-            <input matInput placeholder="Ex. supersecretpassword">
+            <input ngModel type="password" name="rePassword" id="rePassword" matInput
+                placeholder="Ex. supersecretpassword" [required]="true">
         </mat-form-field>
         <div class="mb-4">
-            <mat-checkbox>Yes, I'm a cat and not a human or a... dog</mat-checkbox>
+            <mat-checkbox ngModel name="confirm" id="confirm">Yes, I'm a cat and not a human or a... dog</mat-checkbox>
         </div>
-        <button mat-raised-button class="w-full" color="primary">Sign Up</button>
+        <button type="submit" mat-raised-button class="w-full" color="primary">Sign Up</button>
     </form>
+    <div class="mt-4 w-full">
+        <a mat-button routerLink="/sign-up" class="mt-4 w-full">Have an account? Sign in</a>
+    </div>
 </div>

@@ -1,15 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UserService } from 'src/app/core/user/user.service';
 
 @Component({
-  selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.css']
+    selector: 'app-sign-up',
+    templateUrl: './sign-up.component.html',
+    styleUrls: ['./sign-up.component.css']
 })
-export class SignUpComponent implements OnInit {
+export class SignUpComponent {
+    @ViewChild('f') form: NgForm;
 
-  constructor() { }
+    constructor(private userService: UserService, private router: Router) { }
 
-  ngOnInit(): void {
-  }
+    onFormSubmit() {
+        const values = this.form.value;
+        // TODO... validations
 
+        this.userService.signUp(values).subscribe({
+            next: res => {
+                this.router.navigateByUrl('/');
+            },
+            error: res => {
+                console.log(res);
+            }
+        })
+    }
 }
