@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IPost } from 'src/interfaces/IPost';
+import { IPost } from 'src/app/shared/interfaces/IPost';
 
 @Component({
     selector: 'app-square-card',

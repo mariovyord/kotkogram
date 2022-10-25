@@ -1,4 +1,4 @@
-import { IPost } from "src/interfaces/IPost";
+import { IPost } from "src/app/shared/interfaces/IPost";
 
 export const posts: IPost[] = [
     {

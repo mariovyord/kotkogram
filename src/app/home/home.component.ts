@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { posts } from 'src/mocks/posts';
-import { IPost } from '../../interfaces/IPost';
+import { IPost } from '../shared/interfaces/IPost';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({

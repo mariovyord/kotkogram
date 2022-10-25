@@ -25,13 +25,13 @@
                     <span>Create</span>
                 </a>
             </li>
-            <li>
+            <li *ngIf="!isAuthenticated">
                 <a mat-button routerLink="/sign-in">
                     <mat-icon>fact_check</mat-icon>
                     <span>Sign In</span>
                 </a>
             </li>
-            <li>
+            <li *ngIf="isAuthenticated">
                 <button mat-button [cdkMenuTriggerFor]="menu">
                     <mat-icon>dataset</mat-icon>
                     <span>Profile</span>
