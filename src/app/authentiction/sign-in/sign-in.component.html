@@ -4,14 +4,18 @@
         <mat-form-field class="full-width" appearance="fill">
             <mat-label>Username</mat-label>
             <input ngModel name="username" id="username" type="text" matInput placeholder="Ex. tomthecat"
-                [required]="true">
+                [required]="true" minlength="3" maxlength="280">
         </mat-form-field>
         <mat-form-field class="full-width" appearance="fill">
             <mat-label>Password</mat-label>
-            <input ngModel name="password" id="password" matInput type="password" placeholder="Ex. supersecretpassword"
-                [required]="true">
+            <input ngModel [type]="hide ? 'password' : 'text'" name="password" id="password" matInput
+                placeholder="Ex. supersecretpassword" [required]="true" minlength="6" maxlength="60">
+            <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
         </mat-form-field>
-        <button mat-raised-button class="w-full" color="primary" type="submit">Sign In</button>
+        <button [disabled]="!f.valid" mat-raised-button class="w-full" color="primary" type="submit">Sign In</button>
     </form>
     <div class="mt-4 w-full">
         <a mat-button routerLink="/sign-up" class="mt-4 w-full">Don't have an account? Sign up</a>

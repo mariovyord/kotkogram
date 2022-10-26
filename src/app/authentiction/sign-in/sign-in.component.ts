@@ -1,7 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { UserService } from 'src/app/core/user/user.service';
+import { ErrorBarComponent } from '../error-bar/error-bar.component';
 
 @Component({
     selector: 'app-sign-in',
@@ -11,7 +14,11 @@ import { UserService } from 'src/app/core/user/user.service';
 export class SignInComponent {
     @ViewChild('f') form: NgForm;
 
-    constructor(private userService: UserService, private router: Router, private activatedRoute: ActivatedRoute) { }
+    error: string;
+    durationInSeconds = 6;
+    hide = true;
+
+    constructor(private _snackBar: MatSnackBar, private userService: UserService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
     onFormSubmit() {
         const { username, password } = this.form.value;
@@ -21,9 +28,18 @@ export class SignInComponent {
                 this.router.navigateByUrl(redirectUrl);
             },
             error: res => {
-                console.log(res);
+                this.error = res.error.errors[0];
+                this.openSnackBar()
             }
         })
     }
 
+    openSnackBar() {
+        this._snackBar.openFromComponent(ErrorBarComponent, {
+            duration: this.durationInSeconds * 1000,
+            announcementMessage: this.error,
+            data: this.error,
+
+        });
+    }
 }

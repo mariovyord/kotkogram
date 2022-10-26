@@ -21,7 +21,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
 import { CdkMenuModule } from '@angular/cdk/menu';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
     imports: [
@@ -47,6 +47,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         MatSelectModule,
         CdkMenuModule,
         MatCheckboxModule,
+        MatSnackBarModule,
     ],
     exports: [
         CommonModule,
@@ -71,6 +72,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         MatSelectModule,
         CdkMenuModule,
         MatCheckboxModule,
+        MatSnackBarModule,
     ]
 })
 export class MaterialModule { }
