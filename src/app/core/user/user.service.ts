@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { IUser } from 'src/app/shared/interfaces/IUser';
 import { environment } from 'src/environments/environment';
 import { IUserServerResponse } from '../../shared/interfaces/IUserServerResponse';
-import { of, tap, map, Subject, BehaviorSubject } from 'rxjs';
+import { tap, map, catchError } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -23,7 +23,12 @@ export class UserService {
                 this.user = res.data;
             }
             return res.data;
-        }))
+        }),
+            catchError((err) => {
+                this.loading = false;
+                this.user = undefined
+                return err;
+            }))
     }
 
     signIn(username: string, password: string) {

@@ -8,8 +8,6 @@ import { UserService } from '../user/user.service';
     providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-    private isLoggedIn: boolean = false;
-
     constructor(private router: Router, private userService: UserService) { }
 
     get user() {
@@ -17,7 +15,7 @@ export class AuthGuard implements CanActivate {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        const { authRequired } = route.data;
+        const { authRequired, authFailureRedirectUrl } = route.data;
 
         if (authRequired === Boolean(this.user)) {
             return true;
@@ -33,7 +31,7 @@ export class AuthGuard implements CanActivate {
             if (user) {
                 return true;
             } else {
-                this.router.navigateByUrl('/sign-up');
+                this.router.navigateByUrl('/');
                 return false;
             }
         }))
@@ -41,24 +39,3 @@ export class AuthGuard implements CanActivate {
 }
 
 
-// canActivate(
-//     route: ActivatedRouteSnapshot,
-//     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-
-//     const { authRequired, authFailureRedirectUrl } = route.data;
-
-//     this.userService.user.subscribe(x => this.isLoggedIn = Boolean(x));
-
-//     if (authRequired === this.isLoggedIn) {
-//         return true;
-//     }
-
-//     let authRedirectUrl = authFailureRedirectUrl;
-
-//     if (authRequired) {
-//         const loginRedirectUrl = route.url.reduce((acc, x) => `${acc}/${x.path}`, '');
-//         authRedirectUrl += `?redirectUrl=${loginRedirectUrl}`;
-//     }
-
-//     return this.router.parseUrl(authRedirectUrl || '/');
-// }
