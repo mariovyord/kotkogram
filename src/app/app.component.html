@@ -1,5 +1,5 @@
-<div *ngIf="loading">
-    Loading...
+<div *ngIf="loading" class="flex justify-center items-center w-screen h-screen">
+    <mat-spinner></mat-spinner>
 </div>
 <mat-sidenav-container *ngIf="!loading">
     <mat-sidenav #sidenav role="navigation">
