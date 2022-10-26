@@ -11,11 +11,11 @@
         <mat-icon>fact_check</mat-icon>
         <span class="nav-caption">Create</span>
     </a>
-    <a mat-list-item routerLink="/sign-in" (click)="onSidenavClose()">
+    <a *ngIf="!isAuthenticated" mat-list-item routerLink="/sign-in" (click)="onSidenavClose()">
         <mat-icon>fact_check</mat-icon>
         <span class="nav-caption">Sign In</span>
     </a>
-    <button mat-list-item [cdkMenuTriggerFor]=" menu">
+    <button *ngIf="isAuthenticated" mat-list-item [cdkMenuTriggerFor]="menu">
         <mat-icon>dataset</mat-icon>
         <span class="nav-caption">Profile</span>
     </button>
@@ -25,7 +25,8 @@
                 Profile</a>
             <a (click)="onSidenavClose()" routerLink="/profile/settings" mat-button class="w-full"
                 cdkMenuItem>Settings</a>
-            <a (click)="onSidenavClose()" routerLink="/signout" mat-button class="w-full text-red-800" cdkMenuItem>Sign
+            <a (click)="onSignOut()" (click)="onSidenavClose()" routerLink="/signout" mat-button
+                class="w-full text-red-800" cdkMenuItem>Sign
                 out</a>
         </div>
     </ng-template>
