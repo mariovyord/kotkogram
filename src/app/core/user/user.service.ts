@@ -27,7 +27,6 @@ export class UserService {
             this.http.get<IUserServerResponse>(environment.apiUrl + '/users/me', {
                 withCredentials: true
             }).subscribe(res => {
-                console.log('TAPPING')
                 if (res.data) {
                     this._user.next(res.data);
                 }

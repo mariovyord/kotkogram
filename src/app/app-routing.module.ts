@@ -7,6 +7,7 @@ import { PostDetailsModalComponent } from './post-details-modal/post-details-mod
 import { ProfileComponent } from './profile/profile.component';
 import { SignInComponent } from './authentiction/sign-in/sign-in.component';
 import { SignUpComponent } from './authentiction/sign-up/sign-up.component';
+import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -19,11 +20,37 @@ const routes: Routes = [
                 component: PostDetailsModalComponent,
                 outlet: 'm'
             },
-        ]
+        ],
+        canActivate: [AuthGuard],
+        data: {
+            authRequired: true,
+            authFailureRedirectUrl: '/sign-in',
+        }
     },
-    { path: 'sign-in', component: SignInComponent, },
-    { path: 'sign-up', component: SignUpComponent, },
-    { path: 'create', component: CreateComponent, },
+    {
+        path: 'sign-in', component: SignInComponent,
+        canActivate: [AuthGuard],
+        data: {
+            authRequired: false,
+            authFailureRedirectUrl: '/',
+        }
+    },
+    {
+        path: 'sign-up', component: SignUpComponent,
+        canActivate: [AuthGuard],
+        data: {
+            authRequired: false,
+            authFailureRedirectUrl: '/',
+        }
+    },
+    {
+        path: 'create', component: CreateComponent,
+        canActivate: [AuthGuard],
+        data: {
+            authRequired: true,
+            authFailureRedirectUrl: '/sign-in',
+        }
+    },
     {
         path: 'profile', children: [
             { path: '', component: ProfileComponent, },
@@ -33,7 +60,12 @@ const routes: Routes = [
                 component: PostDetailsModalComponent,
                 outlet: 'm'
             },
-        ]
+        ],
+        canActivate: [AuthGuard],
+        data: {
+            authRequired: true,
+            authFailureRedirectUrl: '/sign-in',
+        }
     },
     {
         path: 'post/:id',

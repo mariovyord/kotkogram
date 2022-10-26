@@ -4,6 +4,7 @@ import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 import { MaterialModule } from '../material.module';
 import { RouterModule } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
     declarations: [
@@ -18,6 +19,9 @@ import { RouterModule } from '@angular/router';
     exports: [
         HeaderComponent,
         SidenavListComponent,
+    ],
+    providers: [
+        AuthGuard,
     ]
 })
 export class CoreModule { }
