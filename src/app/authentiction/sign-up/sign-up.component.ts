@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/core/user/user.service';
@@ -10,13 +10,24 @@ import { UserService } from 'src/app/core/user/user.service';
 })
 export class SignUpComponent {
     @ViewChild('f') form: NgForm;
+    hide = true;
+    get password() {
+        return this.form.value['password']
+    }
 
-    constructor(private userService: UserService, private router: Router) { }
+    get rePassword() {
+        return this.form.value['rePassword']
+    }
+
+    constructor(private userService: UserService, private router: Router) {
+    }
+
+    // TODO Add custom validator for blacklisted chars
+    // TODO group password for validation
 
     onFormSubmit() {
         const values = this.form.value;
-        // TODO... validations
-
+        console.log(this.form)
         this.userService.signUp(values).subscribe({
             next: res => {
                 this.router.navigateByUrl('/');

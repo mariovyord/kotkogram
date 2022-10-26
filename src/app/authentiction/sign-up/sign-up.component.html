@@ -3,19 +3,47 @@
         <h1 class="font-bold text-4xl mb-5">Kotkogram</h1>
         <mat-form-field class="full-width" appearance="fill">
             <mat-label>Username</mat-label>
-            <input ngModel name="username" id="username" matInput placeholder="Ex. tomthecat" [required]="true">
+            <input ngModel name="username" id="username" matInput placeholder="Ex. tomthecat" minlength="3"
+                maxlength="280" [required]="true">
+            <!-- <mat-error *ngIf="f.controls['username'].errors && f.controls['username'].errors['required']">
+                Username is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="f.controls['username'].errors && f.controls['username'].errors['minlength']">
+                Minimum length is <strong>3</strong> characters
+            </mat-error>
+            <mat-error *ngIf="f.controls['username'].errors && f.controls['username'].errors['maxlength']">
+                Maximum length is <strong>280</strong> characters
+            </mat-error> -->
         </mat-form-field>
         <mat-form-field class="full-width" appearance="fill">
             <mat-label>First name</mat-label>
             <input ngModel name="firstName" id="firstName" matInput placeholder="Ex. tomthecat" [required]="true">
+            <!-- <mat-error *ngIf="f.controls['firstName'].errors && f.controls['firstName'].errors['required']">
+                First name is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="f.controls['firstName'].errors && f.controls['firstName'].errors['minlength']">
+                Minimum length is <strong>3</strong> characters
+            </mat-error>
+            <mat-error *ngIf="f.controls['firstName'].errors && f.controls['firstName'].errors['maxlength']">
+                Maximum length is <strong>280</strong> characters
+            </mat-error> -->
         </mat-form-field>
         <mat-form-field class="full-width" appearance="fill">
             <mat-label>Last name</mat-label>
             <input ngModel name="lastName" id="lastName" matInput placeholder="Ex. tomthecat" [required]="true">
+            <!-- <mat-error *ngIf="f.controls['lastName'].errors && f.controls['lastName'].errors['required']">
+                Last name is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="f.controls['lastName'].errors && f.controls['lastName'].errors['minlength']">
+                Minimum length is <strong>3</strong> characters
+            </mat-error>
+            <mat-error *ngIf="f.controls['lastName'].errors && f.controls['lastName'].errors['maxlength']">
+                Maximum length is <strong>280</strong> characters
+            </mat-error> -->
         </mat-form-field>
         <mat-form-field class="full-width" appearance="fill">
             <mat-label>Image URL</mat-label>
-            <input ngModel name="imageUrl" id="imageUrl" matInput placeholder="Ex. tomthecat" [required]="true">
+            <input ngModel name="imageUrl" id="imageUrl" matInput placeholder="Ex. tomthecat">
         </mat-form-field>
         <mat-form-field class="full-width" appearance="fill">
             <mat-label>Description</mat-label>
@@ -23,18 +51,42 @@
         </mat-form-field>
         <mat-form-field class="full-width" appearance="fill">
             <mat-label>Password</mat-label>
-            <input ngModel type="password" name="password" id="password" matInput placeholder="Ex. supersecretpassword"
-                [required]="true">
+            <input ngModel [type]="hide ? 'password' : 'text'" name="password" id="password" matInput
+                placeholder="Ex. supersecretpassword" [required]="true" minlength="6" maxlength="60">
+            <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="f.controls['password'].errors && f.controls['password'].errors['required']">
+                Password is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="f.controls['password'].errors && f.controls['password'].errors['minlength']">
+                Minimum length is <strong>6</strong> characters
+            </mat-error>
+            <mat-error *ngIf="f.controls['password'].errors && f.controls['password'].errors['maxlength']">
+                Maximum length is <strong>60</strong> characters
+            </mat-error>
+            <mat-error *ngIf="f.controls['password'].errors && f.controls['password'].errors['passwordMatch']">
+                Passwords should match
+            </mat-error>
         </mat-form-field>
         <mat-form-field class="full-width" appearance="fill">
             <mat-label>Repeat password</mat-label>
-            <input ngModel type="password" name="rePassword" id="rePassword" matInput
+            <input ngModel matInput [type]="hide ? 'password' : 'text'" name="rePassword" id="rePassword"
                 placeholder="Ex. supersecretpassword" [required]="true">
+            <mat-error *ngIf="f.controls['rePassword'].errors && f.controls['rePassword'].errors['required']">
+                Please repeat password
+            </mat-error>
+            <mat-error *ngIf="f.controls['rePassword'].errors && f.controls['rePassword'].errors['passwordMatch']">
+                Passwords should match
+            </mat-error>
         </mat-form-field>
+
         <div class="mb-4">
-            <mat-checkbox ngModel name="confirm" id="confirm">Yes, I'm a cat and not a human or a... dog</mat-checkbox>
+            <mat-checkbox required="true" ngModel name="confirm" id="confirm">Yes, I'm a cat and not a human or a... dog
+            </mat-checkbox>
         </div>
-        <button type="submit" mat-raised-button class="w-full" color="primary">Sign Up</button>
+        <button [disabled]="!f.valid" type="submit" mat-raised-button class="w-full" color="primary">Sign Up</button>
     </form>
     <div class="mt-4 w-full">
         <a mat-button routerLink="/sign-in" class="mt-4 w-full">Have an account? Sign in</a>

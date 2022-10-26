@@ -6,12 +6,16 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ErrorBarComponent } from './error-bar/error-bar.component';
+import { SameValueDirective } from './sign-up/same-value.directive';
+import { PasswordMatchDirective } from './sign-up/password-match.directive';
 
 @NgModule({
     declarations: [
         SignInComponent,
         SignUpComponent,
         ErrorBarComponent,
+        SameValueDirective,
+        PasswordMatchDirective,
     ],
     imports: [
         CommonModule,
