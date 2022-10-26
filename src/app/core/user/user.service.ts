@@ -9,30 +9,21 @@ import { of, tap, map, Subject, BehaviorSubject } from 'rxjs';
     providedIn: 'root'
 })
 export class UserService {
-    _user = new BehaviorSubject<IUser | undefined>(undefined);
-    isLoading = false;
+    user: IUser | undefined = undefined;
+    loading = true;
 
     constructor(private http: HttpClient) { }
 
-    get user() {
-        if (this._user.value) {
-            this.loadUser();
-        }
-        return this._user.asObservable();
-    }
-
-    loadUser(): void {
-        if (this.isLoading === false) {
-            this.isLoading = true;
-            this.http.get<IUserServerResponse>(environment.apiUrl + '/users/me', {
-                withCredentials: true
-            }).subscribe(res => {
-                if (res.data) {
-                    this._user.next(res.data);
-                }
-                this.isLoading = false;
-            })
-        }
+    loadUser() {
+        return this.http.get<IUserServerResponse>(environment.apiUrl + '/users/me', {
+            withCredentials: true
+        }).pipe(map(res => {
+            this.loading = false;
+            if (res.data) {
+                this.user = res.data;
+            }
+            return res.data;
+        }))
     }
 
     signIn(username: string, password: string) {
@@ -40,7 +31,7 @@ export class UserService {
             { withCredentials: true })
             .pipe(tap(res => {
                 if (res.data) {
-                    this._user.next(res.data);
+                    this.user = res.data;
                 }
             }))
     }
@@ -48,7 +39,7 @@ export class UserService {
     signOut() {
         return this.http.delete(environment.apiUrl + '/users/logout',
             { withCredentials: true }).pipe(tap(() => {
-                this._user.next(undefined);
+                this.user = undefined
             }))
     }
 
@@ -57,7 +48,7 @@ export class UserService {
             { withCredentials: true })
             .pipe(tap(res => {
                 if (res.data) {
-                    this._user.next(res.data);
+                    this.user = res.data;
                 }
             }))
     }

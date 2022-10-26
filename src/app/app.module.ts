@@ -14,8 +14,9 @@ import { CreateComponent } from './create/create.component';
 import { AppComponent } from './app.component';
 import { FeedModule } from './feed/feed.module';
 import { PostDetailsModalModule } from './post-details-modal/post-details-modal.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { UserService } from './core/user/user.service';
 
 @NgModule({
     declarations: [
@@ -38,7 +39,19 @@ import { FormsModule } from '@angular/forms';
         FormsModule,
     ],
     entryComponents: [],
-    providers: [],
+    providers: [
+        UserService,
+        // {
+        //     provide: APP_INITIALIZER,
+        //     useFactory: initializeApp,
+        //     deps: [UserService],
+        //     multi: true
+        // }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+// function initializeApp(userService: UserService) {
+//     return () => userService.loadUser().subscribe(() => { })
+// }

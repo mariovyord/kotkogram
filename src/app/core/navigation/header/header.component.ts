@@ -7,19 +7,15 @@ import { Subscription } from 'rxjs';
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
-    isAuthenticated = false;
-    user: Subscription;
+export class HeaderComponent {
+
+    get isAuthenticated() {
+        return Boolean(this.userService.user);
+    }
 
     @Output() public sidenavToggle = new EventEmitter();
 
     constructor(private userService: UserService) { }
-
-    ngOnInit(): void {
-        this.user = this.userService.user.subscribe(user => {
-            this.isAuthenticated = user ? true : false;
-        })
-    }
 
     onSignOut() {
         this.userService.signOut().subscribe(() => { });
