@@ -1,12 +1,12 @@
 <div class="max-w-md mx-auto p-6">
-    <form #f="ngForm" (ngSubmit)="onFormSubmit()">
+    <form #f="ngForm" (ngSubmit)="onFormSubmit()" class="flex flex-col gap-1">
         <h1 class="font-bold text-4xl mb-5">Kotkogram</h1>
-        <mat-form-field class="full-width" appearance="fill">
+        <mat-form-field class="full-width" appearance="outline">
             <mat-label>Username</mat-label>
             <input ngModel name="username" id="username" type="text" matInput placeholder="Ex. tomthecat"
                 [required]="true" minlength="3" maxlength="280">
         </mat-form-field>
-        <mat-form-field class="full-width" appearance="fill">
+        <mat-form-field class="full-width" appearance="outline">
             <mat-label>Password</mat-label>
             <input ngModel [type]="hide ? 'password' : 'text'" name="password" id="password" matInput
                 placeholder="Ex. supersecretpassword" [required]="true" minlength="6" maxlength="60">
