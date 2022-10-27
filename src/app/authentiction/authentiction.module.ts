@@ -5,7 +5,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ErrorBarComponent } from '../core/error-bar/error-bar.component';
+import { SnackbarComponent } from '../core/snackbar/snackbar.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
@@ -13,7 +13,7 @@ import { MatInputModule } from '@angular/material/input';
     declarations: [
         SignInComponent,
         SignUpComponent,
-        ErrorBarComponent,
+        SnackbarComponent,
     ],
     imports: [
         CommonModule,

@@ -2,8 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { ErrorBarComponent } from '../core/error-bar/error-bar.component';
 import { UserPostsService } from '../core/posts/user-posts.service';
+import { SnackbarService } from '../core/snackbar/snackbar.service';
 
 @Component({
     selector: 'app-create',
@@ -12,32 +12,22 @@ import { UserPostsService } from '../core/posts/user-posts.service';
 })
 export class CreateComponent {
     @ViewChild('f') form: NgForm;
-    message: string;
-    durationInSeconds = 6;
 
-    constructor(private userPostsService: UserPostsService, private _snackBar: MatSnackBar, private router: Router) { }
+    constructor(private snackbarService: SnackbarService, private userPostsService: UserPostsService, private _snackBar: MatSnackBar, private router: Router) { }
 
     onSubmit() {
         const { imageUrl, description } = this.form.value;
 
         this.userPostsService.createPost(imageUrl, description).subscribe({
             next: res => {
-                this.message = 'Picture posted successfully!'
-                this.openSnackBar()
+                this.snackbarService.openSnackBar('Picture posted successfully!')
                 this.router.navigateByUrl('/profile');
             },
             error: res => {
-                this.message = res.error.errors[0];
-                this.openSnackBar()
+                this.snackbarService.openSnackBar(res.error.errors[0])
             }
         })
     }
 
-    openSnackBar() {
-        this._snackBar.openFromComponent(ErrorBarComponent, {
-            duration: this.durationInSeconds * 1000,
-            announcementMessage: this.message,
-            data: this.message,
-        });
-    }
+
 }

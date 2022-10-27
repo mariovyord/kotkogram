@@ -3,9 +3,8 @@ import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-error-bar',
-    templateUrl: './error-bar.component.html',
-    styleUrls: ['./error-bar.component.css']
+    templateUrl: './snackbar.component.html',
 })
-export class ErrorBarComponent {
+export class SnackbarComponent {
     constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any) { }
 }

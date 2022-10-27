@@ -1,6 +1,7 @@
 import { Component, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, NgForm, Validators, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SnackbarService } from 'src/app/core/snackbar/snackbar.service';
 import { UserService } from 'src/app/core/user/user.service';
 import { CustomAsyncValidator } from './unique-username';
 import { UniqueUsernameValidatorDirective } from './unique-username-validator.directive';
@@ -66,20 +67,20 @@ export class SignUpComponent {
         }),
     }, { validators: this.passwordMatch('password', 'rePassword') });
 
-    constructor(private userService: UserService, private router: Router) { }
+    constructor(public snackbarService: SnackbarService, private userService: UserService, private router: Router) { }
 
     // TODO Add custom validator for blacklisted chars
-    // TODO validation for existing username
 
     onFormSubmit() {
         const values = this.signUpForm.value;
 
         this.userService.signUp(values).subscribe({
             next: res => {
+                this.snackbarService.openSnackBar('Sign up successfull!');
                 this.router.navigateByUrl('/');
             },
             error: res => {
-                console.log(res);
+                this.snackbarService.openSnackBar(res.error.errors[0]);
             }
         })
     }

@@ -3,8 +3,9 @@ import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { SnackbarService } from 'src/app/core/snackbar/snackbar.service';
 import { UserService } from 'src/app/core/user/user.service';
-import { ErrorBarComponent } from '../../core/error-bar/error-bar.component';
+import { SnackbarComponent } from '../../core/snackbar/snackbar.component';
 
 @Component({
     selector: 'app-sign-in',
@@ -14,32 +15,21 @@ import { ErrorBarComponent } from '../../core/error-bar/error-bar.component';
 export class SignInComponent {
     @ViewChild('f') form: NgForm;
 
-    error: string;
-    durationInSeconds = 6;
     hide = true;
 
-    constructor(private _snackBar: MatSnackBar, private userService: UserService, private router: Router, private activatedRoute: ActivatedRoute) { }
+    constructor(private snackbarService: SnackbarService, private userService: UserService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
     onFormSubmit() {
         const { username, password } = this.form.value;
         this.userService.signIn(username, password).subscribe({
             next: res => {
+                this.snackbarService.openSnackBar('Sign in successfull!');
                 const redirectUrl = this.activatedRoute.snapshot.queryParams['redirectUrl'] || '/';
                 this.router.navigateByUrl(redirectUrl);
             },
             error: res => {
-                this.error = res.error.errors[0];
-                this.openSnackBar()
+                this.snackbarService.openSnackBar(res.error.errors[0]);
             }
         })
-    }
-
-    openSnackBar() {
-        this._snackBar.openFromComponent(ErrorBarComponent, {
-            duration: this.durationInSeconds * 1000,
-            announcementMessage: this.error,
-            data: this.error,
-
-        });
     }
 }
