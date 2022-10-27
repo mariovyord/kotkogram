@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { UserService } from 'src/app/core/user/user.service';
-import { ErrorBarComponent } from '../error-bar/error-bar.component';
+import { ErrorBarComponent } from '../../core/error-bar/error-bar.component';
 
 @Component({
     selector: 'app-sign-in',
