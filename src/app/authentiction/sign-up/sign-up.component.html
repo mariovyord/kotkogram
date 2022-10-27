@@ -4,6 +4,9 @@
         <mat-form-field class="full-width" appearance="fill">
             <mat-label>Username</mat-label>
             <input formControlName="username" id="username" matInput placeholder="Ex. tomthecat">
+            <mat-error *ngIf="signUpForm.get('username')?.errors?.['unique']">
+                Username is <strong>taken</strong>
+            </mat-error>
             <mat-error *ngIf="signUpForm.get('username')?.errors?.['required']">
                 Username is <strong>required</strong>
             </mat-error>

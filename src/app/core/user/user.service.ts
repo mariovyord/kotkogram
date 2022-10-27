@@ -3,7 +3,11 @@ import { Injectable } from '@angular/core';
 import { IUser } from 'src/app/shared/interfaces/IUser';
 import { environment } from 'src/environments/environment';
 import { IUserServerResponse } from '../../shared/interfaces/IUserServerResponse';
+import { IGenericServerResponse } from '../../shared/interfaces/IGenericServerResponse';
 import { tap, map, catchError } from 'rxjs/operators';
+
+
+const API_URL = environment.apiUrl;
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +19,7 @@ export class UserService {
     constructor(private http: HttpClient) { }
 
     loadUser() {
-        return this.http.get<IUserServerResponse>(environment.apiUrl + '/users/me', {
+        return this.http.get<IUserServerResponse>(API_URL + '/users/me', {
             withCredentials: true
         }).pipe(map(res => {
             this.loading = false;
@@ -32,7 +36,7 @@ export class UserService {
     }
 
     signIn(username: string, password: string) {
-        return this.http.post<IUserServerResponse>(environment.apiUrl + '/users/login', { username, password },
+        return this.http.post<IUserServerResponse>(API_URL + '/users/login', { username, password },
             { withCredentials: true })
             .pipe(tap(res => {
                 if (res.data) {
@@ -42,19 +46,23 @@ export class UserService {
     }
 
     signOut() {
-        return this.http.delete(environment.apiUrl + '/users/logout',
+        return this.http.delete(API_URL + '/users/logout',
             { withCredentials: true }).pipe(tap(() => {
                 this.user = undefined
             }))
     }
 
     signUp(userData: any) {
-        return this.http.post<IUserServerResponse>(environment.apiUrl + '/users/signup', userData,
+        return this.http.post<IUserServerResponse>(API_URL + '/users/signup', userData,
             { withCredentials: true })
             .pipe(tap(res => {
                 if (res.data) {
                     this.user = res.data;
                 }
             }))
+    }
+
+    isUsernameUnique(username: string) {
+        return this.http.post<IGenericServerResponse>(API_URL + '/users/isunique', { username });
     }
 }

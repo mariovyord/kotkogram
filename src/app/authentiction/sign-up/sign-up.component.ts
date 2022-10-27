@@ -2,6 +2,8 @@ import { Component, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, NgForm, Validators, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/core/user/user.service';
+import { CustomAsyncValidator } from './unique-username';
+import { UniqueUsernameValidatorDirective } from './unique-username-validator.directive';
 
 @Component({
     selector: 'app-sign-up',
@@ -17,7 +19,11 @@ export class SignUpComponent {
                 Validators.required,
                 Validators.minLength(3),
                 Validators.maxLength(280),
-            ]
+            ],
+            asyncValidators: [
+                CustomAsyncValidator.isUsernameUnique(this.userService)
+            ],
+            updateOn: 'blur'
         }),
         firstName: new FormControl('', {
             validators: [
