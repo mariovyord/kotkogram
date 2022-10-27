@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { PostsService } from '../core/posts/posts.service';
+import { IPost } from '../shared/interfaces/IPost';
 import { PostDetailsComponent } from './post-details/post-details.component';
 
 @Component({
@@ -12,10 +14,11 @@ import { PostDetailsComponent } from './post-details/post-details.component';
 export class PostDetailsModalComponent implements OnDestroy {
     destroy = new Subject<any>();
     subscribtion: Subscription;
+    post: IPost;
 
     constructor(public dialog: MatDialog,
         route: ActivatedRoute,
-        router: Router
+        router: Router,
     ) {
         route.url.pipe(takeUntil(this.destroy)).subscribe(params => {
             // When router navigates on this component is takes the params and opens up the modal
@@ -29,6 +32,7 @@ export class PostDetailsModalComponent implements OnDestroy {
             currentDialog.afterClosed().subscribe(() => router.navigateByUrl(parentUrl));
         })
     }
+
     ngOnDestroy() {
         this.destroy.next(null);
     }

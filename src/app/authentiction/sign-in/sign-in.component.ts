@@ -3,9 +3,9 @@ import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { SnackbarService } from 'src/app/core/snackbar/snackbar.service';
+import { SnackbarService } from 'src/app/shared/snackbar/snackbar.service';
 import { UserService } from 'src/app/core/user/user.service';
-import { SnackbarComponent } from '../../core/snackbar/snackbar.component';
+import { SnackbarComponent } from '../../shared/snackbar/snackbar.component';
 
 @Component({
     selector: 'app-sign-in',

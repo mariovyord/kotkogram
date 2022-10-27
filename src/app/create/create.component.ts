@@ -2,8 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { UserPostsService } from '../core/posts/user-posts.service';
-import { SnackbarService } from '../core/snackbar/snackbar.service';
+import { PostsService } from '../core/posts/posts.service';
+import { SnackbarService } from '../shared/snackbar/snackbar.service';
 
 @Component({
     selector: 'app-create',
@@ -13,7 +13,7 @@ import { SnackbarService } from '../core/snackbar/snackbar.service';
 export class CreateComponent {
     @ViewChild('f') form: NgForm;
 
-    constructor(private snackbarService: SnackbarService, private userPostsService: UserPostsService, private _snackBar: MatSnackBar, private router: Router) { }
+    constructor(private snackbarService: SnackbarService, private userPostsService: PostsService, private _snackBar: MatSnackBar, private router: Router) { }
 
     onSubmit() {
         const { imageUrl, description } = this.form.value;

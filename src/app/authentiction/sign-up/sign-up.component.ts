@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, NgForm, Validators, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SnackbarService } from 'src/app/core/snackbar/snackbar.service';
+import { SnackbarService } from 'src/app/shared/snackbar/snackbar.service';
 import { UserService } from 'src/app/core/user/user.service';
 import { CustomAsyncValidator } from './unique-username';
 import { UniqueUsernameValidatorDirective } from './unique-username-validator.directive';
