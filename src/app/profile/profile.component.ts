@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IPost } from 'src/app/shared/interfaces/IPost';
 import { PostsService } from '../core/posts/posts.service';
+import { UserService } from '../core/user/user.service';
 
 @Component({
     selector: 'app-profile',
@@ -10,12 +11,15 @@ import { PostsService } from '../core/posts/posts.service';
 export class ProfileComponent implements OnInit {
     posts: IPost[] = [];
 
-    constructor(private postsService: PostsService) { }
+    get user() {
+        return this.userService.user;
+    }
+
+    constructor(private postsService: PostsService, private userService: UserService) { }
 
     ngOnInit(): void {
-        this.postsService.getAllPosts().subscribe(res => {
+        this.postsService.getUserPosts().subscribe(res => {
             if (res.data && res.data.length > 0) {
-                console.log(res);
                 res.data.forEach(post => {
                     this.posts.push(post);
                 })

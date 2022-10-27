@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { IUser } from 'src/app/shared/interfaces/IUser';
 
 @Component({
-  selector: 'app-profile-header',
-  templateUrl: './profile-header.component.html',
-  styleUrls: ['./profile-header.component.css']
+    selector: 'app-profile-header',
+    templateUrl: './profile-header.component.html',
+    styleUrls: ['./profile-header.component.css']
 })
 export class ProfileHeaderComponent implements OnInit {
+    @Input() user!: IUser;
+    constructor() { }
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
 }
