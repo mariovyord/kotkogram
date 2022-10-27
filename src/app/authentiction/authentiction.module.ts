@@ -4,24 +4,25 @@ import { MaterialModule } from '../material.module';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorBarComponent } from './error-bar/error-bar.component';
-import { SameValueDirective } from './sign-up/same-value.directive';
-import { PasswordMatchDirective } from './sign-up/password-match.directive';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
     declarations: [
         SignInComponent,
         SignUpComponent,
         ErrorBarComponent,
-        SameValueDirective,
-        PasswordMatchDirective,
     ],
     imports: [
         CommonModule,
         MaterialModule,
         RouterModule,
         FormsModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
     ],
     providers: [
     ]

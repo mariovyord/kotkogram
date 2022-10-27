@@ -15,7 +15,7 @@ import { AppComponent } from './app.component';
 import { FeedModule } from './feed/feed.module';
 import { PostDetailsModalModule } from './post-details-modal/post-details-modal.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './core/user/user.service';
 
 @NgModule({
