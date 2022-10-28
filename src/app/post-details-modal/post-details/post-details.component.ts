@@ -1,7 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { CommentsService } from 'src/app/core/comments/comments.service';
+import { IComment } from 'src/app/shared/interfaces/IComment';
 import { PostsService } from 'src/app/core/posts/posts.service';
 import { IPost } from 'src/app/shared/interfaces/IPost';
+import { NgForm } from '@angular/forms';
+import { tap } from 'rxjs';
+import { UserService } from 'src/app/core/user/user.service';
 
 @Component({
     selector: 'app-post-details',
@@ -12,21 +16,55 @@ export class PostDetailsComponent implements OnInit {
     @Input() postId: string;
     panelOpenState: boolean = false;
     post: IPost;
+    comments: IComment[] = []
 
     constructor(
-        public dialogRef: MatDialogRef<PostDetailsComponent>,
-        public postsService: PostsService,
+        private postsService: PostsService,
+        private commentsService: CommentsService,
+        private userService: UserService,
     ) { }
+
+    get user() {
+        return this.userService.user;
+    }
 
     ngOnInit(): void {
         const currentPost = this.postsService.getOnePost(this.postId)
 
-        if (currentPost === undefined) { return console.log('Oh, well...') }
+        this.commentsService.getComments(this.postId).subscribe({
+            next: (res) => {
+                if (res.data === undefined) { throw new Error() }
+
+                this.comments = res.data
+            },
+            error: (res) => { console.log(res.error) }
+        })
+
+        if (currentPost === undefined) {
+            return console.log('Oh, well...')
+        }
 
         this.post = currentPost;
-
     }
+
     togglePanel(): void {
         this.panelOpenState = !this.panelOpenState;
+    }
+
+    onSubmit(f: NgForm) {
+        this.commentsService.postComment(f.value.comment, this.postId).pipe(tap(res => {
+            if (res.data !== undefined) {
+                res.data.owner = this.user!;
+                this.comments.unshift(res.data);
+                f.reset();
+                f.controls['comment'].setErrors(null);
+                this.panelOpenState = false;
+            }
+        })).subscribe({
+            error: res => {
+                // TODO...
+                console.log('error', res.errors);
+            }
+        })
     }
 }

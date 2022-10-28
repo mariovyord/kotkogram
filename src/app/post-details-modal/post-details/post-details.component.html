@@ -22,33 +22,25 @@
     </div>
     <div class="form-container">
         <mat-expansion-panel [expanded]="panelOpenState" class="mat-elevation-z0">
-            <form class="comment-form">
-                <mat-form-field class="full-width" appearance="fill">
+            <form #f="ngForm" class="comment-form" (ngSubmit)="onSubmit(f)">
+                <mat-form-field style="width: 100%" appearance="outline">
                     <mat-label>Leave a comment</mat-label>
-                    <textarea matInput placeholder="Ex. Cute cat!..."></textarea>
+                    <textarea name="comment" id="comment" matInput ngModel [required]="true" minlength="3"
+                        maxlength="280"></textarea>
+                    <mat-error *ngIf="f.controls['comment'].errors?.['required']">
+                        Comment cannot be empty
+                    </mat-error>
+                    <mat-error *ngIf="f.controls['comment'].errors?.['minlength']">
+                        Minimum length is <strong>3</strong> characters
+                    </mat-error>
+                    <mat-error *ngIf="f.controls['comment'].errors?.['maxlength']">
+                        Maximum length is <strong>280</strong> characters
+                    </mat-error>
                 </mat-form-field>
-                <button mat-raised-button color="primary" class="full-width">Submit</button>
+                <button [disabled]="!f.valid" mat-raised-button color="primary" class="full-width">Submit</button>
             </form>
         </mat-expansion-panel>
     </div>
-    <div class="card">
-        <h3><a class="text-primary font-semibold" routerLink="1">supercatmaniac</a></h3>
-        <p>Hello World!</p>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="card">
-        <h3><a class="text-primary font-semibold" routerLink="1">catty</a></h3>
-        <p>Cool cat, man!</p>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="card">
-        <h3><a class="text-primary font-semibold" routerLink="1">kasudc</a></h3>
-        <p>My cat is the same color</p>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="card">
-        <h3><a class="text-primary font-semibold" routerLink="1">supercatmaniac</a></h3>
-        <p>Meow!</p>
-    </div>
+    <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
     <mat-divider></mat-divider>
 </div>
