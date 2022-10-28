@@ -66,4 +66,10 @@ export class PostsService {
             withCredentials: true
         })
     }
+
+    likePost(postId: string) {
+        return this.http.post(API_URL + `/collections/posts/${postId}/like`, {}, {
+            withCredentials: true
+        });
+    }
 }

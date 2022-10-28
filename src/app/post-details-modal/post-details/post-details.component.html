@@ -5,13 +5,14 @@
     <div class="post">
         <div class="post__title">
             <h3><a class="text-primary font-semibold" routerLink="1">{{post.owner.username}}</a></h3>
-            <button mat-button color="primary" hideToggle>Follow</button>
+            <button mat-button color="primary">Follow</button>
         </div>
         <div class="post__content">
             <p>{{post.description}}</p>
         </div>
         <div class="post__menu">
-            <button mat-icon-button>
+            <button (click)="onLike()" mat-icon-button>
+                <span class="text-sm">{{post.likes.length}}</span>
                 <mat-icon class="post__icons" color="primary" aria-hidden="false" aria-label="like">favorite</mat-icon>
             </button>
             <button mat-icon-button (click)="togglePanel()">

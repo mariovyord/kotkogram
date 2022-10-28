@@ -67,4 +67,23 @@ export class PostDetailsComponent implements OnInit {
             }
         })
     }
+
+    onLike() {
+        this.postsService.likePost(this.postId).subscribe({
+            next: () => {
+                const userId = this.user?._id!;
+
+                // TODO update likes in service
+                if (this.post.likes.includes(userId)) {
+                    const index = this.post.likes.indexOf(userId);
+                    this.post.likes.splice(index, 1);
+                } else {
+                    this.post.likes.push(userId);
+                }
+            },
+            error: () => {
+                // TODO...
+            }
+        })
+    }
 }

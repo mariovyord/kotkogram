@@ -2,7 +2,7 @@
     <img class="object-cover h-full w-full absolute top-0 left-0" [src]="post.imageUrl" [alt]="post.description">
     <a class="overlay" [routerLink]="[ {outlets: { m: 'post/' + post._id } } ]">
         <div class="overlay__buttons">
-            <button class="like-btn" aria-label="like the picture">
+            <button (click)="onLike($event)" class="like-btn" aria-label="like the picture">
                 <mat-icon class="icon" aria-hidden="false">favorite</mat-icon>
                 <span>{{post.likes.length}}</span>
             </button>
