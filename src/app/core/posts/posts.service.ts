@@ -5,6 +5,8 @@ import { IPostsServerResponse } from 'src/app/shared/interfaces/IPostsServerResp
 import { environment } from 'src/environments/environment';
 import { tap } from 'rxjs/operators';
 import { UserService } from '../user/user.service';
+import { of, map } from 'rxjs';
+import { IOnePostServerResponse } from 'src/app/shared/interfaces/IOnePostServerResponse';
 
 const API_URL = environment.apiUrl;
 
@@ -24,17 +26,19 @@ export class PostsService {
     getOnePost(id: string) {
         for (let post of this.allPosts) {
             if (post._id === id) {
-                return post
+                return of(post);
             }
         }
 
         for (let post of this.feedPosts) {
             if (post._id === id) {
-                return post
+                return of(post);
             }
         }
 
-        return undefined;
+        return this.http.get<IOnePostServerResponse>(API_URL + `/collections/posts/${id}?populate=owner`).pipe(map(res => {
+            return res.data;
+        }))
     }
 
     getAllPosts() {
@@ -71,5 +75,16 @@ export class PostsService {
         return this.http.post(API_URL + `/collections/posts/${postId}/like`, {}, {
             withCredentials: true
         });
+    }
+
+    getAllFeedPosts() {
+        return this.http.get<IPostsServerResponse>(API_URL + `/collections/posts?where=followers=${this.user!._id}&populate=owner`)
+            .pipe(tap(res => {
+                if (res.data && res.data.length > 0) {
+                    res.data.forEach(post => {
+                        this.feedPosts.push(post);
+                    })
+                }
+            }))
     }
 }

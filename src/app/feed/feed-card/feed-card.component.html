@@ -1,25 +1,22 @@
 <mat-card class="max-w-lg">
     <mat-card-header>
-        <div mat-card-avatar class="bg-[url('https://material.angular.io/assets/img/examples/shiba2.jpg')] bg-cover">
+        <div mat-card-avatar [ngStyle]="{ background: 'url(' + post.owner.imageUrl +  ')', backgroundSize: 'cover'}">
         </div>
-        <mat-card-title>tom.the.cat</mat-card-title>
+        <mat-card-title>{{post.owner.username}}</mat-card-title>
     </mat-card-header>
-    <img mat-card-image style="margin: 10px 0 10px 0"
-        src="https://i.natgeofe.com/n/3861de2a-04e6-45fd-aec8-02e7809f9d4e/02-cat-training-NationalGeographic_1484324.jpg"
-        alt="Photo of a Shiba Inu">
+    <img mat-card-image style="margin: 10px 0 10px 0" [src]="post.imageUrl" [alt]="post.description">
     <mat-card-content>
         <p>
-            The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-            A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-            bred for hunting.
+            {{post.description}}
         </p>
     </mat-card-content>
     <mat-card-actions>
         <div class="post__menu">
-            <button mat-icon-button>
+            <button (click)="onLike()" mat-icon-button>
+                <span class="text-sm">{{post.likes.length}}</span>
                 <mat-icon class="post__icons" color="primary" aria-hidden="false" aria-label="like">favorite</mat-icon>
             </button>
-            <a mat-icon-button [routerLink]="[ {outlets: { m: 'post/' + '123' } } ]">
+            <a mat-icon-button [routerLink]="[ {outlets: { m: 'post/' + post._id } } ]">
                 <mat-icon class="post__icons" color="primary" aria-hidden="false" aria-label="like">comment</mat-icon>
             </a>
         </div>

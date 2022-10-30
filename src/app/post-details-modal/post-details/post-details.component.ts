@@ -30,7 +30,14 @@ export class PostDetailsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        const currentPost = this.postsService.getOnePost(this.postId)
+        this.postsService.getOnePost(this.postId).subscribe(res => {
+            if (res === undefined) {
+                // TODO...
+                throw new Error()
+            }
+            // TODO Add loading and error handling
+            this.post = res;
+        })
 
         this.commentsService.getComments(this.postId).subscribe({
             next: (res) => {
@@ -40,12 +47,6 @@ export class PostDetailsComponent implements OnInit {
             },
             error: (res) => { console.log(res.error) }
         })
-
-        if (currentPost === undefined) {
-            return console.log('Oh, well...')
-        }
-
-        this.post = currentPost;
     }
 
     togglePanel(): void {

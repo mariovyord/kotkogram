@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PostsService } from '../core/posts/posts.service';
+import { IPost } from '../shared/interfaces/IPost';
 
 @Component({
     selector: 'app-feed',
@@ -6,10 +8,18 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./feed.component.css']
 })
 export class FeedComponent implements OnInit {
+    posts: IPost[] = [];
 
-    constructor() { }
+    constructor(private postsService: PostsService) { }
 
-    ngOnInit(): void {
+    ngOnInit() {
+        this.postsService.getAllFeedPosts().subscribe(res => {
+            if (res.data && res.data.length > 0) {
+                res.data.forEach(post => {
+                    this.posts.push(post);
+                })
+            }
+        })
     }
 
 }
