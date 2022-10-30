@@ -6,5 +6,6 @@ export interface IUser {
     password: string,
     description: string,
     imageUrl: string,
+    followers: string[]
     role: 'user' | 'moderator' | 'admin',
 }

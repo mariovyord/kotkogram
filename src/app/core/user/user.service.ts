@@ -63,6 +63,13 @@ export class UserService {
     }
 
     isUsernameUnique(username: string) {
-        return this.http.post<IGenericServerResponse>(API_URL + '/users/isunique', { username });
+        return this.http.post<IGenericServerResponse>(API_URL + '/users/isunique',
+            { username });
+    }
+
+    followUser(followedUserId: string) {
+        return this.http.post<IGenericServerResponse>(API_URL + `/users/${followedUserId}/follow`,
+            {},
+            { withCredentials: true })
     }
 }

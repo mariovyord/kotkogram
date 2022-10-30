@@ -5,7 +5,11 @@
     <div class="post">
         <div class="post__title">
             <h3><a class="text-primary font-semibold" routerLink="1">{{post.owner.username}}</a></h3>
-            <button mat-button color="primary">Follow</button>
+            <button [disabled]="isFollowLoading" *ngIf="user" (click)="onFollow(post.owner._id)" mat-button
+                color="primary">
+                <span *ngIf="!post.owner.followers.includes(user._id)">Follow</span>
+                <span *ngIf="post.owner.followers.includes(user._id)" class="text-red-300">Unfollow</span>
+            </button>
         </div>
         <div class="post__content">
             <p>{{post.description}}</p>

@@ -16,22 +16,6 @@ export class SquareCardComponent {
         return this.userService.user;
     }
 
-    constructor(private postsService: PostsService, private userService: UserService, private router: Router) { }
+    constructor(private userService: UserService, private router: Router) { }
 
-    onLike(event: Event) {
-        this.postsService.likePost(this.post._id).subscribe({
-            next: () => {
-                const userId = this.user?._id!;
-                if (this.post.likes.includes(userId)) {
-                    const index = this.post.likes.indexOf(userId);
-                    this.post.likes.splice(index, 1);
-                } else {
-                    this.post.likes.push(userId);
-                }
-            },
-            error: () => {
-                // TODO...
-            }
-        })
-    }
 }

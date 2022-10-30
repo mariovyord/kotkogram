@@ -17,6 +17,7 @@ export class PostDetailsComponent implements OnInit {
     panelOpenState: boolean = false;
     post: IPost;
     comments: IComment[] = []
+    isFollowLoading = false;
 
     constructor(
         private postsService: PostsService,
@@ -84,6 +85,23 @@ export class PostDetailsComponent implements OnInit {
             error: () => {
                 // TODO...
             }
+        })
+    }
+
+    onFollow(ownerId: string): void {
+        if (this.user === undefined) return;
+        this.isFollowLoading = true;
+
+        this.userService.followUser(ownerId).pipe(tap(res => {
+            const userIndex = this.post.owner.followers.indexOf(this.user?._id!)
+
+            if (userIndex === -1) {
+                this.post.owner.followers.push(this.user?._id!)
+            } else {
+                this.post.owner.followers.splice(userIndex, 1);
+            }
+        })).subscribe(() => {
+            this.isFollowLoading = false;
         })
     }
 }
