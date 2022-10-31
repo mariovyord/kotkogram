@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommentsService } from 'src/app/core/comments/comments.service';
 import { IComment } from 'src/app/shared/interfaces/IComment';
 import { PostsService } from 'src/app/core/posts/posts.service';
@@ -6,6 +6,8 @@ import { IPost } from 'src/app/shared/interfaces/IPost';
 import { NgForm } from '@angular/forms';
 import { tap } from 'rxjs';
 import { UserService } from 'src/app/core/user/user.service';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-post-details',
@@ -14,6 +16,8 @@ import { UserService } from 'src/app/core/user/user.service';
 })
 export class PostDetailsComponent implements OnInit {
     @Input() postId: string;
+    @Output() modal_principal_parent = new EventEmitter();
+
     panelOpenState: boolean = false;
     post: IPost;
     comments: IComment[] = []
@@ -23,6 +27,7 @@ export class PostDetailsComponent implements OnInit {
         private postsService: PostsService,
         private commentsService: CommentsService,
         private userService: UserService,
+        private dialog: MatDialog,
     ) { }
 
     get user() {
@@ -104,5 +109,22 @@ export class PostDetailsComponent implements OnInit {
         })).subscribe(() => {
             this.isFollowLoading = false;
         })
+    }
+
+    openDialog() {
+        const dialogRef = this.dialog.open(DeleteDialogComponent, {
+            width: '250px',
+        });
+
+        dialogRef.afterClosed().subscribe(res => {
+            if (res) {
+                this.postsService.deletePost(this.post._id).subscribe({
+                    next: () => {
+                        this.modal_principal_parent.emit();
+                    },
+                    error: () => { }
+                })
+            }
+        });
     }
 }

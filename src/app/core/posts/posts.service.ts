@@ -72,6 +72,15 @@ export class PostsService {
         })
     }
 
+    deletePost(postId: string) {
+        return this.http.delete(API_URL + `/collections/posts/${postId}`,
+            { withCredentials: true })
+            .pipe(tap(() => {
+                this.allPosts = this.allPosts.filter(x => x._id !== postId);
+                this.feedPosts = this.feedPosts.filter(x => x._id !== postId);
+            }))
+    }
+
     likePost(postId: string) {
         return this.http.post(API_URL + `/collections/posts/${postId}/like`, {}, {
             withCredentials: true

@@ -5,8 +5,8 @@
     <div class="post">
         <div class="post__title">
             <h3><a class="text-primary font-semibold" routerLink="1">{{post.owner.username}}</a></h3>
-            <button [disabled]="isFollowLoading" *ngIf="user" (click)="onFollow(post.owner._id)" mat-button
-                color="primary">
+            <button [disabled]="isFollowLoading" *ngIf="user && user._id !== post.owner._id"
+                (click)="onFollow(post.owner._id)" mat-button color="primary">
                 <span *ngIf="!post.owner.followers.includes(user._id)">Follow</span>
                 <span *ngIf="post.owner.followers.includes(user._id)" class="text-red-300">Unfollow</span>
             </button>
@@ -14,13 +14,16 @@
         <div class="post__content">
             <p>{{post.description}}</p>
         </div>
-        <div class="post__menu">
+        <div class="flex">
             <button (click)="onLike()" mat-icon-button>
                 <span class="text-sm">{{post.likes.length}}</span>
-                <mat-icon class="post__icons" color="primary" aria-hidden="false" aria-label="like">favorite</mat-icon>
+                <mat-icon class="scale-150" color="primary" aria-hidden="false" aria-label="like">favorite</mat-icon>
             </button>
             <button mat-icon-button (click)="togglePanel()">
-                <mat-icon class="post__icons" color="primary" aria-hidden="false" aria-label="like">comment</mat-icon>
+                <mat-icon class="scale-150" color="primary" aria-hidden="false" aria-label="like">comment</mat-icon>
+            </button>
+            <button *ngIf="user?._id === post.owner._id" mat-icon-button (click)="openDialog()">
+                <mat-icon class="scale-150 text-red-600" aria-hidden="false" aria-label="delete">delete</mat-icon>
             </button>
         </div>
         <mat-divider></mat-divider>

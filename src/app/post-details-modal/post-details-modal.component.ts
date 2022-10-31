@@ -29,6 +29,11 @@ export class PostDetailsModalComponent implements OnDestroy {
             const pattern = /\/\(.+\)/
             const parentUrl = router.url.replace(pattern, '');
             // Go back to home page after the modal is closed
+            currentDialog.componentInstance.modal_principal_parent.subscribe(() => {
+                currentDialog.componentInstance.modal_principal_parent.unsubscribe();
+                currentDialog.close();
+            });
+
             currentDialog.afterClosed().subscribe(() => router.navigateByUrl(parentUrl));
         })
     }
