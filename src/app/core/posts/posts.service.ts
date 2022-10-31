@@ -43,7 +43,7 @@ export class PostsService {
     }
 
     getAllPosts(page: number) {
-        return this.http.get<IPostsServerResponse>(API_URL + `/collections/posts?page=${page}&pageSize=${PAGE_SIZE}&populate=owner`).pipe(tap(res => {
+        return this.http.get<IPostsServerResponse>(API_URL + `/collections/posts?page=${page}&pageSize=${PAGE_SIZE}&sortBy=createdAt desc&populate=owner`).pipe(tap(res => {
             if (res.data && res.data.length > 0) {
                 res.data.forEach(post => {
                     this.allPosts.push(post);
@@ -55,7 +55,7 @@ export class PostsService {
     getUserPosts() {
         if (this.user === undefined) { throw new Error('You need to sign in to view your posts') }
 
-        return this.http.get<IPostsServerResponse>(API_URL + `/collections/posts?populate=owner&where=owner=${this.user._id}`).pipe(tap(res => {
+        return this.http.get<IPostsServerResponse>(API_URL + `/collections/posts?populate=owner&where=owner=${this.user._id}&sortBy=createdAt desc`).pipe(tap(res => {
             if (res.data && res.data.length > 0) {
                 res.data.forEach(post => {
                     this.feedPosts.push(post);
@@ -79,7 +79,7 @@ export class PostsService {
     }
 
     getAllFeedPosts() {
-        return this.http.get<IPostsServerResponse>(API_URL + `/collections/posts?where=followers=${this.user!._id}&populate=owner`)
+        return this.http.get<IPostsServerResponse>(API_URL + `/collections/posts?where=followers=${this.user!._id}&sortBy=createdAt desc&populate=owner`)
             .pipe(tap(res => {
                 if (res.data && res.data.length > 0) {
                     res.data.forEach(post => {

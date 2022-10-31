@@ -18,7 +18,7 @@ export class CommentsService {
     constructor(private userService: UserService, private http: HttpClient) { }
 
     getComments(id: string) {
-        return this.http.get<ICommentsServerResponse>(API_URL + `/collections/comments?where=post=${id}&populate=owner`);
+        return this.http.get<ICommentsServerResponse>(API_URL + `/collections/comments?where=post=${id}&sortBy=createdAt desc&populate=owner`);
     }
 
     postComment(body: string, postId: string) {

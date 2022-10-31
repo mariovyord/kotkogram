@@ -8,10 +8,9 @@ import { IUser } from './shared/interfaces/IUser';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent {
     title = 'kotkogram';
     constructor(private userService: UserService) { }
-    user: Subscription;
 
     get loading() {
         return this.userService.loading;
@@ -19,9 +18,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         // first load user if any
-        const user = this.userService.loadUser().subscribe((user) => user)
-    }
-    ngOnDestroy(): void {
-        this.user.unsubscribe();
+        this.userService.loadUser().subscribe(() => { })
     }
 }
