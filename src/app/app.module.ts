@@ -17,11 +17,11 @@ import { PostDetailsModalModule } from './post-details-modal/post-details-modal.
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './core/user/user.service';
+import { HomeModule } from './home/home.module';
 
 @NgModule({
     declarations: [
         AppComponent,
-        HomeComponent,
         CreateComponent,
     ],
     imports: [
@@ -33,10 +33,10 @@ import { UserService } from './core/user/user.service';
         AuthentictionModule,
         ProfileModule,
         FeedModule,
-        SharedModule,
         PostDetailsModalModule,
         HttpClientModule,
         FormsModule,
+        HomeModule,
     ],
     entryComponents: [],
     providers: [

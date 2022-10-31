@@ -9,6 +9,7 @@ import { of, map } from 'rxjs';
 import { IOnePostServerResponse } from 'src/app/shared/interfaces/IOnePostServerResponse';
 
 const API_URL = environment.apiUrl;
+const PAGE_SIZE = 13;
 
 @Injectable({
     providedIn: 'root'
@@ -41,8 +42,8 @@ export class PostsService {
         }))
     }
 
-    getAllPosts() {
-        return this.http.get<IPostsServerResponse>(API_URL + '/collections/posts?populate=owner').pipe(tap(res => {
+    getAllPosts(page: number) {
+        return this.http.get<IPostsServerResponse>(API_URL + `/collections/posts?page=${page}&pageSize=${PAGE_SIZE}&populate=owner`).pipe(tap(res => {
             if (res.data && res.data.length > 0) {
                 res.data.forEach(post => {
                     this.allPosts.push(post);

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { SquareCardComponent } from './square-card/square-card.component';
 import { CardsGridComponent } from './cards-grid/cards-grid.component';
 import { MaterialModule } from '../material.module';

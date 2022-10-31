@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { IPost } from '../shared/interfaces/IPost';
 import { MatDialog } from '@angular/material/dialog';
 import { PostsService } from '../core/posts/posts.service';
@@ -10,6 +10,7 @@ import { PostsService } from '../core/posts/posts.service';
 })
 export class HomeComponent implements OnInit {
     posts: IPost[] = [];
+    page = 0;
 
     constructor(
         public dialog: MatDialog,
@@ -17,9 +18,21 @@ export class HomeComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.postsService.getAllPosts().subscribe(res => {
+        this.getAllPosts()
+    }
+
+    onScrollDown() {
+        console.log('IT WORKS')
+        this.getAllPosts();
+    }
+
+    onScrollUp() {
+        console.log('UP')
+    }
+
+    getAllPosts() {
+        this.postsService.getAllPosts(++this.page).subscribe(res => {
             if (res.data && res.data.length > 0) {
-                console.log(res);
                 res.data.forEach(post => {
                     this.posts.push(post);
                 })
