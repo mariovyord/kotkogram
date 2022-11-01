@@ -23,7 +23,8 @@ export class PostDetailsModalComponent {
         const dialogRef = this.dialog.open(PostDetailsComponent, {
             data: {
                 postId: this.postId
-            }
+            },
+            autoFocus: false
         });
         dialogRef.afterClosed().subscribe(result => {
             this.router.navigate(['../../'], { relativeTo: this.route });

@@ -18,10 +18,12 @@
         <div class="post__content">
             <p>{{post.description}}</p>
         </div>
-        <div class="flex">
+        <div class="flex" *ngIf="user">
             <button (click)="onLike()" mat-icon-button>
                 <span class="text-sm">{{post.likes.length}}</span>
-                <mat-icon class="scale-150" color="primary" aria-hidden="false" aria-label="like">favorite</mat-icon>
+                <mat-icon class="scale-150" color="primary" aria-hidden="false" aria-label="like">
+                    {{post.likes.includes(user._id) ? 'favorite' : 'favorite_outline'}}
+                </mat-icon>
             </button>
             <button mat-icon-button (click)="togglePanel()">
                 <mat-icon class="scale-150" color="primary" aria-hidden="false" aria-label="like">comment</mat-icon>
