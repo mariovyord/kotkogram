@@ -54,7 +54,15 @@ const routes: Routes = [
     {
         path: 'profile', children: [
             { path: '', component: ProfileComponent, },
-            { path: ':userId', component: ProfileComponent, },
+            {
+                path: ':userId', component: ProfileComponent, children: [
+                    {
+                        path: 'post/:id',
+                        component: PostDetailsModalComponent,
+                        outlet: 'm'
+                    },
+                ]
+            },
             {
                 path: 'post/:id',
                 component: PostDetailsModalComponent,

@@ -20,6 +20,7 @@ export class PostDetailsModalComponent implements OnDestroy {
         route: ActivatedRoute,
         router: Router,
     ) {
+        console.log('params')
         route.url.pipe(takeUntil(this.destroy)).subscribe(params => {
             // When router navigates on this component is takes the params and opens up the modal
             const id = params[1].path;
@@ -28,13 +29,17 @@ export class PostDetailsModalComponent implements OnDestroy {
 
             const pattern = /\/\(.+\)/
             const parentUrl = router.url.replace(pattern, '');
+            let redirectUrl: string | null = null;
             // Go back to home page after the modal is closed
-            currentDialog.componentInstance.modal_principal_parent.subscribe(() => {
+            currentDialog.componentInstance.modal_principal_parent.subscribe((res) => {
+                if (res) { redirectUrl = res }
                 currentDialog.componentInstance.modal_principal_parent.unsubscribe();
                 currentDialog.close();
             });
 
-            currentDialog.afterClosed().subscribe(() => router.navigateByUrl(parentUrl));
+            currentDialog.afterClosed().subscribe(() => {
+                router.navigateByUrl(redirectUrl || parentUrl || '/')
+            });
         })
     }
 
