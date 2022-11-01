@@ -17,7 +17,6 @@ export class HomeComponent implements OnInit {
     activatedUserId: string | undefined = undefined;
 
     constructor(
-        public dialog: MatDialog,
         private postsService: PostsService,
     ) { }
 
