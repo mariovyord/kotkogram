@@ -54,10 +54,10 @@ export class PostsService {
     }
 
 
-    getUserPosts(page: number) {
+    getUserPosts(id: string, page: number) {
         if (this.user === undefined) { throw new Error('You need to sign in to view your posts') }
 
-        return this.http.get<IPostsServerResponse>(API_URL + `/collections/posts?page=${page}&pageSize=${PAGE_SIZE}&populate=owner&where=owner=${this.user._id}&sortBy=createdAt desc`).pipe(tap(res => {
+        return this.http.get<IPostsServerResponse>(API_URL + `/collections/posts?page=${page}&pageSize=${PAGE_SIZE}&populate=owner&where=owner=${id}&sortBy=createdAt desc`).pipe(tap(res => {
             if (res.data && res.data.length > 0) {
                 res.data.forEach(post => {
                     this.feedPosts.push(post);

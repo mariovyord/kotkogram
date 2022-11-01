@@ -127,4 +127,8 @@ export class PostDetailsComponent implements OnInit {
             }
         });
     }
+
+    forceCloseDialog() {
+        this.modal_principal_parent.emit();
+    }
 }

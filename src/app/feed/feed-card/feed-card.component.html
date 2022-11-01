@@ -2,7 +2,9 @@
     <mat-card-header>
         <div mat-card-avatar [ngStyle]="{ background: 'url(' + post.owner.imageUrl +  ')', backgroundSize: 'cover'}">
         </div>
-        <mat-card-title>{{post.owner.username}}</mat-card-title>
+        <mat-card-title>
+            <a class="hover:underline" [routerLink]="'/profile/' + post.owner._id">{{post.owner.username}}</a>
+        </mat-card-title>
     </mat-card-header>
     <img mat-card-image style="margin: 10px 0 10px 0" [src]="post.imageUrl" [alt]="post.description">
     <mat-card-content>

@@ -4,7 +4,11 @@
 <div class="comments-container">
     <div class="post">
         <div class="post__title">
-            <h3><a class="text-primary font-semibold" routerLink="1">{{post.owner.username}}</a></h3>
+            <h3>
+                <a class="text-primary font-semibold hover:underline"
+                    [routerLink]="'/profile/' + post.owner._id">{{post.owner.username}}
+                </a>
+            </h3>
             <button [disabled]="isFollowLoading" *ngIf="user && user._id !== post.owner._id"
                 (click)="onFollow(post.owner._id)" mat-button color="primary">
                 <span *ngIf="!post.owner.followers.includes(user._id)">Follow</span>

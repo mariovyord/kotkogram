@@ -72,4 +72,8 @@ export class UserService {
             {},
             { withCredentials: true })
     }
+
+    getUserData(id: string) {
+        return this.http.get<IUserServerResponse>(API_URL + `/users/${id}`, { withCredentials: true })
+    }
 }
