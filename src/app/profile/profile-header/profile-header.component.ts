@@ -8,9 +8,12 @@ import { IUser } from 'src/app/shared/interfaces/IUser';
 })
 export class ProfileHeaderComponent implements OnInit {
     @Input() user!: IUser;
+    @Input() userPostsCount!: number;
+
     constructor() { }
 
     ngOnInit(): void {
+        console.log(this.user)
     }
 
 }

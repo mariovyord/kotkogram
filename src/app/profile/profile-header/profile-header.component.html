@@ -11,9 +11,8 @@
                 <button mat-button color="primary">Edit Profile</button>
             </div>
             <div class="flex justify-center sm:justify-start  gap-4">
-                <span>13 publications</span>
-                <span>5 followers</span>
-                <span>6 following</span>
+                <span>{{userPostsCount}} publications</span>
+                <span>{{user.followers?.length || 0}} followers</span>
             </div>
         </div>
         <div class="flex flex-col align-middle sm:justify-start ">

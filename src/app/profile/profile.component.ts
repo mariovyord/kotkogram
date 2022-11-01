@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IPost } from 'src/app/shared/interfaces/IPost';
 import { PostsService } from '../core/posts/posts.service';
 import { UserService } from '../core/user/user.service';
+import { tap } from 'rxjs';
 
 @Component({
     selector: 'app-profile',
@@ -10,6 +11,7 @@ import { UserService } from '../core/user/user.service';
 })
 export class ProfileComponent implements OnInit {
     posts: IPost[] = [];
+    userPostsCount = 0;
     page = 0;
 
     get user() {
@@ -20,6 +22,7 @@ export class ProfileComponent implements OnInit {
 
     ngOnInit(): void {
         this.getAllUserPosts();
+        this.getUserPostsCount();
     }
 
     onScrollUp() {
@@ -27,16 +30,27 @@ export class ProfileComponent implements OnInit {
     }
 
     onScrollDown() {
-        this.getAllUserPosts()
+        this.getAllUserPosts();
     }
 
     getAllUserPosts() {
-        this.postsService.getUserPosts(++this.page).subscribe(res => {
-            if (res.data && res.data.length > 0) {
-                res.data.forEach(post => {
-                    this.posts.push(post);
-                })
-            }
-        })
+        this.postsService.getUserPosts(++this.page)
+            .subscribe(res => {
+                if (res.data && res.data.length > 0) {
+                    res.data.forEach(post => {
+                        this.posts.push(post);
+                    })
+                }
+            })
+    }
+
+    getUserPostsCount() {
+        console.log(this.user)
+        this.postsService.getUserPostsCount(this.user!._id)
+            .subscribe(res => {
+                if (typeof res.data === 'number') {
+                    this.userPostsCount = res.data;
+                }
+            })
     }
 }

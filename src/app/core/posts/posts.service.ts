@@ -7,6 +7,7 @@ import { tap } from 'rxjs/operators';
 import { UserService } from '../user/user.service';
 import { of, map } from 'rxjs';
 import { IOnePostServerResponse } from 'src/app/shared/interfaces/IOnePostServerResponse';
+import { IGenericServerResponse } from 'src/app/shared/interfaces/IGenericServerResponse';
 
 const API_URL = environment.apiUrl;
 const PAGE_SIZE = 9;
@@ -52,6 +53,7 @@ export class PostsService {
         }))
     }
 
+
     getUserPosts(page: number) {
         if (this.user === undefined) { throw new Error('You need to sign in to view your posts') }
 
@@ -62,6 +64,10 @@ export class PostsService {
                 })
             }
         }))
+    }
+
+    getUserPostsCount(id: string) {
+        return this.http.get<IGenericServerResponse>(API_URL + `/collections/posts?where=owner=${id}&count=true`);
     }
 
     createPost(imageUrl: string, description: string) {
