@@ -39,13 +39,13 @@
                     <mat-label>Leave a comment</mat-label>
                     <textarea name="comment" id="comment" matInput ngModel [required]="true" minlength="3"
                         maxlength="280"></textarea>
-                    <mat-error *ngIf="f.controls['comment'].errors?.['required']">
+                    <mat-error *ngIf="f.controls['comment']?.errors?.['required']">
                         Comment cannot be empty
                     </mat-error>
-                    <mat-error *ngIf="f.controls['comment'].errors?.['minlength']">
+                    <mat-error *ngIf="f.controls['comment']?.errors?.['minlength']">
                         Minimum length is <strong>3</strong> characters
                     </mat-error>
-                    <mat-error *ngIf="f.controls['comment'].errors?.['maxlength']">
+                    <mat-error *ngIf="f.controls['comment']?.errors?.['maxlength']">
                         Maximum length is <strong>280</strong> characters
                     </mat-error>
                 </mat-form-field>

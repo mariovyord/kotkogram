@@ -30,20 +30,15 @@ export class ProfileComponent implements OnInit {
     ) {
         this.activatedUserId = this.route.snapshot.params['userId']
 
-        if (this.activatedUserId) {
-            this.getAllUserPosts(this.activatedUserId);
-            this.getUserPostsCount(this.activatedUserId);
-            this.getUserData(this.activatedUserId);
-        } else if (this.user) {
-            this.getAllUserPosts(this.user._id);
-            this.getUserPostsCount(this.user._id);
-            this.getUserData(this.user._id);
-        } else {
-            this.router.navigateByUrl('/');
+        if (!this.activatedUserId) {
+            this.router.navigateByUrl(`/profile/${this.user?._id}`);
         }
     }
 
     ngOnInit(): void {
+        this.getAllUserPosts(this.activatedUserId!)
+        this.getUserPostsCount(this.activatedUserId!)
+        this.getUserData(this.activatedUserId!)
     }
 
     onScrollUp() {

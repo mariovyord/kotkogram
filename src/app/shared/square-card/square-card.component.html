@@ -1,6 +1,6 @@
 <div>
     <img class="object-cover h-full w-full absolute top-0 left-0" [src]="post.imageUrl" [alt]="post.description">
-    <a class="overlay" [routerLink]="[ {outlets: { m: 'post/' + post._id } } ]">
+    <a class="overlay" [routerLink]="'details/' + post._id">
         <div class="overlay__buttons">
             <div class="like-btn" aria-label="number of likes">
                 <mat-icon class="icon" aria-hidden="false">favorite</mat-icon>

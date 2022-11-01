@@ -1,7 +1,10 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IPost } from '../shared/interfaces/IPost';
 import { MatDialog } from '@angular/material/dialog';
 import { PostsService } from '../core/posts/posts.service';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PostDetailsComponent } from '../post-details-modal/post-details/post-details.component';
 
 @Component({
     selector: 'app-home',
@@ -11,10 +14,11 @@ import { PostsService } from '../core/posts/posts.service';
 export class HomeComponent implements OnInit {
     posts: IPost[] = [];
     page = 0;
+    activatedUserId: string | undefined = undefined;
 
     constructor(
         public dialog: MatDialog,
-        private postsService: PostsService
+        private postsService: PostsService,
     ) { }
 
     ngOnInit() {

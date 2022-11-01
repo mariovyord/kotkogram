@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { CommentsService } from 'src/app/core/comments/comments.service';
 import { IComment } from 'src/app/shared/interfaces/IComment';
 import { PostsService } from 'src/app/core/posts/posts.service';
@@ -8,6 +8,7 @@ import { tap } from 'rxjs';
 import { UserService } from 'src/app/core/user/user.service';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-post-details',
@@ -15,7 +16,7 @@ import { MatDialog } from '@angular/material/dialog';
     styleUrls: ['./post-details.component.css']
 })
 export class PostDetailsComponent implements OnInit {
-    @Input() postId: string;
+    postId: string;
     @Output() modal_principal_parent = new EventEmitter();
 
     panelOpenState: boolean = false;
@@ -28,7 +29,10 @@ export class PostDetailsComponent implements OnInit {
         private commentsService: CommentsService,
         private userService: UserService,
         private dialog: MatDialog,
-    ) { }
+        @Inject(MAT_DIALOG_DATA) public data: any
+    ) {
+        this.postId = data.postId;
+    }
 
     get user() {
         return this.userService.user;

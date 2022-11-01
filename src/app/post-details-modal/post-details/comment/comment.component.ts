@@ -10,6 +10,4 @@ export class CommentComponent {
     @Output() redirect = new EventEmitter()
 
     constructor() { }
-
-
 }
