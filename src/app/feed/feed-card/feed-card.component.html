@@ -18,7 +18,7 @@
                 <span class="text-sm">{{post.likes.length}}</span>
                 <mat-icon class="post__icons" color="primary" aria-hidden="false" aria-label="like">favorite</mat-icon>
             </button>
-            <a mat-icon-button [routerLink]="[ {outlets: { m: 'post/' + post._id } } ]">
+            <a mat-icon-button [routerLink]="'details/' + post._id">
                 <mat-icon class="post__icons" color="primary" aria-hidden="false" aria-label="like">comment</mat-icon>
             </a>
         </div>

@@ -18,6 +18,7 @@ const routes: Routes = [
     {
         path: 'feed', children: [
             { path: '', component: FeedComponent, },
+            { path: 'details/:id', component: PostDetailsModalComponent }
         ],
         canActivate: [AuthGuard],
         data: {
