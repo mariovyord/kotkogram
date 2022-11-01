@@ -93,8 +93,14 @@ export class PostsService {
         });
     }
 
-    getAllFeedPosts() {
-        return this.http.get<IPostsServerResponse>(API_URL + `/collections/posts?where=followers=${this.user!._id}&sortBy=createdAt desc&populate=owner`)
+    getAllFeedPosts(page: number) {
+        const whereQuery: string[] = [];
+
+        this.user?.following.forEach(id => {
+            whereQuery.push(`where=owner=${id}`)
+        })
+
+        return this.http.get<IPostsServerResponse>(API_URL + `/collections/posts?page=${page}&pageSize=${PAGE_SIZE}&${whereQuery.join('&')}&sortBy=createdAt desc&populate=owner`)
             .pipe(tap(res => {
                 if (res.data && res.data.length > 0) {
                     res.data.forEach(post => {

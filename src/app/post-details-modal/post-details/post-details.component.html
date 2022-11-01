@@ -11,8 +11,8 @@
             </h3>
             <button [disabled]="isFollowLoading" *ngIf="user && user._id !== post.owner._id"
                 (click)="onFollow(post.owner._id)" mat-button color="primary">
-                <span *ngIf="!post.owner.followers.includes(user._id)">Follow</span>
-                <span *ngIf="post.owner.followers.includes(user._id)" class="text-red-300">Unfollow</span>
+                <span *ngIf="!post.owner.following.includes(user._id)">Follow</span>
+                <span *ngIf="post.owner.following.includes(user._id)" class="text-red-300">Unfollow</span>
             </button>
         </div>
         <div class="post__content">

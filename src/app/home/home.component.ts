@@ -33,7 +33,8 @@ export class HomeComponent implements OnInit {
     }
 
     getAllPosts() {
-        this.postsService.getAllPosts(++this.page).subscribe(res => {
+        this.page += 1;
+        this.postsService.getAllPosts(this.page).subscribe(res => {
             if (res.data && res.data.length > 0) {
                 res.data.forEach(post => {
                     this.posts.push(post);

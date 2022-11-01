@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { IUserServerResponse } from '../../shared/interfaces/IUserServerResponse';
 import { IGenericServerResponse } from '../../shared/interfaces/IGenericServerResponse';
 import { tap, map, catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 
 const API_URL = environment.apiUrl;
@@ -16,7 +17,10 @@ export class UserService {
     user: IUser | undefined = undefined;
     loading = true;
 
-    constructor(private http: HttpClient) { }
+    constructor(
+        private http: HttpClient,
+        private router: Router,
+    ) { }
 
     loadUser() {
         return this.http.get<IUserServerResponse>(API_URL + '/users/me', {
@@ -48,7 +52,8 @@ export class UserService {
     signOut() {
         return this.http.delete(API_URL + '/users/logout',
             { withCredentials: true }).pipe(tap(() => {
-                this.user = undefined
+                this.user = undefined;
+                this.router.navigateByUrl('/');
             }))
     }
 

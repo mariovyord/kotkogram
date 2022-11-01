@@ -14,13 +14,13 @@
         <div class="spacer"></div>
         <ul>
             <li>
-                <a mat-button routerLink="/feed">
+                <a *ngIf="isAuthenticated" mat-button routerLink="/feed">
                     <mat-icon>fact_check</mat-icon>
                     <span>Feed</span>
                 </a>
             </li>
             <li>
-                <a mat-button routerLink="/create">
+                <a *ngIf="isAuthenticated" mat-button routerLink="/create">
                     <mat-icon>fact_check</mat-icon>
                     <span>Create</span>
                 </a>

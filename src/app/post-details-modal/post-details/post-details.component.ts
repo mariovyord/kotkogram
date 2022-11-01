@@ -103,12 +103,12 @@ export class PostDetailsComponent implements OnInit {
         this.isFollowLoading = true;
 
         this.userService.followUser(ownerId).pipe(tap(res => {
-            const userIndex = this.post.owner.followers.indexOf(this.user?._id!)
+            const userIndex = this.post.owner.following.indexOf(this.user?._id!)
 
             if (userIndex === -1) {
-                this.post.owner.followers.push(this.user?._id!)
+                this.post.owner.following.push(this.user?._id!)
             } else {
-                this.post.owner.followers.splice(userIndex, 1);
+                this.post.owner.following.splice(userIndex, 1);
             }
         })).subscribe(() => {
             this.isFollowLoading = false;

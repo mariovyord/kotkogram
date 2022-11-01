@@ -3,11 +3,11 @@
         <mat-icon>home</mat-icon>
         <span class="nav-caption">Home</span>
     </a>
-    <a mat-list-item routerLink="/feed" (click)="onSidenavClose()">
+    <a *ngIf="isAuthenticated" mat-list-item routerLink="/feed" (click)="onSidenavClose()">
         <mat-icon>fact_check</mat-icon>
         <span class="nav-caption">Feed</span>
     </a>
-    <a mat-list-item routerLink="/create" (click)="onSidenavClose()">
+    <a *ngIf="isAuthenticated" mat-list-item routerLink="/create" (click)="onSidenavClose()">
         <mat-icon>fact_check</mat-icon>
         <span class="nav-caption">Create</span>
     </a>
