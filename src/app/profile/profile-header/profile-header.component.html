@@ -1,7 +1,8 @@
 <header class="max-w-[965px] m-auto px-3 py-6 flex flex-col sm:flex-row  gap-8">
     <div class="w-full sm:w-72 flex justify-center">
-        <div class="rounded-full overflow-hidden w-48 h-48 shadow-md relative">
-            <img class="absolute top-0 h-48 w-full" [src]="user.imageUrl" alt="user portrait">
+        <div
+            class="relative rounded-full overflow-hidden w-48 h-48 border border-gray-100 shadow-sm ring-4 ring-primary ring-offset-4">
+            <img class="object-cover h-full w-full absolute top-0 left-0" [src]="user.imageUrl" alt="user portrait">
         </div>
     </div>
     <div class="flex flex-col justify-between">
@@ -12,7 +13,7 @@
             </div>
             <div class="flex justify-center sm:justify-start  gap-4">
                 <span>{{userPostsCount}} publications</span>
-                <span>{{user.followers?.length || 0}} followers</span>
+                <span>{{user.followers.length || 0}} followers</span>
             </div>
         </div>
         <div class="flex flex-col align-middle sm:justify-start ">
