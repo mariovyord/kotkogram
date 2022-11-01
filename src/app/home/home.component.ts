@@ -22,7 +22,6 @@ export class HomeComponent implements OnInit {
     }
 
     onScrollDown() {
-        console.log('IT WORKS')
         this.getAllPosts();
     }
 

@@ -1,2 +1,6 @@
-<app-profile-header [user]="user!"></app-profile-header>
-<app-cards-grid [posts]="posts"></app-cards-grid>
+<div infiniteScroll [infiniteScrollContainer]="'.sidenav-content'" [fromRoot]="true" [infiniteScrollDistance]="2"
+    [infiniteScrollUpDistance]="1.5" [infiniteScrollThrottle]="50" (scrolled)="onScrollDown()"
+    (scrolledUp)="onScrollUp()">
+    <app-profile-header [user]="user!"></app-profile-header>
+    <app-cards-grid [posts]="posts"></app-cards-grid>
+</div>

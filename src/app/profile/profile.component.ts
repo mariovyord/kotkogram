@@ -10,6 +10,7 @@ import { UserService } from '../core/user/user.service';
 })
 export class ProfileComponent implements OnInit {
     posts: IPost[] = [];
+    page = 0;
 
     get user() {
         return this.userService.user;
@@ -18,7 +19,19 @@ export class ProfileComponent implements OnInit {
     constructor(private postsService: PostsService, private userService: UserService) { }
 
     ngOnInit(): void {
-        this.postsService.getUserPosts().subscribe(res => {
+        this.getAllUserPosts();
+    }
+
+    onScrollUp() {
+        console.log('SCROLL UP')
+    }
+
+    onScrollDown() {
+        this.getAllUserPosts()
+    }
+
+    getAllUserPosts() {
+        this.postsService.getUserPosts(++this.page).subscribe(res => {
             if (res.data && res.data.length > 0) {
                 res.data.forEach(post => {
                     this.posts.push(post);

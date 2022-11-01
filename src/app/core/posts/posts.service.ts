@@ -9,7 +9,7 @@ import { of, map } from 'rxjs';
 import { IOnePostServerResponse } from 'src/app/shared/interfaces/IOnePostServerResponse';
 
 const API_URL = environment.apiUrl;
-const PAGE_SIZE = 13;
+const PAGE_SIZE = 9;
 
 @Injectable({
     providedIn: 'root'
@@ -52,10 +52,10 @@ export class PostsService {
         }))
     }
 
-    getUserPosts() {
+    getUserPosts(page: number) {
         if (this.user === undefined) { throw new Error('You need to sign in to view your posts') }
 
-        return this.http.get<IPostsServerResponse>(API_URL + `/collections/posts?populate=owner&where=owner=${this.user._id}&sortBy=createdAt desc`).pipe(tap(res => {
+        return this.http.get<IPostsServerResponse>(API_URL + `/collections/posts?page=${page}&pageSize=${PAGE_SIZE}&populate=owner&where=owner=${this.user._id}&sortBy=createdAt desc`).pipe(tap(res => {
             if (res.data && res.data.length > 0) {
                 res.data.forEach(post => {
                     this.feedPosts.push(post);
