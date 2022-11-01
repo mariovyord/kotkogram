@@ -6,6 +6,7 @@ import { ProfileHeaderComponent } from './profile-header/profile-header.componen
 import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../material.module';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     declarations: [
@@ -17,6 +18,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
         SharedModule,
         MaterialModule,
         InfiniteScrollModule,
+        RouterModule,
     ],
     exports: [
         ProfileComponent,
