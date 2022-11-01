@@ -13,6 +13,10 @@ export class SidenavListComponent {
         return Boolean(this.userService.user);
     }
 
+    get user() {
+        return this.userService.user;
+    }
+
     constructor(private userService: UserService) { }
 
     onSidenavClose() {

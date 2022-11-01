@@ -29,10 +29,6 @@ export class ProfileComponent implements OnInit {
         private router: Router,
     ) {
         this.activatedUserId = this.route.snapshot.params['userId']
-
-        if (!this.activatedUserId) {
-            this.router.navigateByUrl(`/profile/${this.user?._id}`);
-        }
     }
 
     ngOnInit(): void {

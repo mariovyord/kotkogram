@@ -21,7 +21,8 @@
     </button>
     <ng-template #menu>
         <div class="bg-white p-4 rounded-md" cdkMenu>
-            <a (click)="onSidenavClose()" routerLink="/profile" mat-button class="w-full" cdkMenuItem>View
+            <a (click)="onSidenavClose()" [routerLink]="'/profile/' + user?._id" mat-button class="w-full"
+                cdkMenuItem>View
                 Profile</a>
             <a (click)="onSignOut()" (click)="onSidenavClose()" routerLink="/signout" mat-button
                 class="w-full text-red-800" cdkMenuItem>Sign

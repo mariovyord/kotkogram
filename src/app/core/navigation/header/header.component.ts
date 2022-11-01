@@ -13,6 +13,10 @@ export class HeaderComponent {
         return Boolean(this.userService.user);
     }
 
+    get user() {
+        return this.userService.user;
+    }
+
     @Output() public sidenavToggle = new EventEmitter();
 
     constructor(private userService: UserService) { }

@@ -50,10 +50,8 @@ const routes: Routes = [
         }
     },
     {
-        path: 'profile', children: [
-            { path: '', component: ProfileComponent },
-            { path: ':userId', component: ProfileComponent },
-            { path: ':userId/details/:id', component: PostDetailsModalComponent }
+        path: 'profile/:userId', component: ProfileComponent, children: [
+            { path: 'details/:id', component: PostDetailsModalComponent }
         ],
         canActivate: [AuthGuard],
         data: {

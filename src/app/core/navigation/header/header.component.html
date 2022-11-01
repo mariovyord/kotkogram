@@ -39,7 +39,7 @@
             </li>
             <ng-template #menu>
                 <div class="bg-white p-4 rounded-md" cdkMenu>
-                    <a mat-button routerLink="/profile" class="w-full" cdkMenuItem>View Profile</a>
+                    <a mat-button [routerLink]="'/profile/' + user?._id" class="w-full" cdkMenuItem>View Profile</a>
                     <a mat-button (click)="onSignOut()" mat-button class="w-full text-red-800" cdkMenuItem>Sign
                         out</a>
                 </div>
