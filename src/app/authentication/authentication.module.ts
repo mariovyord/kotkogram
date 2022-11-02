@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SnackbarComponent } from '../shared/snackbar/snackbar.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { AuthenticationRoutingModule } from './authentication-routing.module';
 
 @NgModule({
     declarations: [
@@ -19,6 +20,7 @@ import { MatInputModule } from '@angular/material/input';
         CommonModule,
         MaterialModule,
         RouterModule,
+        AuthenticationRoutingModule,
         FormsModule,
         ReactiveFormsModule,
         MatFormFieldModule,
@@ -27,4 +29,4 @@ import { MatInputModule } from '@angular/material/input';
     providers: [
     ]
 })
-export class AuthentictionModule { }
+export class AuthenticationModule { }

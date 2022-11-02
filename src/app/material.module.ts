@@ -26,7 +26,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 @NgModule({
     imports: [
         CommonModule,
-        BrowserAnimationsModule,
         MatButtonModule,
         MatIconModule,
         MatMenuModule,
@@ -51,7 +50,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ],
     exports: [
         CommonModule,
-        BrowserAnimationsModule,
         MatButtonModule,
         MatIconModule,
         MatMenuModule,

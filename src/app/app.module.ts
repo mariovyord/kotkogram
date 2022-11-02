@@ -5,7 +5,6 @@ import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material.module';
 import { CoreModule } from './core/core.module';
-import { AuthentictionModule } from './authentiction/authentiction.module';
 import { ProfileModule } from './profile/profile.module';
 
 import { CreateComponent } from './create/create.component';
@@ -15,6 +14,7 @@ import { PostDetailsModalModule } from './post-details-modal/post-details-modal.
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { HomeModule } from './home/home.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
     declarations: [
@@ -23,11 +23,11 @@ import { HomeModule } from './home/home.module';
     ],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         CoreModule,
         AppRoutingModule,
         SharedModule,
         MaterialModule,
-        AuthentictionModule,
         ProfileModule,
         FeedModule,
         PostDetailsModalModule,

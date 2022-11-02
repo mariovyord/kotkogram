@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { CreateComponent } from './create/create.component';
 import { FeedComponent } from './feed/feed.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
-import { SignInComponent } from './authentiction/sign-in/sign-in.component';
-import { SignUpComponent } from './authentiction/sign-up/sign-up.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { PostDetailsModalComponent } from './post-details-modal/post-details-modal.component';
 
@@ -30,22 +28,8 @@ const routes: Routes = [
         }
     },
     {
-        path: 'sign-in', component: SignInComponent,
-        canActivate: [AuthGuard],
-        title: 'Kotkogram - Sign In',
-        data: {
-            authRequired: false,
-            authFailureRedirectUrl: '/',
-        }
-    },
-    {
-        path: 'sign-up', component: SignUpComponent,
-        canActivate: [AuthGuard],
-        title: 'Kotkogram - Sign Up',
-        data: {
-            authRequired: false,
-            authFailureRedirectUrl: '/',
-        }
+        path: 'auth',
+        loadChildren: () => import('./authentication/authentication.module').then(m => m.AuthenticationModule),
     },
     {
         path: 'create', component: CreateComponent,
@@ -74,4 +58,6 @@ const routes: Routes = [
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+    preloadStrategy: PreloadAllModules;
+}
