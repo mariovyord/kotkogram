@@ -11,14 +11,18 @@ import { PostDetailsModalComponent } from './post-details-modal/post-details-mod
 
 const routes: Routes = [
     {
-        path: '', component: HomeComponent, children: [
-            { path: 'details/:id', component: PostDetailsModalComponent }
-        ]
-    },
-    {
-        path: 'feed', component: FeedComponent, children: [
+        path: '', component: HomeComponent,
+        children: [
             { path: 'details/:id', component: PostDetailsModalComponent }
         ],
+        title: 'Kotkogram - Home'
+    },
+    {
+        path: 'feed', component: FeedComponent,
+        children: [
+            { path: 'details/:id', component: PostDetailsModalComponent }
+        ],
+        title: 'Kotkogram - Feed',
         canActivate: [AuthGuard],
         data: {
             authRequired: true,
@@ -28,6 +32,7 @@ const routes: Routes = [
     {
         path: 'sign-in', component: SignInComponent,
         canActivate: [AuthGuard],
+        title: 'Kotkogram - Sign In',
         data: {
             authRequired: false,
             authFailureRedirectUrl: '/',
@@ -36,6 +41,7 @@ const routes: Routes = [
     {
         path: 'sign-up', component: SignUpComponent,
         canActivate: [AuthGuard],
+        title: 'Kotkogram - Sign Up',
         data: {
             authRequired: false,
             authFailureRedirectUrl: '/',
@@ -44,15 +50,18 @@ const routes: Routes = [
     {
         path: 'create', component: CreateComponent,
         canActivate: [AuthGuard],
+        title: 'Kotkogram - Create',
         data: {
             authRequired: true,
             authFailureRedirectUrl: '/sign-in',
         }
     },
     {
-        path: 'profile/:userId', component: ProfileComponent, children: [
+        path: 'profile/:userId', component: ProfileComponent,
+        children: [
             { path: 'details/:id', component: PostDetailsModalComponent }
         ],
+        title: 'Kotkogram - Profile',
         canActivate: [AuthGuard],
         data: {
             authRequired: true,

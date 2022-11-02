@@ -7,7 +7,6 @@ import { UserService } from './shared/user/user.service';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    title = 'kotkogram';
     constructor(private userService: UserService) { }
 
     get loading() {
