@@ -5,6 +5,7 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
 import { MaterialModule } from '../material.module';
 import { RouterModule } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
+import { appInterceportProvider } from './app.interceptor';
 
 @NgModule({
     declarations: [
@@ -22,6 +23,7 @@ import { AuthGuard } from './guards/auth.guard';
     ],
     providers: [
         AuthGuard,
+        appInterceportProvider,
     ]
 })
 export class CoreModule { }

@@ -1,14 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IUser } from 'src/app/shared/interfaces/IUser';
-import { environment } from 'src/environments/environment';
 import { IUserServerResponse } from '../../shared/interfaces/IUserServerResponse';
 import { IGenericServerResponse } from '../../shared/interfaces/IGenericServerResponse';
 import { tap, map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
-
-const API_URL = environment.apiUrl;
 
 @Injectable({
     providedIn: 'root'
@@ -23,25 +20,23 @@ export class UserService {
     ) { }
 
     loadUser() {
-        return this.http.get<IUserServerResponse>(API_URL + '/users/me', {
-            withCredentials: true
-        }).pipe(map(res => {
-            this.loading = false;
-            if (res.data) {
-                this.user = res.data;
-            }
-            return res.data;
-        }),
-            catchError((err) => {
+        return this.http.get<IUserServerResponse>('/api/users/me',)
+            .pipe(map(res => {
                 this.loading = false;
-                this.user = undefined
-                return err;
-            }))
+                if (res.data) {
+                    this.user = res.data;
+                }
+                return res.data;
+            }),
+                catchError((err) => {
+                    this.loading = false;
+                    this.user = undefined
+                    return err;
+                }))
     }
 
     signIn(username: string, password: string) {
-        return this.http.post<IUserServerResponse>(API_URL + '/users/login', { username, password },
-            { withCredentials: true })
+        return this.http.post<IUserServerResponse>('/api/users/login', { username, password },)
             .pipe(tap(res => {
                 if (res.data) {
                     this.user = res.data;
@@ -50,16 +45,14 @@ export class UserService {
     }
 
     signOut() {
-        return this.http.delete(API_URL + '/users/logout',
-            { withCredentials: true }).pipe(tap(() => {
-                this.user = undefined;
-                this.router.navigateByUrl('/');
-            }))
+        return this.http.delete('/api/users/logout',).pipe(tap(() => {
+            this.user = undefined;
+            this.router.navigateByUrl('/');
+        }))
     }
 
     signUp(userData: any) {
-        return this.http.post<IUserServerResponse>(API_URL + '/users/signup', userData,
-            { withCredentials: true })
+        return this.http.post<IUserServerResponse>('/api/users/signup', userData,)
             .pipe(tap(res => {
                 if (res.data) {
                     this.user = res.data;
@@ -68,17 +61,17 @@ export class UserService {
     }
 
     isUsernameUnique(username: string) {
-        return this.http.post<IGenericServerResponse>(API_URL + '/users/isunique',
+        return this.http.post<IGenericServerResponse>('/api/users/isunique',
             { username });
     }
 
     followUser(followedUserId: string) {
-        return this.http.post<IGenericServerResponse>(API_URL + `/users/${followedUserId}/follow`,
+        return this.http.post<IGenericServerResponse>(`/api/users/${followedUserId}/follow`,
             {},
             { withCredentials: true })
     }
 
     getUserData(id: string) {
-        return this.http.get<IUserServerResponse>(API_URL + `/users/${id}`, { withCredentials: true })
+        return this.http.get<IUserServerResponse>(`/api/users/${id}`, { withCredentials: true })
     }
 }

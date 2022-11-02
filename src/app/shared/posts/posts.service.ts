@@ -2,14 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IPost } from 'src/app/shared/interfaces/IPost';
 import { IPostsServerResponse } from 'src/app/shared/interfaces/IPostsServerResponse';
-import { environment } from 'src/environments/environment';
 import { tap } from 'rxjs/operators';
 import { UserService } from '../user/user.service';
 import { of, map } from 'rxjs';
 import { IOnePostServerResponse } from 'src/app/shared/interfaces/IOnePostServerResponse';
 import { IGenericServerResponse } from 'src/app/shared/interfaces/IGenericServerResponse';
 
-const API_URL = environment.apiUrl;
 const PAGE_SIZE = 9;
 
 @Injectable({
@@ -38,13 +36,13 @@ export class PostsService {
             }
         }
 
-        return this.http.get<IOnePostServerResponse>(API_URL + `/collections/posts/${id}?populate=owner`).pipe(map(res => {
+        return this.http.get<IOnePostServerResponse>(`/api/collections/posts/${id}?populate=owner`).pipe(map(res => {
             return res.data;
         }))
     }
 
     getAllPosts(page: number) {
-        return this.http.get<IPostsServerResponse>(API_URL + `/collections/posts?page=${page}&pageSize=${PAGE_SIZE}&sortBy=createdAt desc&populate=owner`).pipe(tap(res => {
+        return this.http.get<IPostsServerResponse>(`/api/collections/posts?page=${page}&pageSize=${PAGE_SIZE}&sortBy=createdAt desc&populate=owner`).pipe(tap(res => {
             if (res.data && res.data.length > 0) {
                 res.data.forEach(post => {
                     this.allPosts.push(post);
@@ -57,7 +55,7 @@ export class PostsService {
     getUserPosts(id: string, page: number) {
         if (this.user === undefined) { throw new Error('You need to sign in to view your posts') }
 
-        return this.http.get<IPostsServerResponse>(API_URL + `/collections/posts?page=${page}&pageSize=${PAGE_SIZE}&populate=owner&where=owner=${id}&sortBy=createdAt desc`).pipe(tap(res => {
+        return this.http.get<IPostsServerResponse>(`/api/collections/posts?page=${page}&pageSize=${PAGE_SIZE}&populate=owner&where=owner=${id}&sortBy=createdAt desc`).pipe(tap(res => {
             if (res.data && res.data.length > 0) {
                 res.data.forEach(post => {
                     this.feedPosts.push(post);
@@ -67,20 +65,17 @@ export class PostsService {
     }
 
     getUserPostsCount(id: string) {
-        return this.http.get<IGenericServerResponse>(API_URL + `/collections/posts?where=owner=${id}&count=true`);
+        return this.http.get<IGenericServerResponse>(`/api/collections/posts?where=owner=${id}&count=true`);
     }
 
     createPost(imageUrl: string, description: string) {
-        return this.http.post(API_URL + '/collections/posts', {
+        return this.http.post('/api/collections/posts', {
             imageUrl, description,
-        }, {
-            withCredentials: true
-        })
+        },)
     }
 
     deletePost(postId: string) {
-        return this.http.delete(API_URL + `/collections/posts/${postId}`,
-            { withCredentials: true })
+        return this.http.delete(`/api/collections/posts/${postId}`,)
             .pipe(tap(() => {
                 this.allPosts = this.allPosts.filter(x => x._id !== postId);
                 this.feedPosts = this.feedPosts.filter(x => x._id !== postId);
@@ -88,9 +83,7 @@ export class PostsService {
     }
 
     likePost(postId: string) {
-        return this.http.post(API_URL + `/collections/posts/${postId}/like`, {}, {
-            withCredentials: true
-        });
+        return this.http.post(`/api/collections/posts/${postId}/like`, {},);
     }
 
     getAllFeedPosts(page: number) {
@@ -100,7 +93,7 @@ export class PostsService {
             whereQuery.push(`where=owner=${id}`)
         })
 
-        return this.http.get<IPostsServerResponse>(API_URL + `/collections/posts?page=${page}&pageSize=${PAGE_SIZE}&${whereQuery.join('&')}&sortBy=createdAt desc&populate=owner`)
+        return this.http.get<IPostsServerResponse>(`/api/collections/posts?page=${page}&pageSize=${PAGE_SIZE}&${whereQuery.join('&')}&sortBy=createdAt desc&populate=owner`)
             .pipe(tap(res => {
                 if (res.data && res.data.length > 0) {
                     res.data.forEach(post => {
