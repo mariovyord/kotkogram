@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IPost } from 'src/app/shared/interfaces/IPost';
-import { PostsService } from '../core/posts/posts.service';
-import { UserService } from '../core/user/user.service';
+import { PostsService } from '../shared/posts/posts.service';
+import { UserService } from '../shared/user/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { IUser } from '../shared/interfaces/IUser';
 
 @Component({

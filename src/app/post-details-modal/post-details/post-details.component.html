@@ -14,6 +14,10 @@
                 <span *ngIf="!user.following.includes(post.owner._id)">Follow</span>
                 <span *ngIf="user.following.includes(post.owner._id)" class="text-red-300">Unfollow</span>
             </button>
+            <span>{{post.createdAt | date: 'dd/MM/yy'}}</span>
+        </div>
+        <div>
+            <p></p>
         </div>
         <div class="post__content">
             <p>{{post.description}}</p>

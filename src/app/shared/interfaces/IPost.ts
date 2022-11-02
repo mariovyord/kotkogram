@@ -5,5 +5,7 @@ export interface IPost {
     imageUrl: string,
     description: string,
     owner: IUser,
-    likes: string[]
+    likes: string[],
+    createdAt: string,
+    updatedAt: string,
 }

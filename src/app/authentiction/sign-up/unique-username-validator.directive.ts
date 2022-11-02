@@ -1,7 +1,7 @@
 import { Directive } from '@angular/core';
 import { AbstractControl, AsyncValidator, NG_ASYNC_VALIDATORS, ValidationErrors } from '@angular/forms';
 import { of, Observable, Subscription, map } from 'rxjs';
-import { UserService } from 'src/app/core/user/user.service';
+import { UserService } from 'src/app/shared/user/user.service';
 
 @Directive({
     selector: '[appUniqueUsernameValidator]',

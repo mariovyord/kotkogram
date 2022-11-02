@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { UserService } from '../../user/user.service';
+import { UserService } from 'src/app/shared/user/user.service';
 
 @Component({
     selector: 'app-sidenav-list',

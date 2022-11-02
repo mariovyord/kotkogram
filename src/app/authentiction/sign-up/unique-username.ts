@@ -1,5 +1,5 @@
 import { AbstractControl, AsyncValidatorFn } from "@angular/forms";
-import { UserService } from "src/app/core/user/user.service";
+import { UserService } from "src/app/shared/user/user.service";
 import { map, catchError, of } from 'rxjs';
 
 export class CustomAsyncValidator {

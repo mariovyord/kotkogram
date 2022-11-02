@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IPost } from '../shared/interfaces/IPost';
 import { MatDialog } from '@angular/material/dialog';
-import { PostsService } from '../core/posts/posts.service';
+import { PostsService } from '../shared/posts/posts.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PostDetailsComponent } from '../post-details-modal/post-details/post-details.component';

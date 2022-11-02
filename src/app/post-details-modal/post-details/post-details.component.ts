@@ -1,11 +1,11 @@
 import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
-import { CommentsService } from 'src/app/core/comments/comments.service';
+import { CommentsService } from 'src/app/shared/comments/comments.service';
 import { IComment } from 'src/app/shared/interfaces/IComment';
-import { PostsService } from 'src/app/core/posts/posts.service';
+import { PostsService } from 'src/app/shared/posts/posts.service';
 import { IPost } from 'src/app/shared/interfaces/IPost';
 import { NgForm } from '@angular/forms';
 import { tap } from 'rxjs';
-import { UserService } from 'src/app/core/user/user.service';
+import { UserService } from 'src/app/shared/user/user.service';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';

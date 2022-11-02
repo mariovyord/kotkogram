@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { PostsService } from '../core/posts/posts.service';
+import { PostsService } from '../shared/posts/posts.service';
 import { SnackbarService } from '../shared/snackbar/snackbar.service';
 
 @Component({

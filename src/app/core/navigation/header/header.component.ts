@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
-import { UserService } from '../../user/user.service';
 import { Subscription } from 'rxjs';
+import { UserService } from 'src/app/shared/user/user.service';
 
 @Component({
     selector: 'app-header',
