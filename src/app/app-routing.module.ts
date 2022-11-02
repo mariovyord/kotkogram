@@ -6,7 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { PostDetailsModalComponent } from './post-details-modal/post-details-modal.component';
-import { NotFoundComponent } from './notFound/not-found/not-found.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
     {
