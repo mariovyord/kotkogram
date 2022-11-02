@@ -15,11 +15,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { HomeModule } from './home/home.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NotFoundComponent } from './notFound/not-found/not-found.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         CreateComponent,
+        NotFoundComponent,
     ],
     imports: [
         BrowserModule,
