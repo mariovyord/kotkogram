@@ -4,7 +4,6 @@ import { UserService } from 'src/app/shared/user/user.service';
 @Component({
     selector: 'app-sidenav-list',
     templateUrl: './sidenav-list.component.html',
-    styleUrls: ['./sidenav-list.component.css']
 })
 export class SidenavListComponent {
     @Output() sidenavClose = new EventEmitter();

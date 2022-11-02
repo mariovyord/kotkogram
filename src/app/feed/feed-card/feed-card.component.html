@@ -13,14 +13,13 @@
         </p>
     </mat-card-content>
     <mat-card-actions>
-        <div class="post__menu">
-            <button (click)="onLike()" mat-icon-button>
-                <span class="text-sm">{{post.likes.length}}</span>
-                <mat-icon class="post__icons" color="primary" aria-hidden="false" aria-label="like">favorite</mat-icon>
-            </button>
-            <a mat-icon-button [routerLink]="'details/' + post._id">
-                <mat-icon class="post__icons" color="primary" aria-hidden="false" aria-label="like">comment</mat-icon>
-            </a>
+        <div class="p-2">
+            <div class="w-fit ml-auto">
+                <a mat-raised-button class="ml-auto" [routerLink]="'details/' + post._id" color="primary">
+                    <mat-icon>mms</mat-icon>
+                    <span class="ml-2">Details</span>
+                </a>
+            </div>
         </div>
     </mat-card-actions>
 </mat-card>

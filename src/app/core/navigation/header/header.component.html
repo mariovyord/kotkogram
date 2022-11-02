@@ -1,47 +1,52 @@
 <mat-toolbar class="navbar sticky top-0 z-50" color="primary">
-    <div class="sidebar-icon">
+    <div class="block md:hidden">
         <button mat-icon-button (click)="onToggleSidenav()">
             <mat-icon>menu</mat-icon>
         </button>
     </div>
-    <div class="navigation-items ">
+    <div class="hidden md:flex md:justify-end md:w-full">
         <div>
             <a mat-button routerLink="/">
                 <mat-icon>home</mat-icon>
-                <span>Home</span>
+                <span class="ml-1">Home</span>
             </a>
         </div>
-        <div class="spacer"></div>
-        <ul>
+        <div class="flex-auto"></div>
+        <ul class="flex">
             <li>
                 <a *ngIf="isAuthenticated" mat-button routerLink="/feed">
                     <mat-icon>fact_check</mat-icon>
-                    <span>Feed</span>
+                    <span class="ml-1">Feed</span>
                 </a>
             </li>
             <li>
                 <a *ngIf="isAuthenticated" mat-button routerLink="/create">
-                    <mat-icon>fact_check</mat-icon>
-                    <span>Create</span>
+                    <mat-icon>edit_note</mat-icon>
+                    <span class="ml-1">Create</span>
                 </a>
             </li>
             <li *ngIf="!isAuthenticated">
                 <a mat-button routerLink="/auth/sign-in">
                     <mat-icon>fact_check</mat-icon>
-                    <span>Sign In</span>
+                    <span class="ml-1">Sign In</span>
                 </a>
             </li>
             <li *ngIf="isAuthenticated">
                 <button mat-button [cdkMenuTriggerFor]="menu">
-                    <mat-icon>dataset</mat-icon>
-                    <span>Profile</span>
+                    <mat-icon>account_circle</mat-icon>
+                    <span class="ml-1">Profile</span>
                 </button>
             </li>
             <ng-template #menu>
                 <div class="bg-white p-4 rounded-md" cdkMenu>
-                    <a mat-button [routerLink]="'/profile/' + user?._id" class="w-full" cdkMenuItem>View Profile</a>
-                    <a mat-button (click)="onSignOut()" mat-button class="w-full text-red-800" cdkMenuItem>Sign
-                        out</a>
+                    <a mat-button [routerLink]="'/profile/' + user?._id" class="w-full" cdkMenuItem>
+                        <mat-icon>person</mat-icon>
+                        <span class="ml-1">View Profile</span>
+                    </a>
+                    <a mat-button (click)="onSignOut()" mat-button class="w-full text-red-800" cdkMenuItem>
+                        <mat-icon>logout</mat-icon>
+                        <span class="ml-1">Sign out</span>
+                    </a>
                 </div>
             </ng-template>
         </ul>
