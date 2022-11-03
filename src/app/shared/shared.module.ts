@@ -7,6 +7,10 @@ import { RouterModule } from '@angular/router';
 import { UserService } from './user/user.service';
 import { PostsService } from './posts/posts.service';
 import { CommentsService } from './comments/comments.service';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from '../store';
+import { EffectsModule } from '@ngrx/effects';
+import { UserEffects } from '../store/effects';
 
 
 @NgModule({

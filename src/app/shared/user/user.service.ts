@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class UserService {
     user: IUser | undefined = undefined;
-    loading = true;
+    loading = false;
 
     constructor(
         private http: HttpClient,
@@ -20,19 +20,13 @@ export class UserService {
     ) { }
 
     loadUser() {
-        return this.http.get<IUserServerResponse>('/api/users/me',)
-            .pipe(map(res => {
-                this.loading = false;
-                if (res.data) {
-                    this.user = res.data;
-                }
-                return res.data;
-            }),
-                catchError((err) => {
-                    this.loading = false;
-                    this.user = undefined
-                    return err;
-                }))
+        return this.http.get<IUserServerResponse>('/api/users/me',).pipe(map(res => {
+            if (res.data) {
+                return res.data
+            } else {
+                throw new Error('No logged in user found');
+            }
+        }));
     }
 
     signIn(username: string, password: string) {

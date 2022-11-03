@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { UserService } from './shared/user/user.service';
+import { loadUser } from './store/actions';
 
 @Component({
     selector: 'app-root',
@@ -7,7 +9,10 @@ import { UserService } from './shared/user/user.service';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    constructor(private userService: UserService) { }
+    constructor(
+        private userService: UserService,
+        private store: Store,
+    ) { }
 
     get loading() {
         return this.userService.loading;
@@ -15,6 +20,6 @@ export class AppComponent {
 
     ngOnInit() {
         // first load user if any
-        this.userService.loadUser().subscribe(() => { })
+        this.store.dispatch(loadUser());
     }
 }

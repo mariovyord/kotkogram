@@ -17,10 +17,10 @@ import { HomeModule } from './home/home.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { StoreModule } from '@ngrx/store';
-import { appReducer } from './store/reducers';
+import { reducers } from './store/index';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
+import { UserEffects } from './store/effects';
 
 @NgModule({
     declarations: [
@@ -41,11 +41,9 @@ import { EffectsModule } from '@ngrx/effects';
         HttpClientModule,
         FormsModule,
         HomeModule,
-        StoreModule.forRoot({
-            state: appReducer,
-        }),
-        StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-        EffectsModule.forRoot([]),
+        StoreModule.forRoot(reducers),
+        EffectsModule.forRoot([UserEffects]),
+        StoreDevtoolsModule.instrument({}),
     ],
     entryComponents: [],
     providers: [

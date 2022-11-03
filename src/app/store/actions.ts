@@ -1,5 +1,25 @@
-import { createAction } from "@ngrx/store";
+import { createAction, props } from "@ngrx/store";
+import { IUser } from "../shared/interfaces/IUser";
 
-export const incrementCounter = createAction(
-    `Hello World`,
+const namespace = '[USER]'
 
+export const loadUser = createAction(
+    `${namespace} load user`,
+)
+
+export const loadUserSuccess = createAction(
+    `${namespace} load user success`,
+    props<IUser>()
+)
+
+export const loadUserFailure = createAction(
+    `${namespace} load user failure`,
+)
+
+export const loadUserCancel = createAction(
+    `${namespace} load user cancel`,
+)
+
+export const clearUser = createAction(
+    `${namespace} load user clear`
+)
