@@ -1,7 +1,7 @@
-<div *ngIf="loading" class="flex justify-center items-center w-screen h-screen">
+<div *ngIf="(user$ | async) === undefined" class="flex justify-center items-center w-screen h-screen">
     <mat-spinner></mat-spinner>
 </div>
-<mat-sidenav-container *ngIf="!loading">
+<mat-sidenav-container *ngIf="(user$ | async) || (user$ | async) === null">
     <mat-sidenav #sidenav role="navigation">
         <app-sidenav-list (sidenavClose)="sidenav.close()"></app-sidenav-list>
     </mat-sidenav>

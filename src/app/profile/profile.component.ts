@@ -4,6 +4,8 @@ import { PostsService } from '../shared/posts/posts.service';
 import { UserService } from '../shared/user/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IUser } from '../shared/interfaces/IUser';
+import { Store } from '@ngrx/store';
+import { selectUser } from '../store/selectors';
 
 @Component({
     selector: 'app-profile',
@@ -13,18 +15,17 @@ export class ProfileComponent implements OnInit {
     posts: IPost[] = [];
     userPostsCount = 0;
     page = 0;
-    activatedUserId: string | undefined = undefined;
+    activatedUserId: string;
     userData: IUser | undefined = undefined;
 
-    get user() {
-        return this.userService.user;
-    }
+    user$ = this.store.select(selectUser);
 
     constructor(
         private postsService: PostsService,
         private userService: UserService,
         private route: ActivatedRoute,
         private router: Router,
+        private store: Store<any>,
     ) {
         this.activatedUserId = this.route.snapshot.params['userId']
     }
@@ -40,7 +41,7 @@ export class ProfileComponent implements OnInit {
     }
 
     onScrollDown() {
-        this.getAllUserPosts(this.activatedUserId || this.user!._id);
+        this.getAllUserPosts(this.activatedUserId);
     }
 
     getAllUserPosts(userId: string) {

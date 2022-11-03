@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { PostsService } from 'src/app/shared/posts/posts.service';
 import { UserService } from 'src/app/shared/user/user.service';
 import { IPost } from 'src/app/shared/interfaces/IPost';
+import { selectUser } from 'src/app/store/selectors';
+import { Store } from '@ngrx/store';
 
 @Component({
     selector: 'app-square-card',
@@ -12,10 +14,8 @@ import { IPost } from 'src/app/shared/interfaces/IPost';
 export class SquareCardComponent {
     @Input() post: IPost;
 
-    get user() {
-        return this.userService.user;
-    }
+    user$ = this.store.select(selectUser);
 
-    constructor(private userService: UserService, private router: Router) { }
+    constructor(private store: Store<any>) { }
 
 }

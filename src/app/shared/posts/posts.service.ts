@@ -1,28 +1,38 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { IPost } from 'src/app/shared/interfaces/IPost';
 import { IPostsServerResponse } from 'src/app/shared/interfaces/IPostsServerResponse';
 import { tap } from 'rxjs/operators';
 import { UserService } from '../user/user.service';
-import { of, map } from 'rxjs';
+import { of, map, Subscription } from 'rxjs';
 import { IOnePostServerResponse } from 'src/app/shared/interfaces/IOnePostServerResponse';
 import { IGenericServerResponse } from 'src/app/shared/interfaces/IGenericServerResponse';
+import { Store } from '@ngrx/store';
+import { selectUser } from 'src/app/store/selectors';
+import { IUser } from '../interfaces/IUser';
 
 const PAGE_SIZE = 9;
 
 @Injectable({
     providedIn: 'root'
 })
-export class PostsService {
+export class PostsService implements OnDestroy {
     allPosts: IPost[] = [];
     feedPosts: IPost[] = [];
 
-    get user() {
-        return this.userService.user;
+    getUserData$: Subscription;
+    user: IUser | null | undefined;
+
+    constructor(private http: HttpClient, private store: Store<any>) {
+        this.getUserData$ = this.store.select(selectUser).subscribe(user => {
+            this.user = user;
+        })
     }
 
-    constructor(private http: HttpClient, private userService: UserService) { }
+    ngOnDestroy(): void {
 
+        this.getUserData$.unsubscribe();
+    }
     getOnePost(id: string) {
         for (let post of this.allPosts) {
             if (post._id === id) {
@@ -53,8 +63,6 @@ export class PostsService {
 
 
     getUserPosts(id: string, page: number) {
-        if (this.user === undefined) { throw new Error('You need to sign in to view your posts') }
-
         return this.http.get<IPostsServerResponse>(`/api/collections/posts?page=${page}&pageSize=${PAGE_SIZE}&populate=owner&where=owner=${id}&sortBy=createdAt desc`).pipe(tap(res => {
             if (res.data && res.data.length > 0) {
                 res.data.forEach(post => {
@@ -87,9 +95,11 @@ export class PostsService {
     }
 
     getAllFeedPosts(page: number) {
+        if (!this.user) { throw new Error('Need valid user to see feed') }
+
         const whereQuery: string[] = [];
 
-        this.user?.following.forEach(id => {
+        this.user.following.forEach(id => {
             whereQuery.push(`where=owner=${id}`)
         })
 

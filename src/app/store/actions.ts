@@ -20,6 +20,16 @@ export const loadUserCancel = createAction(
     `${namespace} load user cancel`,
 )
 
+export const setUser = createAction(
+    `${namespace} set user`,
+    props<IUser>(),
+)
+
 export const clearUser = createAction(
-    `${namespace} load user clear`
+    `${namespace} clear user`
+)
+
+export const followUser = createAction(
+    `${namespace} follow/unfollow user`,
+    props<{ followId: string }>(),
 )

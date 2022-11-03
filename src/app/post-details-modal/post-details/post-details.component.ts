@@ -1,21 +1,25 @@
-import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Inject, OnDestroy } from '@angular/core';
 import { CommentsService } from 'src/app/shared/comments/comments.service';
 import { IComment } from 'src/app/shared/interfaces/IComment';
 import { PostsService } from 'src/app/shared/posts/posts.service';
 import { IPost } from 'src/app/shared/interfaces/IPost';
 import { NgForm } from '@angular/forms';
-import { tap } from 'rxjs';
+import { Subscription, tap } from 'rxjs';
 import { UserService } from 'src/app/shared/user/user.service';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { selectUser } from 'src/app/store/selectors';
+import { IUser } from 'src/app/shared/interfaces/IUser';
+import * as userActions from '../../store/actions';
 
 @Component({
     selector: 'app-post-details',
     templateUrl: './post-details.component.html',
     styleUrls: ['./post-details.component.css']
 })
-export class PostDetailsComponent implements OnInit {
+export class PostDetailsComponent implements OnInit, OnDestroy {
     postId: string;
     @Output() modal_principal_parent = new EventEmitter();
 
@@ -29,16 +33,20 @@ export class PostDetailsComponent implements OnInit {
         private commentsService: CommentsService,
         private userService: UserService,
         private dialog: MatDialog,
+        private store: Store<any>,
         @Inject(MAT_DIALOG_DATA) public data: any
     ) {
         this.postId = data.postId;
     }
 
-    get user() {
-        return this.userService.user;
-    }
+    getUserData$: Subscription;
+    user: IUser | null | undefined;
 
     ngOnInit(): void {
+        this.getUserData$ = this.store.select(selectUser).subscribe(user => {
+            this.user = user
+        });
+
         this.postsService.getOnePost(this.postId).subscribe(res => {
             if (res === undefined) {
                 // TODO...
@@ -58,6 +66,10 @@ export class PostDetailsComponent implements OnInit {
         })
     }
 
+    ngOnDestroy(): void {
+        this.getUserData$.unsubscribe();
+    }
+
     togglePanel(): void {
         this.panelOpenState = !this.panelOpenState;
     }
@@ -65,7 +77,7 @@ export class PostDetailsComponent implements OnInit {
     onSubmit(f: NgForm) {
         this.commentsService.postComment(f.value.comment, this.postId).pipe(tap(res => {
             if (res.data !== undefined) {
-                res.data.owner = this.user!;
+                res.data.owner = Object.assign({}, this.user);
                 this.comments.unshift(res.data);
                 f.reset();
                 f.controls['comment'].setErrors(null);
@@ -80,9 +92,13 @@ export class PostDetailsComponent implements OnInit {
     }
 
     onLike() {
+        if (this.user === undefined || this.user === null) return;
+
         this.postsService.likePost(this.postId).subscribe({
             next: () => {
-                const userId = this.user?._id!;
+                if (this.user === undefined || this.user === null) return;
+
+                const userId = this.user._id!;
 
                 // TODO update likes in service
                 if (this.post.likes.includes(userId)) {
@@ -99,17 +115,15 @@ export class PostDetailsComponent implements OnInit {
     }
 
     onFollow(ownerId: string): void {
-        if (this.user === undefined) return;
+        if (this.user === undefined || this.user === null) return;
+
         this.isFollowLoading = true;
 
         this.userService.followUser(ownerId).pipe(tap(() => {
-            const userIndex = this.user!.following.indexOf(ownerId)
+            if (this.user === undefined || this.user === null) return;
 
-            if (userIndex === -1) {
-                this.user!.following.push(ownerId)
-            } else {
-                this.user!.following.splice(userIndex, 1);
-            }
+            this.store.dispatch(userActions.followUser({ followId: ownerId }))
+
         })).subscribe(() => {
             this.isFollowLoading = false;
         })

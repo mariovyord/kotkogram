@@ -1,5 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { UserService } from 'src/app/shared/user/user.service';
+import { selectIsAuth, selectUser } from 'src/app/store/selectors';
 
 @Component({
     selector: 'app-sidenav-list',
@@ -8,15 +10,13 @@ import { UserService } from 'src/app/shared/user/user.service';
 export class SidenavListComponent {
     @Output() sidenavClose = new EventEmitter();
 
-    get isAuthenticated() {
-        return Boolean(this.userService.user);
-    }
+    isAuth$ = this.store.select(selectIsAuth);
+    user$ = this.store.select(selectUser);
 
-    get user() {
-        return this.userService.user;
-    }
-
-    constructor(private userService: UserService) { }
+    constructor(
+        private userService: UserService,
+        private store: Store<any>
+    ) { }
 
     onSidenavClose() {
         this.sidenavClose.emit();

@@ -3,25 +3,26 @@
         <mat-icon>home</mat-icon>
         <span class="ml-1">Home</span>
     </a>
-    <a *ngIf="isAuthenticated" mat-list-item routerLink="/feed" (click)="onSidenavClose()">
+    <a *ngIf="(isAuth$ | async)" mat-list-item routerLink="/feed" (click)="onSidenavClose()">
         <mat-icon>fact_check</mat-icon>
         <span class="ml-1">Feed</span>
     </a>
-    <a *ngIf="isAuthenticated" mat-list-item routerLink="/create" (click)="onSidenavClose()">
+    <a *ngIf="(isAuth$ | async)" mat-list-item routerLink="/create" (click)="onSidenavClose()">
         <mat-icon>edit_note</mat-icon>
         <span class="ml-1">Create</span>
     </a>
-    <a *ngIf="!isAuthenticated" mat-list-item routerLink="/auth/sign-in" (click)="onSidenavClose()">
+    <a *ngIf="!(isAuth$ | async)" mat-list-item routerLink="/auth/sign-in" (click)="onSidenavClose()">
         <mat-icon>fact_check</mat-icon>
         <span class="ml-1">Sign In</span>
     </a>
-    <button *ngIf="isAuthenticated" mat-list-item [cdkMenuTriggerFor]="menu">
+    <button *ngIf="(isAuth$ | async)" mat-list-item [cdkMenuTriggerFor]="menu">
         <mat-icon>account_circle</mat-icon>
         <span class="ml-1">Profile</span>
     </button>
     <ng-template #menu>
         <div class="bg-white p-4 rounded-md" cdkMenu>
-            <a (click)="onSidenavClose()" [routerLink]="'/profile/' + user?._id" mat-button class="w-full" cdkMenuItem>
+            <a *ngIf="(user$ | async) as user" (click)="onSidenavClose()" [routerLink]="'/profile/' + user._id"
+                mat-button class="w-full" cdkMenuItem>
                 <mat-icon>person</mat-icon>
                 <span>View Profile</span>
             </a>

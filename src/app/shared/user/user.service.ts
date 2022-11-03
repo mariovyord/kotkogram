@@ -5,18 +5,17 @@ import { IUserServerResponse } from '../../shared/interfaces/IUserServerResponse
 import { IGenericServerResponse } from '../../shared/interfaces/IGenericServerResponse';
 import { tap, map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
-
+import { Store } from '@ngrx/store';
+import * as userActions from '../../store/actions';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserService {
-    user: IUser | undefined = undefined;
-    loading = false;
-
     constructor(
         private http: HttpClient,
         private router: Router,
+        private store: Store<any>,
     ) { }
 
     loadUser() {
@@ -33,23 +32,25 @@ export class UserService {
         return this.http.post<IUserServerResponse>('/api/users/login', { username, password },)
             .pipe(tap(res => {
                 if (res.data) {
-                    this.user = res.data;
+                    this.store.dispatch(userActions.setUser(res.data))
                 }
             }))
     }
 
     signOut() {
-        return this.http.delete('/api/users/logout',).pipe(tap(() => {
-            this.user = undefined;
-            this.router.navigateByUrl('/');
-        }))
+        return this.http.delete('/api/users/logout',).pipe(
+            tap(() => {
+                this.store.dispatch(userActions.clearUser());
+                this.router.navigateByUrl('/');
+                // TODO Add Error handling
+            }))
     }
 
     signUp(userData: any) {
         return this.http.post<IUserServerResponse>('/api/users/signup', userData,)
             .pipe(tap(res => {
                 if (res.data) {
-                    this.user = res.data;
+                    this.store.dispatch(userActions.setUser(res.data))
                 }
             }))
     }

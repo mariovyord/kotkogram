@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { UserService } from './shared/user/user.service';
 import { loadUser } from './store/actions';
+import { selectUser } from './store/selectors';
 
 @Component({
     selector: 'app-root',
@@ -10,13 +10,10 @@ import { loadUser } from './store/actions';
 })
 export class AppComponent {
     constructor(
-        private userService: UserService,
-        private store: Store,
+        private store: Store<any>,
     ) { }
 
-    get loading() {
-        return this.userService.loading;
-    }
+    user$ = this.store.select(selectUser);
 
     ngOnInit() {
         // first load user if any
