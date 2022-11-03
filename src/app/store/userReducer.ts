@@ -52,7 +52,6 @@ export const userReducer = createReducer(
                     ...state.user,
                     following: [...following],
                 },
-                isAuth: false,
             }
         } else {
             return state;
