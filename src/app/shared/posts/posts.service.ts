@@ -13,9 +13,11 @@ import { IUser } from '../interfaces/IUser';
 
 const PAGE_SIZE = 9;
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable(
+    //     {
+    //     providedIn: 'root'
+    // }
+)
 export class PostsService implements OnDestroy {
     allPosts: IPost[] = [];
     feedPosts: IPost[] = [];

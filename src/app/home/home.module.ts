@@ -4,6 +4,9 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { HomeComponent } from './home.component';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './store/index';
+import { PostsService } from './posts.service/posts.service';
 
 @NgModule({
     declarations: [
@@ -14,9 +17,13 @@ import { RouterModule } from '@angular/router';
         InfiniteScrollModule,
         SharedModule,
         RouterModule,
+        StoreModule.forFeature('home', reducers),
     ],
     exports: [
         HomeComponent,
+    ],
+    providers: [
+        PostsService,
     ]
 })
 export class HomeModule { }

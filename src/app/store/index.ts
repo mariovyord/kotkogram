@@ -1,13 +1,11 @@
 import { ActionReducerMap } from "@ngrx/store";
-import { postsReducer } from "./postsReducer";
-import { userReducer } from "./userReducer";
+import { IUser } from "../shared/interfaces/IUser";
+import { IUserState, userReducer } from "./userReducer";
 
 export interface IGlobalState {
-    readonly user: any;
-    readonly posts: any,
+    readonly user: IUserState;
 }
 
 export const reducers: ActionReducerMap<IGlobalState> = {
     user: userReducer,
-    posts: postsReducer,
 }

@@ -1,26 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { IPost } from '../shared/interfaces/IPost';
-import { MatDialog } from '@angular/material/dialog';
-import { PostsService } from '../shared/posts/posts.service';
-import { Subscription } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
-import { PostDetailsComponent } from '../post-details-modal/post-details/post-details.component';
+import { PostsService } from './posts.service/posts.service';
+import { Store } from '@ngrx/store';
+import { selectPostsData, selectPostsState } from './store/selectors';
+import * as postsActions from './store/actions';
+import { tap } from 'rxjs'
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
-    posts: IPost[] = [];
     page = 0;
-    activatedUserId: string | undefined = undefined;
+
+    posts$ = this.store.select(selectPostsData);
 
     constructor(
         private postsService: PostsService,
+        private store: Store<any>,
     ) { }
 
     ngOnInit() {
         this.getAllPosts()
+        console.log('hello', this.posts$)
     }
 
     onScrollDown() {
@@ -33,11 +34,9 @@ export class HomeComponent implements OnInit {
 
     getAllPosts() {
         this.page += 1;
-        this.postsService.getAllPosts(this.page).subscribe(res => {
-            if (res.data && res.data.length > 0) {
-                res.data.forEach(post => {
-                    this.posts.push(post);
-                })
+        this.postsService.getAllPosts(this.page).subscribe((res) => {
+            if (res.data) {
+                this.store.dispatch(postsActions.loadPosts({ posts: res.data }))
             }
         })
     }
