@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PostsService } from './posts.service/posts.service';
 import { Store } from '@ngrx/store';
-import { selectPostsData, selectPostsState } from './store/selectors';
-import * as postsActions from './store/actions';
+import { selectAllPosts, selectPostsState } from '../store/selectors';
+import * as postsActions from '../store/actions';
 import { tap } from 'rxjs'
 
 @Component({
@@ -12,7 +12,7 @@ import { tap } from 'rxjs'
 export class HomeComponent implements OnInit {
     page = 0;
 
-    posts$ = this.store.select(selectPostsData);
+    posts$ = this.store.select(selectAllPosts);
 
     constructor(
         private postsService: PostsService,

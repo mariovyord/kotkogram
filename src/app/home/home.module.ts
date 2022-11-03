@@ -5,7 +5,6 @@ import { HomeComponent } from './home.component';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
-import { reducers } from './store/index';
 import { PostsService } from './posts.service/posts.service';
 
 @NgModule({
@@ -17,7 +16,6 @@ import { PostsService } from './posts.service/posts.service';
         InfiniteScrollModule,
         SharedModule,
         RouterModule,
-        StoreModule.forFeature('home', reducers),
     ],
     exports: [
         HomeComponent,

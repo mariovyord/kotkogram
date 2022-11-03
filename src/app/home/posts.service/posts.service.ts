@@ -7,7 +7,7 @@ import { of, map, Subscription } from 'rxjs';
 import { IOnePostServerResponse } from 'src/app/shared/interfaces/IOnePostServerResponse';
 import { IGenericServerResponse } from 'src/app/shared/interfaces/IGenericServerResponse';
 import { Store } from '@ngrx/store';
-import * as postsActions from '../store/actions'
+import * as postsActions from '../../store/actions';
 import { selectUser } from 'src/app/store/selectors';
 import { IUser } from 'src/app/shared/interfaces/IUser';
 
