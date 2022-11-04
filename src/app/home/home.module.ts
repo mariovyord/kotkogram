@@ -5,7 +5,7 @@ import { HomeComponent } from './home.component';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
-import { PostsService } from './posts.service/posts.service';
+import { HomeService } from './service/home.service';
 import { reducers } from './store/reducers';
 
 @NgModule({
@@ -23,7 +23,7 @@ import { reducers } from './store/reducers';
         HomeComponent,
     ],
     providers: [
-        PostsService,
+        HomeService,
     ]
 })
 export class HomeModule { }

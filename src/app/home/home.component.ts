@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PostsService } from './posts.service/posts.service';
+import { HomeService } from './service/home.service';
 import { Store } from '@ngrx/store';
 import { selectAllPosts } from './store/selectors';
 import * as postsActions from './store/actions';
@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
     posts$ = this.store.select(selectAllPosts);
 
     constructor(
-        private postsService: PostsService,
+        private postsService: HomeService,
         private store: Store<any>,
     ) { }
 
@@ -33,10 +33,6 @@ export class HomeComponent implements OnInit {
 
     getAllPosts() {
         this.page += 1;
-        this.postsService.getAllPosts(this.page).subscribe((res) => {
-            if (res.data) {
-                this.store.dispatch(postsActions.loadPosts({ posts: res.data }))
-            }
-        })
+        this.postsService.getAllPosts(this.page).subscribe(() => { })
     }
 }

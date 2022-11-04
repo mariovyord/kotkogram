@@ -2,6 +2,6 @@
     [infiniteScrollUpDistance]="1.5" [infiniteScrollThrottle]="50" (scrolled)="onScrollDown()"
     (scrolledUp)="onScrollUp()">
     <app-profile-header [user]="userData!" [userPostsCount]="userPostsCount"></app-profile-header>
-    <app-cards-grid [posts]="posts"></app-cards-grid>
+    <app-cards-grid *ngIf="posts$" [posts]="(posts$ | async)!"></app-cards-grid>
 </div>
 <router-outlet></router-outlet>

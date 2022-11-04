@@ -7,6 +7,8 @@ import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../material.module';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { RouterModule } from '@angular/router';
+import { reducers } from './store/reducers';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
     declarations: [
@@ -19,6 +21,7 @@ import { RouterModule } from '@angular/router';
         MaterialModule,
         InfiniteScrollModule,
         RouterModule,
+        StoreModule.forFeature('profile', reducers),
     ],
     exports: [
         ProfileComponent,

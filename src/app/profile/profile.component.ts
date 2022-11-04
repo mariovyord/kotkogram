@@ -6,6 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { IUser } from '../shared/interfaces/IUser';
 import { Store } from '@ngrx/store';
 import { selectUser } from '../store/selectors';
+import { selectProfilePosts } from './store/selectors';
+import * as profileActions from './store/actions';
 
 @Component({
     selector: 'app-profile',
@@ -19,6 +21,7 @@ export class ProfileComponent implements OnInit {
     userData: IUser | undefined = undefined;
 
     user$ = this.store.select(selectUser);
+    posts$ = this.store.select(selectProfilePosts);
 
     constructor(
         private postsService: PostsService,
@@ -47,10 +50,8 @@ export class ProfileComponent implements OnInit {
     getAllUserPosts(userId: string) {
         this.postsService.getUserPosts(userId, ++this.page)
             .subscribe(res => {
-                if (res.data && res.data.length > 0) {
-                    res.data.forEach(post => {
-                        this.posts.push(post);
-                    })
+                if (res.data) {
+                    this.store.dispatch(profileActions.loadPosts({ posts: res.data }))
                 }
             })
     }

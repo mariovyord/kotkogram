@@ -25,7 +25,10 @@ export class PostsService implements OnDestroy {
     getUserData$: Subscription;
     user: IUser | null | undefined;
 
-    constructor(private http: HttpClient, private store: Store<any>) {
+    constructor(
+        private http: HttpClient,
+        private store: Store<any>
+    ) {
         this.getUserData$ = this.store.select(selectUser).subscribe(user => {
             this.user = user;
         })
@@ -56,9 +59,7 @@ export class PostsService implements OnDestroy {
     getAllPosts(page: number) {
         return this.http.get<IPostsServerResponse>(`/api/collections/posts?page=${page}&pageSize=${PAGE_SIZE}&sortBy=createdAt desc&populate=owner`).pipe(tap(res => {
             if (res.data && res.data.length > 0) {
-                res.data.forEach(post => {
-                    this.allPosts.push(post);
-                })
+                // this.store.dispatch(postsActions.loadPosts({ posts: res.data }))
             }
         }))
     }
