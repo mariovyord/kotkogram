@@ -1,9 +1,9 @@
 import { createSelector } from "@ngrx/store";
 import { IPost } from "src/app/shared/interfaces/IPost";
 
-export const selectPostsState = (state: { home: { allPosts: IPost[] } }) => state.home;
+export const selectHomeState = (state: { home: { allPosts: IPost[] } }) => state.home;
 
 export const selectAllPosts = createSelector(
-    selectPostsState,
+    selectHomeState,
     (state: { allPosts: IPost[] }) => state.allPosts
 )

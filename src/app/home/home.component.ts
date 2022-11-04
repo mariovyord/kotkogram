@@ -19,7 +19,6 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         this.getAllPosts()
-        console.log('hello', this.posts$)
     }
 
     onScrollDown() {

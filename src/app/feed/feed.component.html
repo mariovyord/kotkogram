@@ -1,6 +1,6 @@
 <div class="max-w-4xl flex mx-auto md:w-2/3">
     <section class="mx-auto p-2 flex flex-col gap-3">
-        <app-feed-card *ngFor="let post of posts" [post]="post"></app-feed-card>
+        <app-feed-card *ngFor="let post of (feedPosts$ | async)" [post]="post"></app-feed-card>
     </section>
     <section class="hidden md:block w-1/3">
 

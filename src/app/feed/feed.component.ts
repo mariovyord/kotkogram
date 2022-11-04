@@ -1,16 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { PostsService } from '../shared/posts/posts.service';
-import { IPost } from '../shared/interfaces/IPost';
+import { Store } from '@ngrx/store';
+import { FeedService } from './service/feed.service';
+import { selectFeedPosts } from './store/selectors';
 
 @Component({
     selector: 'app-feed',
     templateUrl: './feed.component.html',
 })
 export class FeedComponent implements OnInit {
-    posts: IPost[] = [];
     page = 0;
 
-    constructor(private postsService: PostsService) { }
+    feedPosts$ = this.store.select(selectFeedPosts);
+
+    constructor(
+        private feedService: FeedService,
+        private store: Store<any>,
+    ) { }
 
     ngOnInit() {
         this.getFeedPosts()
@@ -18,12 +23,6 @@ export class FeedComponent implements OnInit {
 
     getFeedPosts() {
         this.page += 1;
-        this.postsService.getAllFeedPosts(this.page).subscribe(res => {
-            if (res.data && res.data.length > 0) {
-                res.data.forEach(post => {
-                    this.posts.push(post);
-                })
-            }
-        })
+        this.feedService.getAllFeedPosts(this.page).subscribe(() => { })
     }
 }

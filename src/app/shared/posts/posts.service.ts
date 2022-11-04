@@ -73,23 +73,4 @@ export class PostsService implements OnDestroy {
     likePost(postId: string) {
         return this.http.post(`/api/collections/posts/${postId}/like`, {},);
     }
-
-    getAllFeedPosts(page: number) {
-        if (!this.user) { throw new Error('Need valid user to see feed') }
-
-        const whereQuery: string[] = [];
-
-        this.user.following.forEach(id => {
-            whereQuery.push(`where=owner=${id}`)
-        })
-
-        return this.http.get<IPostsServerResponse>(`/api/collections/posts?page=${page}&pageSize=${PAGE_SIZE}&${whereQuery.join('&')}&sortBy=createdAt desc&populate=owner`)
-            .pipe(tap(res => {
-                if (res.data && res.data.length > 0) {
-                    res.data.forEach(post => {
-                        this.feedPosts.push(post);
-                    })
-                }
-            }))
-    }
 }

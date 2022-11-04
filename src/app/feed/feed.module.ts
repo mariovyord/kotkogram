@@ -4,6 +4,9 @@ import { FeedCardComponent } from './feed-card/feed-card.component';
 import { FeedComponent } from './feed.component';
 import { MaterialModule } from '../material.module';
 import { RouterModule } from '@angular/router';
+import { FeedService } from './service/feed.service';
+import { reducers } from './store/reducers';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
     declarations: [
@@ -14,7 +17,13 @@ import { RouterModule } from '@angular/router';
         CommonModule,
         MaterialModule,
         RouterModule,
+        StoreModule.forFeature('feed', reducers),
     ],
-    exports: []
+    exports: [
+        FeedComponent
+    ],
+    providers: [
+        FeedService,
+    ]
 })
 export class FeedModule { }
