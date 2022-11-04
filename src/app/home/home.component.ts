@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PostsService } from './posts.service/posts.service';
 import { Store } from '@ngrx/store';
-import { selectAllPosts, selectPostsState } from '../store/selectors';
-import * as postsActions from '../store/actions';
-import { tap } from 'rxjs'
+import { selectAllPosts } from './store/selectors';
+import * as postsActions from './store/actions';
 
 @Component({
     selector: 'app-home',

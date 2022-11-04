@@ -2,19 +2,19 @@ import { createReducer, on } from "@ngrx/store";
 import { IPost } from "src/app/shared/interfaces/IPost";
 import * as postsActions from "./actions";
 
-interface IPostsState {
-    all: IPost[]
+export interface IHomeState {
+    allPosts: IPost[],
 }
 
-const initialState: IPostsState = {
-    all: [],
+const initialState: IHomeState = {
+    allPosts: [],
 }
 
-export const postsReducers = createReducer(
+export const reducers = createReducer(
     initialState,
     on(postsActions.loadPosts, (state, data) => ({
         ...state,
-        all: [...state.all, ...data.posts]
+        allPosts: [...state.allPosts, ...data.posts]
     }))
 )
 
