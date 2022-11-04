@@ -1,4 +1,4 @@
-:host {
+.wrapper {
     display: grid;
     grid-template-columns: 1fr 350px;
     gap: 15px;
@@ -6,7 +6,7 @@
 }
 
 @media (max-width: 978px) {
-    :host {
+    .wrapper {
         grid-template-columns: 1fr;
     }
 }

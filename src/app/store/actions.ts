@@ -1,4 +1,5 @@
 import { createAction, props } from "@ngrx/store";
+import { IPost } from "../shared/interfaces/IPost";
 import { IUser } from "../shared/interfaces/IUser";
 
 const namespace = '[USER]'
@@ -32,4 +33,9 @@ export const clearUser = createAction(
 export const followUser = createAction(
     `${namespace} follow/unfollow user`,
     props<{ followId: string }>(),
+)
+
+export const loadPosts = createAction(
+    `${namespace} load posts`,
+    props<{ posts: IPost[] }>(),
 )

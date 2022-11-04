@@ -1,27 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { IPost } from 'src/app/shared/interfaces/IPost';
-import { PostsService } from '../shared/posts/posts.service';
 import { UserService } from '../shared/user/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IUser } from '../shared/interfaces/IUser';
 import { Store } from '@ngrx/store';
-import { selectUser } from '../store/selectors';
+import { selectPostsCount, selectProfilePosts, selectActivatedUser } from './store/selectors';
+import * as profileActions from './store/actions';
+import { ProfileService } from './service/profile.service';
 
 @Component({
     selector: 'app-profile',
     templateUrl: './profile.component.html',
 })
 export class ProfileComponent implements OnInit {
-    posts: IPost[] = [];
-    userPostsCount = 0;
     page = 0;
     activatedUserId: string;
-    userData: IUser | undefined = undefined;
 
-    user$ = this.store.select(selectUser);
+    activatedUser$ = this.store.select(selectActivatedUser);
+    posts$ = this.store.select(selectProfilePosts);
+    count$ = this.store.select(selectPostsCount);
 
     constructor(
-        private postsService: PostsService,
+        private profileService: ProfileService,
         private userService: UserService,
         private route: ActivatedRoute,
         private router: Router,
@@ -45,30 +45,21 @@ export class ProfileComponent implements OnInit {
     }
 
     getAllUserPosts(userId: string) {
-        this.postsService.getUserPosts(userId, ++this.page)
-            .subscribe(res => {
-                if (res.data && res.data.length > 0) {
-                    res.data.forEach(post => {
-                        this.posts.push(post);
-                    })
-                }
-            })
+        this.profileService.getUserPosts(userId, ++this.page)
+            .subscribe(() => { })
     }
 
     getUserPostsCount(userId: string) {
-        this.postsService.getUserPostsCount(userId)
-            .subscribe(res => {
-                if (typeof res.data === 'number') {
-                    this.userPostsCount = res.data;
-                }
-            })
+        this.profileService.getUserPostsCount(userId)
+            .subscribe(() => { })
     }
 
     getUserData(userId: string) {
         this.userService.getUserData(userId)
             .subscribe({
                 next: (res) => {
-                    this.userData = res.data;
+                    if (res.data)
+                        this.store.dispatch(profileActions.loadActivatedUser({ user: res.data }))
                 },
                 error: () => {
                     this.router.navigateByUrl('/');

@@ -1,27 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
-import { IPost } from 'src/app/shared/interfaces/IPost';
 import { IPostsServerResponse } from 'src/app/shared/interfaces/IPostsServerResponse';
 import { tap } from 'rxjs/operators';
-import { UserService } from '../user/user.service';
-import { of, map, Subscription } from 'rxjs';
-import { IOnePostServerResponse } from 'src/app/shared/interfaces/IOnePostServerResponse';
-import { IGenericServerResponse } from 'src/app/shared/interfaces/IGenericServerResponse';
+import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
+import * as postsActions from '../store/actions';
 import { selectUser } from 'src/app/store/selectors';
-import { IUser } from '../interfaces/IUser';
+import { IUser } from 'src/app/shared/interfaces/IUser';
 
 const PAGE_SIZE = 9;
 
-@Injectable(
-    {
-        providedIn: 'root'
-    }
-)
-export class PostsService implements OnDestroy {
-    allPosts: IPost[] = [];
-    feedPosts: IPost[] = [];
-
+@Injectable()
+export class HomeService implements OnDestroy {
     getUserData$: Subscription;
     user: IUser | null | undefined;
 
@@ -39,11 +29,13 @@ export class PostsService implements OnDestroy {
         this.getUserData$.unsubscribe();
     }
 
-    createPost(imageUrl: string, description: string) {
-        return this.http.post('/api/collections/posts', {
-            imageUrl, description,
-        },)
+    getAllPosts(page: number) {
+        return this.http.get<IPostsServerResponse>(`/api/collections/posts?page=${page}&pageSize=${PAGE_SIZE}&sortBy=createdAt desc&populate=owner`)
+            .pipe(tap(res => {
+                if (res.data && res.data.length > 0) {
+                    console.log(res.data)
+                    this.store.dispatch(postsActions.loadPosts({ posts: res.data }))
+                }
+            }))
     }
-
-
 }

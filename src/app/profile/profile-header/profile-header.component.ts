@@ -6,7 +6,7 @@ import { IUser } from 'src/app/shared/interfaces/IUser';
     templateUrl: './profile-header.component.html',
 })
 export class ProfileHeaderComponent implements OnInit {
-    @Input() user!: IUser;
+    @Input() user: IUser;
     @Input() userPostsCount!: number;
 
     constructor() { }
