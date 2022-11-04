@@ -14,9 +14,9 @@ import { IUser } from '../interfaces/IUser';
 const PAGE_SIZE = 9;
 
 @Injectable(
-    //     {
-    //     providedIn: 'root'
-    // }
+    {
+        providedIn: 'root'
+    }
 )
 export class PostsService implements OnDestroy {
     allPosts: IPost[] = [];
@@ -54,29 +54,6 @@ export class PostsService implements OnDestroy {
         return this.http.get<IOnePostServerResponse>(`/api/collections/posts/${id}?populate=owner`).pipe(map(res => {
             return res.data;
         }))
-    }
-
-    getAllPosts(page: number) {
-        return this.http.get<IPostsServerResponse>(`/api/collections/posts?page=${page}&pageSize=${PAGE_SIZE}&sortBy=createdAt desc&populate=owner`).pipe(tap(res => {
-            if (res.data && res.data.length > 0) {
-                // this.store.dispatch(postsActions.loadPosts({ posts: res.data }))
-            }
-        }))
-    }
-
-
-    getUserPosts(id: string, page: number) {
-        return this.http.get<IPostsServerResponse>(`/api/collections/posts?page=${page}&pageSize=${PAGE_SIZE}&populate=owner&where=owner=${id}&sortBy=createdAt desc`).pipe(tap(res => {
-            if (res.data && res.data.length > 0) {
-                res.data.forEach(post => {
-                    this.feedPosts.push(post);
-                })
-            }
-        }))
-    }
-
-    getUserPostsCount(id: string) {
-        return this.http.get<IGenericServerResponse>(`/api/collections/posts?where=owner=${id}&count=true`);
     }
 
     createPost(imageUrl: string, description: string) {

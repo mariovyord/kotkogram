@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { HomeService } from './service/home.service';
 import { Store } from '@ngrx/store';
 import { selectAllPosts } from './store/selectors';
-import * as postsActions from './store/actions';
 
 @Component({
     selector: 'app-home',
