@@ -45,15 +45,5 @@ export class PostsService implements OnDestroy {
         },)
     }
 
-    deletePost(postId: string) {
-        return this.http.delete(`/api/collections/posts/${postId}`,)
-            .pipe(tap(() => {
-                this.allPosts = this.allPosts.filter(x => x._id !== postId);
-                this.feedPosts = this.feedPosts.filter(x => x._id !== postId);
-            }))
-    }
 
-    likePost(postId: string) {
-        return this.http.post(`/api/collections/posts/${postId}/like`, {},);
-    }
 }

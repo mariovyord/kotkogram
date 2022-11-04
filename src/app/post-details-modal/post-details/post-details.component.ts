@@ -41,8 +41,6 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
         this.postId = data.postId;
     }
 
-
-
     ngOnInit(): void {
         this.getUserData$ = this.store.select(selectUser).subscribe(user => {
             this.user = user
@@ -78,26 +76,27 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
     }
 
     onLike() {
-        // if (this.user === undefined || this.user === null) return;
+        if (this.user === undefined || this.user === null) return;
 
-        // this.detailsService.likePost(this.postId).subscribe({
-        //     next: () => {
-        //         if (this.user === undefined || this.user === null) return;
+        this.detailsService.likePost(this.postId).subscribe({
+            next: () => {
+                if (this.user === undefined || this.user === null) return;
 
-        //         const userId = this.user._id!;
+                const userId = this.user._id!;
 
-        //         // TODO update likes in service
-        //         if (this.post.likes.includes(userId)) {
-        //             const index = this.post.likes.indexOf(userId);
-        //             this.post.likes.splice(index, 1);
-        //         } else {
-        //             this.post.likes.push(userId);
-        //         }
-        //     },
-        //     error: () => {
-        //         // TODO...
-        //     }
-        // })
+                // TODO update likes in service
+
+                // if (this.post.likes.includes(userId)) {
+                //     const index = this.post.likes.indexOf(userId);
+                //     this.post.likes.splice(index, 1);
+                // } else {
+                //     this.post.likes.push(userId);
+                // }
+            },
+            error: () => {
+                // TODO...
+            }
+        })
     }
 
     onFollow(ownerId: string): void {
@@ -120,16 +119,19 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
             width: '250px',
         });
 
-        // dialogRef.afterClosed().subscribe(res => {
-        //     if (res) {
-        //         this.detailsService.deletePost(this.post._id).subscribe({
-        //             next: () => {
-        //                 this.modal_principal_parent.emit();
-        //             },
-        //             error: () => { }
-        //         })
-        //     }
-        // });
+        dialogRef.afterClosed().subscribe(res => {
+            if (res) {
+                this.detailsService.deletePost(this.postId)
+                    .subscribe({
+                        next: () => {
+                            // TODO remove data from redux
+
+                            this.modal_principal_parent.emit();
+                        },
+                        error: () => { }
+                    })
+            }
+        });
     }
 
     forceCloseDialog(routerLink: string) {
