@@ -1,65 +1,68 @@
-<div class="image-container">
-    <img [src]="post.imageUrl" alt="">
-</div>
-<div class="comments-container">
-    <div class="post">
-        <div class="post__title">
-            <h3>
-                <a class="text-primary font-semibold hover:underline cursor-pointer"
-                    (click)="forceCloseDialog(post.owner._id)">{{post.owner.username}}
-                </a>
-            </h3>
-            <button [disabled]="isFollowLoading" *ngIf="user && user._id !== post.owner._id"
-                (click)="onFollow(post.owner._id)" mat-button color="primary">
-                <span *ngIf="!user.following.includes(post.owner._id)">Follow</span>
-                <span *ngIf="user.following.includes(post.owner._id)" class="text-red-300">Unfollow</span>
-            </button>
-            <span>{{post.createdAt | date: 'dd/MM/yy, h:mm a'}}</span>
+<div *ngIf="(post$ | async) as post" class="wrapper">
+    <div class="image-container">
+        <img [src]="post.imageUrl" alt="">
+    </div>
+    <div class="comments-container">
+        <div class="post">
+            <div class="post__title">
+                <h3>
+                    <a class="text-primary font-semibold hover:underline cursor-pointer"
+                        (click)="forceCloseDialog(post.owner._id)">{{post.owner.username}}
+                    </a>
+                </h3>
+                <button [disabled]="isFollowLoading" *ngIf="user && user._id !== post.owner._id"
+                    (click)="onFollow(post.owner._id)" mat-button color="primary">
+                    <span *ngIf="!user.following.includes(post.owner._id)">Follow</span>
+                    <span *ngIf="user.following.includes(post.owner._id)" class="text-red-300">Unfollow</span>
+                </button>
+                <span>{{post.createdAt | date: 'dd/MM/yy, h:mm a'}}</span>
+            </div>
+            <div>
+                <p></p>
+            </div>
+            <div class="post__content">
+                <p>{{post.description}}</p>
+            </div>
+            <div class="flex" *ngIf="user">
+                <button (click)="onLike()" mat-icon-button>
+                    <span class="text-sm">{{post.likes.length}}</span>
+                    <mat-icon class="scale-150" color="primary" aria-hidden="false" aria-label="like">
+                        {{post.likes.includes(user._id) ? 'favorite' : 'favorite_outline'}}
+                    </mat-icon>
+                </button>
+                <button mat-icon-button (click)="togglePanel()">
+                    <mat-icon class="scale-150" color="primary" aria-hidden="false" aria-label="like">comment</mat-icon>
+                </button>
+                <button *ngIf="user?._id === post.owner._id" mat-icon-button (click)="openDialog()">
+                    <mat-icon class="scale-150 text-red-600" aria-hidden="false" aria-label="delete">delete</mat-icon>
+                </button>
+            </div>
+            <mat-divider></mat-divider>
         </div>
-        <div>
-            <p></p>
+        <div class="form-container">
+            <mat-expansion-panel [expanded]="panelOpenState" class="mat-elevation-z0">
+                <form #f="ngForm" class="comment-form" (ngSubmit)="onSubmit(f)">
+                    <mat-form-field style="width: 100%" appearance="outline">
+                        <mat-label>Leave a comment</mat-label>
+                        <textarea name="comment" id="comment" matInput ngModel [required]="true" minlength="3"
+                            maxlength="280"></textarea>
+                        <mat-error *ngIf="f.controls['comment']?.errors?.['required']">
+                            Comment cannot be empty
+                        </mat-error>
+                        <mat-error *ngIf="f.controls['comment']?.errors?.['minlength']">
+                            Minimum length is <strong>3</strong> characters
+                        </mat-error>
+                        <mat-error *ngIf="f.controls['comment']?.errors?.['maxlength']">
+                            Maximum length is <strong>280</strong> characters
+                        </mat-error>
+                    </mat-form-field>
+                    <button [disabled]="!f.valid" mat-raised-button color="primary" class="full-width">Submit</button>
+                </form>
+            </mat-expansion-panel>
         </div>
-        <div class="post__content">
-            <p>{{post.description}}</p>
-        </div>
-        <div class="flex" *ngIf="user">
-            <button (click)="onLike()" mat-icon-button>
-                <span class="text-sm">{{post.likes.length}}</span>
-                <mat-icon class="scale-150" color="primary" aria-hidden="false" aria-label="like">
-                    {{post.likes.includes(user._id) ? 'favorite' : 'favorite_outline'}}
-                </mat-icon>
-            </button>
-            <button mat-icon-button (click)="togglePanel()">
-                <mat-icon class="scale-150" color="primary" aria-hidden="false" aria-label="like">comment</mat-icon>
-            </button>
-            <button *ngIf="user?._id === post.owner._id" mat-icon-button (click)="openDialog()">
-                <mat-icon class="scale-150 text-red-600" aria-hidden="false" aria-label="delete">delete</mat-icon>
-            </button>
-        </div>
+        <app-comment (redirect)="forceCloseDialog($event)" *ngFor="let comment of (comments$ | async)"
+            [comment]="comment">
+        </app-comment>
         <mat-divider></mat-divider>
     </div>
-    <div class="form-container">
-        <mat-expansion-panel [expanded]="panelOpenState" class="mat-elevation-z0">
-            <form #f="ngForm" class="comment-form" (ngSubmit)="onSubmit(f)">
-                <mat-form-field style="width: 100%" appearance="outline">
-                    <mat-label>Leave a comment</mat-label>
-                    <textarea name="comment" id="comment" matInput ngModel [required]="true" minlength="3"
-                        maxlength="280"></textarea>
-                    <mat-error *ngIf="f.controls['comment']?.errors?.['required']">
-                        Comment cannot be empty
-                    </mat-error>
-                    <mat-error *ngIf="f.controls['comment']?.errors?.['minlength']">
-                        Minimum length is <strong>3</strong> characters
-                    </mat-error>
-                    <mat-error *ngIf="f.controls['comment']?.errors?.['maxlength']">
-                        Maximum length is <strong>280</strong> characters
-                    </mat-error>
-                </mat-form-field>
-                <button [disabled]="!f.valid" mat-raised-button color="primary" class="full-width">Submit</button>
-            </form>
-        </mat-expansion-panel>
-    </div>
-    <app-comment (redirect)="forceCloseDialog($event)" *ngFor="let comment of comments" [comment]="comment">
-    </app-comment>
-    <mat-divider></mat-divider>
 </div>

@@ -38,23 +38,6 @@ export class PostsService implements OnDestroy {
 
         this.getUserData$.unsubscribe();
     }
-    getOnePost(id: string) {
-        for (let post of this.allPosts) {
-            if (post._id === id) {
-                return of(post);
-            }
-        }
-
-        for (let post of this.feedPosts) {
-            if (post._id === id) {
-                return of(post);
-            }
-        }
-
-        return this.http.get<IOnePostServerResponse>(`/api/collections/posts/${id}?populate=owner`).pipe(map(res => {
-            return res.data;
-        }))
-    }
 
     createPost(imageUrl: string, description: string) {
         return this.http.post('/api/collections/posts', {

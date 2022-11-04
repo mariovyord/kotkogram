@@ -8,6 +8,9 @@ import { DeleteDialogComponent } from './post-details/delete-dialog/delete-dialo
 import { DialogModule } from '@angular/cdk/dialog';
 import { RouterModule } from '@angular/router';
 import { PostDetailsModalComponent } from './post-details-modal.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './store/reducers';
+import { DetailsService } from './service/details.service';
 
 @NgModule({
     declarations: [
@@ -22,10 +25,14 @@ import { PostDetailsModalComponent } from './post-details-modal.component';
         FormsModule,
         DialogModule,
         RouterModule,
+        StoreModule.forFeature('details', reducers),
     ],
     exports: [
         PostDetailsComponent,
         PostDetailsModalComponent,
+    ],
+    providers: [
+        DetailsService,
     ]
 })
 export class PostDetailsModalModule { }
