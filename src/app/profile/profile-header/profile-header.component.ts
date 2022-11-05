@@ -5,14 +5,10 @@ import { IUser } from 'src/app/shared/interfaces/IUser';
     selector: 'app-profile-header',
     templateUrl: './profile-header.component.html',
 })
-export class ProfileHeaderComponent implements OnInit {
+export class ProfileHeaderComponent {
     @Input() user: IUser;
     @Input() userPostsCount!: number;
 
     constructor() { }
-
-    ngOnInit(): void {
-        console.log(this.user)
-    }
 
 }

@@ -34,7 +34,6 @@ export class DetailsService implements OnDestroy {
         return this.http.get<IOnePostServerResponse>(`/api/collections/posts/${id}?populate=owner`)
             .pipe(tap(res => {
                 if (res.data) {
-                    console.log(res.data)
                     this.store.dispatch(detailsActions.loadPost({ post: res.data }))
                 }
             }))

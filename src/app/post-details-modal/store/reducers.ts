@@ -15,10 +15,12 @@ const initialState: IDetailsState = {
 
 export const reducers = createReducer(
     initialState,
-    on(detailsActions.loadPost, (state, data) => ({
-        ...state,
-        post: data.post
-    })),
+    on(detailsActions.loadPost, (state, data) => {
+        return {
+            ...state,
+            post: data.post
+        }
+    }),
     on(detailsActions.loadComments, (state, data) => ({
         ...state,
         comments: [...state.comments, ...data.comments]
