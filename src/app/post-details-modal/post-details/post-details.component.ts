@@ -76,27 +76,9 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
     }
 
     onLike() {
-        if (this.user === undefined || this.user === null) return;
+        if (this.user === undefined || this.user === null || this.postId === undefined) return;
 
-        this.detailsService.likePost(this.postId).subscribe({
-            next: () => {
-                if (this.user === undefined || this.user === null) return;
-
-                const userId = this.user._id!;
-
-                // TODO update likes in service
-
-                // if (this.post.likes.includes(userId)) {
-                //     const index = this.post.likes.indexOf(userId);
-                //     this.post.likes.splice(index, 1);
-                // } else {
-                //     this.post.likes.push(userId);
-                // }
-            },
-            error: () => {
-                // TODO...
-            }
-        })
+        this.detailsService.likePost(this.postId).subscribe(() => { })
     }
 
     onFollow(ownerId: string): void {

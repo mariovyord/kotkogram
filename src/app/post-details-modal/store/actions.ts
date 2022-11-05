@@ -9,7 +9,14 @@ export const loadPost = createAction(
     props<{ post: IPost }>(),
 )
 
+export const likePost = createAction(
+    `${namespace} like post`,
+    props<{ userId: string }>(),
+)
+
 export const loadComments = createAction(
     `${namespace} load comments`,
     props<{ comments: IComment[] }>(),
 )
+
+

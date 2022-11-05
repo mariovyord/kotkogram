@@ -24,6 +24,22 @@ export const reducers = createReducer(
     on(detailsActions.loadComments, (state, data) => ({
         ...state,
         comments: [...state.comments, ...data.comments]
-    }))
+    })),
+    on(detailsActions.likePost, (state, data) => {
+        const id = data.userId;
+        const editedPost = Object.assign({}, state.post);
+        console.log('pre', editedPost);
+
+        if (editedPost.likes.includes(id)) {
+            editedPost.likes = editedPost.likes.filter(like => like !== id);
+        } else {
+            editedPost.likes = [...editedPost.likes, id];
+        }
+        console.log('post', editedPost);
+        return {
+            ...state,
+            post: editedPost,
+        }
+    }),
 )
 

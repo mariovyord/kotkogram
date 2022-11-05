@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
-import { tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { IOnePostServerResponse } from 'src/app/shared/interfaces/IOnePostServerResponse';
 import { Store } from '@ngrx/store';
@@ -64,6 +64,12 @@ export class DetailsService implements OnDestroy {
     }
 
     likePost(postId: string) {
-        return this.http.post(`/api/collections/posts/${postId}/like`, {},);
+        this.store.dispatch(detailsActions.likePost({ userId: this.user!._id }))
+
+        return this.http.post(`/api/collections/posts/${postId}/like`, {},)
+            .pipe(catchError((res) => {
+                this.store.dispatch(detailsActions.likePost({ userId: this.user!._id }))
+                return res;
+            }));
     }
 }

@@ -37,7 +37,6 @@ export class HomeService implements OnDestroy {
 
     getAllPosts() {
         const page = Math.ceil(this.postsCount / PAGE_SIZE + 1);
-        console.log(this.postsCount);
 
         return this.http.get<IPostsServerResponse>(`/api/collections/posts?page=${page}&pageSize=${PAGE_SIZE}&sortBy=createdAt desc&populate=owner`)
             .pipe(tap(res => {
