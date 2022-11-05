@@ -5,7 +5,7 @@ import { PostDetailsComponent } from './post-details/post-details.component';
 
 @Component({
     selector: 'app-modal-container',
-    template: '',
+    template: ``,
 })
 export class PostDetailsModalComponent {
     postId: string;
@@ -26,7 +26,7 @@ export class PostDetailsModalComponent {
             },
             autoFocus: false
         });
-        dialogRef.afterClosed().subscribe(result => {
+        dialogRef.afterClosed().subscribe(() => {
             this.router.navigate(['../../'], { relativeTo: this.route });
         });
     }

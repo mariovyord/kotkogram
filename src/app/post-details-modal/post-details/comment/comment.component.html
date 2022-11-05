@@ -1,7 +1,14 @@
 <div class="flex p-2 gap-2 text-sm">
-    <h3><a class="text-primary font-semibold cursor-pointer hover:underline"
-            [routerLink]="'/profile/' + comment.owner._id">{{comment.owner.username}}</a>
-    </h3>
+    <div class="flex gap-2 items-center">
+        <div
+            class="relative rounded-full overflow-hidden w-4 h-4 border border-gray-100 shadow-sm ring-1 ring-primary ring-offset-1">
+            <img class="object-cover h-full w-full absolute top-0 left-0" [src]="comment.owner.imageUrl"
+                alt="owner portrait">
+        </div>
+        <h3><a class="text-primary font-semibold cursor-pointer hover:underline"
+                [routerLink]="'/profile/' + comment.owner._id">{{comment.owner.username}}</a>
+        </h3>
+    </div>
     <p>{{comment.body}}</p>
 </div>
 <mat-divider></mat-divider>

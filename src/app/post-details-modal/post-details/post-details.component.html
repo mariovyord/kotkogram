@@ -1,24 +1,28 @@
 <div *ngIf="(post$ | async) as post" class="wrapper">
     <div class="image-container">
-        <img [src]="post.imageUrl" alt="">
+        <img [src]="post.imageUrl" [alt]="post.description">
     </div>
     <div class="comments-container">
         <div class="post">
             <div class="post__title">
-                <h3>
-                    <a class="text-primary font-semibold hover:underline cursor-pointer"
-                        (click)="forceCloseDialog(post.owner._id)">{{post.owner.username}}
-                    </a>
-                </h3>
+                <div class="flex gap-3">
+                    <div
+                        class="relative rounded-full overflow-hidden w-6 h-6 border border-gray-100 shadow-sm ring-2 ring-primary ring-offset-2">
+                        <img class="object-cover h-full w-full absolute top-0 left-0" [src]="post.owner.imageUrl"
+                            alt="owner portrait">
+                    </div>
+                    <h3>
+                        <a class="text-primary font-semibold hover:underline cursor-pointer"
+                            (click)="closeWithRedirect(post.owner._id)">{{post.owner.username}}
+                        </a>
+                    </h3>
+                </div>
                 <button [disabled]="isFollowLoading" *ngIf="user && user._id !== post.owner._id"
                     (click)="onFollow(post.owner._id)" mat-button color="primary">
                     <span *ngIf="!user.following.includes(post.owner._id)">Follow</span>
-                    <span *ngIf="user.following.includes(post.owner._id)" class="text-red-300">Unfollow</span>
+                    <span *ngIf="user.following.includes(post.owner._id)" class="text-red-700">Unfollow</span>
                 </button>
                 <span>{{post.createdAt | date: 'dd/MM/yy, h:mm a'}}</span>
-            </div>
-            <div>
-                <p></p>
             </div>
             <div class="post__content">
                 <p>{{post.description}}</p>
@@ -60,9 +64,8 @@
                 </form>
             </mat-expansion-panel>
         </div>
-        <app-comment (redirect)="forceCloseDialog($event)" *ngFor="let comment of (comments$ | async)"
+        <app-comment (redirect)="closeWithRedirect($event)" *ngFor="let comment of (comments$ | async)"
             [comment]="comment">
         </app-comment>
-        <mat-divider></mat-divider>
     </div>
 </div>

@@ -116,7 +116,7 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
         });
     }
 
-    forceCloseDialog(routerLink: string) {
+    closeWithRedirect(routerLink: string) {
         this.modal_principal_parent.emit(`/profile/${routerLink}`);
     }
 }
