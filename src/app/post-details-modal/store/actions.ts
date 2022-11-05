@@ -19,4 +19,9 @@ export const loadComments = createAction(
     props<{ comments: IComment[] }>(),
 )
 
+export const addComment = createAction(
+    `${namespace} add comment`,
+    props<{ comment: IComment }>(),
+)
+
 
