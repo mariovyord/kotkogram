@@ -13,7 +13,6 @@ import { ProfileService } from './service/profile.service';
     templateUrl: './profile.component.html',
 })
 export class ProfileComponent implements OnInit {
-    page = 0;
     activatedUserId: string;
 
     activatedUser$ = this.store.select(selectActivatedUser);
@@ -45,7 +44,7 @@ export class ProfileComponent implements OnInit {
     }
 
     getAllUserPosts(userId: string) {
-        this.profileService.getUserPosts(userId, ++this.page)
+        this.profileService.getUserPosts(userId)
             .subscribe(() => { })
     }
 

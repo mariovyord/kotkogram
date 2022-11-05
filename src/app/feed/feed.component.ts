@@ -21,8 +21,17 @@ export class FeedComponent implements OnInit {
         this.getFeedPosts()
     }
 
-    getFeedPosts() {
-        this.page += 1;
-        this.feedService.getAllFeedPosts(this.page).subscribe(() => { })
+    onScrollDown() {
+        this.getFeedPosts();
     }
+
+    onScrollUp() {
+        console.log('UP')
+    }
+
+    getFeedPosts() {
+        this.feedService.getAllFeedPosts().subscribe(() => { })
+    }
+
+
 }

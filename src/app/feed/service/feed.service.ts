@@ -7,6 +7,8 @@ import { IUser } from 'src/app/shared/interfaces/IUser';
 import { selectUser } from 'src/app/store/selectors';
 import { IPostsServerResponse } from 'src/app/shared/interfaces/IPostsServerResponse';
 import * as feedActions from '../store/actions';
+import { IPost } from 'src/app/shared/interfaces/IPost';
+import { selectFeedPosts } from '../store/selectors';
 
 const PAGE_SIZE = 9;
 
@@ -14,6 +16,8 @@ const PAGE_SIZE = 9;
 export class FeedService implements OnDestroy {
     getUserData$: Subscription;
     user: IUser | null | undefined;
+    postsSubs$: Subscription;
+    postsCount = 0;
 
     constructor(
         private http: HttpClient,
@@ -22,14 +26,21 @@ export class FeedService implements OnDestroy {
         this.getUserData$ = this.store.select(selectUser).subscribe(user => {
             this.user = user;
         })
+        this.postsSubs$ = this.store.select(selectFeedPosts).subscribe(posts => {
+            this.postsCount = posts.length;
+        })
     }
 
     ngOnDestroy(): void {
         this.getUserData$.unsubscribe();
+        this.postsSubs$.unsubscribe();
     }
 
-    getAllFeedPosts(page: number) {
+    getAllFeedPosts() {
         if (!this.user) { throw new Error('Need valid user to see feed') }
+
+        const page = Math.ceil(this.postsCount / PAGE_SIZE + 1);
+        console.log(page);
 
         const whereQuery: string[] = [];
 

@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import * as postsActions from '../store/actions';
 import { selectUser } from 'src/app/store/selectors';
 import { IUser } from 'src/app/shared/interfaces/IUser';
+import { selectAllPosts } from '../store/selectors';
 
 const PAGE_SIZE = 9;
 
@@ -14,6 +15,8 @@ const PAGE_SIZE = 9;
 export class HomeService implements OnDestroy {
     getUserData$: Subscription;
     user: IUser | null | undefined;
+    postsSubs$: Subscription;
+    postsCount = 0;
 
     constructor(
         private http: HttpClient,
@@ -22,18 +25,23 @@ export class HomeService implements OnDestroy {
         this.getUserData$ = this.store.select(selectUser).subscribe(user => {
             this.user = user;
         })
+        this.postsSubs$ = this.store.select(selectAllPosts).subscribe(posts => {
+            this.postsCount = posts.length;
+        })
     }
 
     ngOnDestroy(): void {
-
         this.getUserData$.unsubscribe();
+        this.postsSubs$.unsubscribe();
     }
 
-    getAllPosts(page: number) {
+    getAllPosts() {
+        const page = Math.ceil(this.postsCount / PAGE_SIZE + 1);
+        console.log(this.postsCount);
+
         return this.http.get<IPostsServerResponse>(`/api/collections/posts?page=${page}&pageSize=${PAGE_SIZE}&sortBy=createdAt desc&populate=owner`)
             .pipe(tap(res => {
                 if (res.data && res.data.length > 0) {
-                    console.log(res.data)
                     this.store.dispatch(postsActions.loadPosts({ posts: res.data }))
                 }
             }))

@@ -8,8 +8,6 @@ import { selectAllPosts } from './store/selectors';
     templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
-    page = 0;
-
     posts$ = this.store.select(selectAllPosts);
 
     constructor(
@@ -30,7 +28,6 @@ export class HomeComponent implements OnInit {
     }
 
     getAllPosts() {
-        this.page += 1;
-        this.postsService.getAllPosts(this.page).subscribe(() => { })
+        this.postsService.getAllPosts().subscribe(() => { })
     }
 }

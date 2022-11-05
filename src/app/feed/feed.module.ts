@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { FeedService } from './service/feed.service';
 import { reducers } from './store/reducers';
 import { StoreModule } from '@ngrx/store';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
     declarations: [
@@ -15,6 +16,7 @@ import { StoreModule } from '@ngrx/store';
     ],
     imports: [
         CommonModule,
+        InfiniteScrollModule,
         MaterialModule,
         RouterModule,
         StoreModule.forFeature('feed', reducers),
