@@ -9,11 +9,14 @@ import { RouterModule } from '@angular/router';
 import { reducers } from './store/reducers';
 import { StoreModule } from '@ngrx/store';
 import { ProfileService } from './service/profile.service';
+import { SettingsComponent } from './settings/settings.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
         ProfileComponent,
-        ProfileHeaderComponent
+        ProfileHeaderComponent,
+        SettingsComponent
     ],
     imports: [
         CommonModule,
@@ -21,6 +24,8 @@ import { ProfileService } from './service/profile.service';
         MaterialModule,
         InfiniteScrollModule,
         RouterModule,
+        FormsModule,
+        ReactiveFormsModule,
         StoreModule.forFeature('profile', reducers),
     ],
     exports: [

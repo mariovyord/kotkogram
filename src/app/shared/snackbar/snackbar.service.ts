@@ -6,7 +6,7 @@ import { SnackbarComponent } from './snackbar.component';
     providedIn: 'root'
 })
 export class SnackbarService {
-    durationInSeconds = 6;
+    durationInSeconds = 3;
 
     constructor(private _snackBar: MatSnackBar) { }
 

@@ -1,0 +1,100 @@
+<div class="max-w-[965px] m-auto">
+    <mat-tab-group>
+        <mat-tab label="Edit Personal Data">
+            <form [formGroup]="dataForm" (ngSubmit)="onDataFormSubmit()"
+                class="flex flex-col gap-1 max-w-md mx-auto p-6">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>First name</mat-label>
+                    <input formControlName="firstName" id="firstName" matInput placeholder="Ex. tomthecat">
+                    <mat-error *ngIf="dataForm.get('firstName')?.errors?.['required']">
+                        First name is <strong>required</strong>
+                    </mat-error>
+                    <mat-error *ngIf="dataForm.get('firstName')?.errors?.['minlength']">
+                        Minimum length is <strong>3</strong> characters
+                    </mat-error>
+                    <mat-error *ngIf="dataForm.get('firstName')?.errors?.['maxlength']">
+                        Maximum length is <strong>280</strong> characters
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Last name</mat-label>
+                    <input formControlName="lastName" id="lastName" matInput placeholder="Ex. tomthecat">
+                    <mat-error *ngIf="dataForm.get('lastName')?.errors?.['required']">
+                        Last name is <strong>required</strong>
+                    </mat-error>
+                    <mat-error *ngIf="dataForm.get('lastName')?.errors?.['minlength']">
+                        Minimum length is <strong>3</strong> characters
+                    </mat-error>
+                    <mat-error *ngIf="dataForm.get('lastName')?.errors?.['maxlength']">
+                        Maximum length is <strong>280</strong> characters
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Image URL</mat-label>
+                    <input formControlName="imageUrl" id="imageUrl" matInput placeholder="Ex. tomthecat">
+                </mat-form-field>
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Description</mat-label>
+                    <textarea matInput formControlName="description" id="description"
+                        placeholder="Ex. It makes me feel..."></textarea>
+                    <mat-error *ngIf="dataForm.get('description')?.errors?.['maxlength']">
+                        Maximum length is <strong>280</strong> characters
+                    </mat-error>
+                </mat-form-field>
+                <button [disabled]="!dataForm.valid" type="submit" mat-raised-button class="w-full"
+                    color="primary">Save</button>
+            </form>
+        </mat-tab>
+        <mat-tab label="Change Password">
+            <form [formGroup]="passwordForm" (ngSubmit)="onPasswordFormSubmit()"
+                class="flex flex-col gap-1 max-w-md mx-auto p-6">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Old password</mat-label>
+                    <input [type]="hideOld ? 'password' : 'text'" formControlName="oldPassword" id="oldPassword"
+                        matInput placeholder="Ex. supersecretpassword">
+                    <button type="button" mat-icon-button matSuffix (click)="hideOld = !hideOld"
+                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideOld">
+                        <mat-icon>{{hideOld ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="passwordForm.get('oldPassword')?.errors?.['required']">
+                        Password is <strong>required</strong>
+                    </mat-error>
+                    <mat-error *ngIf="passwordForm.get('oldPassword')?.errors?.['correct']">
+                        Password is <strong>incorrect</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>New password</mat-label>
+                    <input [type]="hide ? 'password' : 'text'" formControlName="password" id="password" matInput
+                        placeholder="Ex. supersecretpassword">
+                    <button type="button" mat-icon-button matSuffix (click)="hide = !hide"
+                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="passwordForm.get('password')?.errors?.['required']">
+                        Password is <strong>required</strong>
+                    </mat-error>
+                    <mat-error *ngIf="passwordForm.get('password')?.errors?.['minlength']">
+                        Minimum length is <strong>6</strong> characters
+                    </mat-error>
+                    <mat-error *ngIf="passwordForm.get('password')?.errors?.['maxlength']">
+                        Maximum length is <strong>60</strong> characters
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Repeat new password</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="rePassword" id="rePassword"
+                        placeholder="Ex. supersecretpassword" [required]="true">
+                    <mat-error *ngIf="passwordForm.get('rePassword')?.errors?.['required']">
+                        Please repeat password
+                    </mat-error>
+                    <mat-error *ngIf="passwordForm.get('rePassword')?.errors?.['passwordMismatch']">
+                        Passwords should match
+                    </mat-error>
+                </mat-form-field>
+                <button [disabled]="!passwordForm.valid" type="submit" mat-raised-button class="w-full"
+                    color="primary">Save</button>
+            </form>
+        </mat-tab>
+    </mat-tab-group>
+</div>

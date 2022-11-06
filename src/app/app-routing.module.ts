@@ -7,6 +7,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { PostDetailsModalComponent } from './post-details-modal/post-details-modal.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { SettingsComponent } from './profile/settings/settings.component';
 
 const routes: Routes = [
     {
@@ -47,6 +48,15 @@ const routes: Routes = [
             { path: 'details/:id', component: PostDetailsModalComponent }
         ],
         title: 'Kotkogram - Profile',
+        canActivate: [AuthGuard],
+        data: {
+            authRequired: true,
+            authFailureRedirectUrl: '/sign-in',
+        }
+    },
+    {
+        path: 'profile/:userId/settings', component: SettingsComponent,
+        title: 'Kotkogram - Settings',
         canActivate: [AuthGuard],
         data: {
             authRequired: true,

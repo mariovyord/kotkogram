@@ -10,8 +10,17 @@ import * as profileActions from '../store/actions';
 import { IUser } from 'src/app/shared/interfaces/IUser';
 import { IPost } from 'src/app/shared/interfaces/IPost';
 import { selectProfilePosts } from '../store/selectors';
+import { IUserServerResponse } from 'src/app/shared/interfaces/IUserServerResponse';
+import { loadUser } from 'src/app/store/actions';
 
 const PAGE_SIZE = 9;
+
+export interface editableUser {
+    firstName: string,
+    lastName: string,
+    description: string,
+    imageUrl: string,
+}
 
 @Injectable()
 export class ProfileService implements OnDestroy {
@@ -54,5 +63,20 @@ export class ProfileService implements OnDestroy {
                     this.store.dispatch(profileActions.loadPostsCount({ count: res.data }))
                 }
             }))
+    }
+
+    editUser(data: editableUser) {
+        return this.http.patch<IUserServerResponse>(`/api/users/${this.user?._id}`, data)
+            .pipe(tap(() => {
+                this.store.dispatch(loadUser());
+            }))
+    }
+
+    isPasswordCorrect(password: string) {
+        return this.http.post<IUserServerResponse>(`/api/users/${this.user?._id}/password`, { password });
+    }
+
+    changePassword(oldPassword: string, newPassword: string) {
+        return this.http.patch<IUserServerResponse>(`/api/users/${this.user?._id}/password`, { oldPassword, newPassword });
     }
 }
