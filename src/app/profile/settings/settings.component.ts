@@ -3,10 +3,8 @@ import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators }
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { CustomAsyncValidator } from 'src/app/authentication/sign-up/unique-username';
 import { IUser } from 'src/app/shared/interfaces/IUser';
 import { SnackbarService } from 'src/app/shared/snackbar/snackbar.service';
-import { UserService } from 'src/app/shared/user/user.service';
 import { selectUser } from 'src/app/store/selectors';
 import { editableUser, ProfileService } from '../service/profile.service';
 import { PasswordAsyncValidator } from './correct-password';
@@ -118,7 +116,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
         this.profileService.changePassword(values.oldPassword as string, values.password as string).subscribe({
             next: () => {
                 this.snackbarService.openSnackBar('Password change successfull!');
-                this.router.navigateByUrl('/');
+                this.router.navigateByUrl(`/profile/${this.user._id}`);
             },
             error: res => {
                 this.snackbarService.openSnackBar(res.error.errors[0]);
