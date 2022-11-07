@@ -13,8 +13,7 @@
     <!-- COMMENT BODY -->
     <div class="flex justify-between items-center relative w-full">
         <span *ngIf="!isEditing">{{comment.body}}</span>
-        <button class="absolute top-0 right-0" mat-button *ngIf="!isEditing && comment.isOwner"
-            (click)="isEditing = !isEditing">Edit</button>
+        <button *ngIf="!isEditing && comment.isOwner" (click)="isEditing = !isEditing">Edit</button>
     </div>
     <!-- EDIT COMMENT FORM -->
     <form *ngIf="isEditing && comment.isOwner" #f="ngForm" class="comment-form" (ngSubmit)="onSubmit()">
