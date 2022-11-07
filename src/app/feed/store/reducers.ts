@@ -12,9 +12,9 @@ const initialState: IFeedState = {
 
 export const reducers = createReducer(
     initialState,
-    on(feedActions.loadPosts, (state, data) => ({
+    on(feedActions.loadPosts, (state, payload) => ({
         ...state,
-        feedPosts: [...state.feedPosts, ...data.posts]
+        feedPosts: [...state.feedPosts, ...payload.posts]
     }))
 )
 

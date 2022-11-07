@@ -1,33 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { HomeService } from './service/home.service';
 import { Store } from '@ngrx/store';
-import { selectAllPosts } from './store/selectors';
+import * as homeFeature from './store/reducers';
+import * as homeActions from "./store/actions";
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
-    posts$ = this.store.select(selectAllPosts);
+    posts$ = this.store.select(homeFeature.selectAllPosts);
 
     constructor(
-        private postsService: HomeService,
         private store: Store<any>,
     ) { }
 
     ngOnInit() {
-        this.getAllPosts()
+        this.store.dispatch(homeActions.loadPosts())
     }
 
     onScrollDown() {
-        this.getAllPosts();
+        this.store.dispatch(homeActions.loadPosts())
     }
 
     onScrollUp() {
         console.log('UP')
-    }
-
-    getAllPosts() {
-        this.postsService.getAllPosts().subscribe(() => { })
     }
 }

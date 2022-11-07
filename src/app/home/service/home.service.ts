@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { IPostsServerResponse } from 'src/app/shared/interfaces/IPostsServerResponse';
-import { tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as postsActions from '../store/actions';
 import { selectUser } from 'src/app/store/selectors';
 import { IUser } from 'src/app/shared/interfaces/IUser';
-import { selectAllPosts } from '../store/selectors';
+import { selectAllPosts } from '../store/reducers';
 
 const PAGE_SIZE = 9;
 
@@ -39,9 +39,11 @@ export class HomeService implements OnDestroy {
         const page = Math.ceil(this.postsCount / PAGE_SIZE + 1);
 
         return this.http.get<IPostsServerResponse>(`/api/collections/posts?page=${page}&pageSize=${PAGE_SIZE}&sortBy=createdAt desc&populate=owner`)
-            .pipe(tap(res => {
-                if (res.data && res.data.length > 0) {
-                    this.store.dispatch(postsActions.loadPosts({ posts: res.data }))
+            .pipe(map(res => {
+                if (res.data) {
+                    return res.data
+                } else {
+                    throw new Error();
                 }
             }))
     }

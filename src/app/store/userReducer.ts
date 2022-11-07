@@ -14,12 +14,12 @@ const initialState: IUserState = {
 
 export const userReducer = createReducer(
     initialState,
-    on(userActions.loadUserSuccess, (state, data) => ({
+    on(userActions.loadUserSuccess, (state, payload) => ({
         ...state,
-        user: data,
+        user: payload,
         isAuth: true,
     })),
-    on(userActions.loadUserFailure, (state, data) => ({
+    on(userActions.loadUserFailure, (state) => ({
         ...state,
         user: null,
         isAuth: false,
@@ -56,11 +56,6 @@ export const userReducer = createReducer(
         } else {
             return state;
         }
-
-
-
-
-
     }),
 )
 

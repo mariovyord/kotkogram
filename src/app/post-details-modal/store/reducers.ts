@@ -15,22 +15,22 @@ const initialState: IDetailsState = {
 
 export const reducers = createReducer(
     initialState,
-    on(detailsActions.loadPost, (state, data) => {
+    on(detailsActions.loadPost, (state, payload) => {
         return {
             ...state,
-            post: data.post
+            post: payload.post
         }
     }),
-    on(detailsActions.loadComments, (state, data) => ({
+    on(detailsActions.loadComments, (state, payload) => ({
         ...state,
-        comments: [...data.comments]
+        comments: [...payload.comments]
     })),
-    on(detailsActions.editComment, (state, data) => {
+    on(detailsActions.editComment, (state, payload) => {
         const editedComments = state.comments.map(comment => {
-            if (comment._id === data._id) {
+            if (comment._id === payload._id) {
                 return {
                     ...comment,
-                    body: data.body,
+                    body: payload.body,
                 }
             } else {
                 return comment
@@ -42,25 +42,25 @@ export const reducers = createReducer(
             comments: editedComments
         }
     }),
-    on(detailsActions.deleteComment, (state, data) => {
-        const editedComments = state.comments.filter(comment => comment._id !== data._id)
+    on(detailsActions.deleteComment, (state, payload) => {
+        const editedComments = state.comments.filter(comment => comment._id !== payload._id)
 
         return {
             ...state,
             comments: editedComments
         }
     }),
-    on(detailsActions.editPost, (state, data) => {
+    on(detailsActions.editPost, (state, payload) => {
         const editedPost = Object.assign({}, state.post);
-        editedPost.description = data.description;
+        editedPost.description = payload.description;
 
         return {
             ...state,
             post: editedPost,
         }
     }),
-    on(detailsActions.likePost, (state, data) => {
-        const id = data.userId;
+    on(detailsActions.likePost, (state, payload) => {
+        const id = payload.userId;
         const editedPost = Object.assign({}, state.post);
 
         if (editedPost.likes.includes(id)) {
@@ -74,9 +74,9 @@ export const reducers = createReducer(
             post: editedPost,
         }
     }),
-    on(detailsActions.addComment, (state, data) => ({
+    on(detailsActions.addComment, (state, payload) => ({
         ...state,
-        comments: [data.comment, ...state.comments]
+        comments: [payload.comment, ...state.comments]
     })),
 )
 

@@ -17,17 +17,17 @@ const initialState: IProfileState = {
 
 export const reducers = createReducer(
     initialState,
-    on(postsActions.loadPosts, (state, data) => ({
+    on(postsActions.loadPosts, (state, payload) => ({
         ...state,
-        profilePosts: [...state.profilePosts, ...data.posts]
+        profilePosts: [...state.profilePosts, ...payload.posts]
     })),
-    on(postsActions.loadPostsCount, (state, data) => ({
+    on(postsActions.loadPostsCount, (state, payload) => ({
         ...state,
-        userPostsCount: data.count,
+        userPostsCount: payload.count,
     })),
-    on(postsActions.loadActivatedUser, (state, data) => ({
+    on(postsActions.loadActivatedUser, (state, payload) => ({
         ...state,
-        activatedUser: data.user,
+        activatedUser: payload.user,
     }))
 )
 
