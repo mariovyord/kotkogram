@@ -1,10 +1,12 @@
 <div *ngIf="(post$ | async) as post" class="wrapper">
+    <!-- POST IMAGE -->
     <div class="image-container">
         <img [src]="post.imageUrl" [alt]="post.description">
     </div>
     <div class="comments-container">
         <div class="post">
             <div class="post__title">
+                <!-- POST OWNER DATA -->
                 <div class="flex gap-3">
                     <div
                         class="relative rounded-full overflow-hidden w-6 h-6 border border-gray-100 shadow-sm ring-2 ring-primary ring-offset-2">
@@ -24,9 +26,34 @@
                 </button>
                 <span>{{post.createdAt | date: 'dd/MM/yy, h:mm a'}}</span>
             </div>
-            <div class="post__content">
-                <p>{{post.description}}</p>
+            <!-- POST CONTENT -->
+            <div *ngIf="!isEditing" class="p-2 flex justify-between items-center">
+                <span>{{post.description}}</span>
+                <button *ngIf="isOwner" mat-button (click)="isEditing = !isEditing">Edit</button>
             </div>
+            <div *ngIf="isEditing && isOwner" class="p-2">
+                <form #editF="ngForm" class="w-full flex flex-col gap-1" (ngSubmit)="onPostEdit()">
+                    <mat-form-field style="width: 100%" appearance="outline">
+                        <mat-label>Description</mat-label>
+                        <textarea name="description" id="description" matInput [ngModel]="post.description"
+                            [required]="true" minlength="3" maxlength="280"></textarea>
+                        <mat-error *ngIf="editF.controls['description'].errors?.['required']">
+                            Description is <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="editF.controls['description'].errors?.['minlength']">
+                            Minimum length is <strong>3</strong> characters
+                        </mat-error>
+                        <mat-error *ngIf="editF.controls['description'].errors?.['maxlength']">
+                            Maximum length is <strong>280</strong> characters
+                        </mat-error>
+                    </mat-form-field>
+                    <div class="flex">
+                        <button [disabled]="!editF.valid" mat-button class="w-1/2 text-green-700">Save</button>
+                        <button mat-button (click)="isEditing = false" class="w-1/2 text-red-700">Cancel</button>
+                    </div>
+                </form>
+            </div>
+            <!-- COMMENTS -->
             <div class="flex" *ngIf="user">
                 <button (click)="onLike()" mat-icon-button>
                     <span class="text-sm">{{post.likes.length}}</span>

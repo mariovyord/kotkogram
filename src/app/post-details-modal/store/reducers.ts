@@ -25,6 +25,15 @@ export const reducers = createReducer(
         ...state,
         comments: [...data.comments]
     })),
+    on(detailsActions.editPost, (state, data) => {
+        const editedPost = Object.assign({}, state.post);
+        editedPost.description = data.description;
+
+        return {
+            ...state,
+            post: editedPost,
+        }
+    }),
     on(detailsActions.likePost, (state, data) => {
         const id = data.userId;
         const editedPost = Object.assign({}, state.post);

@@ -14,6 +14,11 @@ export const likePost = createAction(
     props<{ userId: string }>(),
 )
 
+export const editPost = createAction(
+    `${namespace} edit post`,
+    props<{ description: string }>(),
+)
+
 export const loadComments = createAction(
     `${namespace} load comments`,
     props<{ comments: IComment[] }>(),

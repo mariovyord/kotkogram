@@ -9,6 +9,7 @@ import * as detailsActions from '../store/actions';
 import { ICommentsServerResponse } from 'src/app/shared/interfaces/ICommentsServerResponse';
 import { IOneCommentServerResponse } from 'src/app/shared/interfaces/IOneCommentServerResponse';
 import { IUser } from 'src/app/shared/interfaces/IUser';
+import { IPostsServerResponse } from 'src/app/shared/interfaces/IPostsServerResponse';
 
 const PAGE_SIZE = 9;
 
@@ -62,6 +63,16 @@ export class DetailsService implements OnDestroy {
                 }
             })
         )
+    }
+
+    editPost(postId: string, data: { description: string }) {
+        return this.http.patch<IOnePostServerResponse>(`/api/collections/posts/${postId}`, {
+            description: data.description,
+        }).pipe(tap((res) => {
+            if (res.data) {
+                this.store.dispatch(detailsActions.editPost({ description: res.data.description }))
+            }
+        }))
     }
 
     deletePost(postId: string) {

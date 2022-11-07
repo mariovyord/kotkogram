@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Inject, OnDestroy } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { PostsService } from 'src/app/shared/posts/posts.service';
 import { IPost } from 'src/app/shared/interfaces/IPost';
 import { NgForm } from '@angular/forms';
@@ -13,6 +13,7 @@ import { IUser } from 'src/app/shared/interfaces/IUser';
 import * as userActions from '../../store/actions';
 import { DetailsService } from '../service/details.service';
 import { selectAllComments, selectPost } from '../store/selectors';
+import { SnackbarService } from 'src/app/shared/snackbar/snackbar.service';
 
 @Component({
     selector: 'app-post-details',
@@ -22,8 +23,11 @@ import { selectAllComments, selectPost } from '../store/selectors';
 export class PostDetailsComponent implements OnInit, OnDestroy {
     postId: string;
     @Output() modal_principal_parent = new EventEmitter();
+    @ViewChild('editF') editForm: NgForm;
 
     panelOpenState: boolean = false;
+    isOwner = false;
+    isEditing = false;
     isFollowLoading = false;
     getUserData$: Subscription;
     user: IUser | null | undefined;
@@ -36,6 +40,7 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
         private userService: UserService,
         private dialog: MatDialog,
         private store: Store<any>,
+        private snackbarService: SnackbarService,
         @Inject(MAT_DIALOG_DATA) public data: any
     ) {
         this.postId = data.postId;
@@ -46,7 +51,13 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
             this.user = user
         });
 
-        this.detailsService.getOnePost(this.postId).subscribe(() => { })
+        // TODO Add to service or ngrx
+        this.detailsService.getOnePost(this.postId).subscribe((res) => {
+            if (res.data) {
+                this.isOwner = this.user?._id === res.data.owner._id;
+            }
+        })
+
         this.detailsService.getComments(this.postId).subscribe(() => { })
     }
 
@@ -71,6 +82,19 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
             error: res => {
                 // TODO...
                 console.log('error', res.errors);
+            }
+        })
+    }
+
+    onPostEdit() {
+        this.isEditing = false;
+        const { description } = this.editForm.value;
+        this.detailsService.editPost(this.postId, { description }).subscribe({
+            next: () => {
+                this.snackbarService.openSnackBar('Post edited successfully!')
+            },
+            error: res => {
+                this.snackbarService.openSnackBar(res.error.errors[0])
             }
         })
     }

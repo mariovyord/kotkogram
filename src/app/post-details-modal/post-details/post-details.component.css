@@ -71,10 +71,6 @@
     font-size: 0.9rem;
 }
 
-.post__content {
-    padding: 5px;
-}
-
 .post__icons {
     transform: scale(1.5);
 }
