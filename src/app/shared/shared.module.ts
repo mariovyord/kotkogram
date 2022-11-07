@@ -4,7 +4,7 @@ import { SquareCardComponent } from './cards-grid/square-card/square-card.compon
 import { CardsGridComponent } from './cards-grid/cards-grid.component';
 import { MaterialModule } from '../material.module';
 import { RouterModule } from '@angular/router';
-import { CardsGridLoadingComponent } from './cards-grid-loading/cards-grid-loading.component';
+import { CardsGridLoadingComponent } from './cards-grid/cards-grid-loading/cards-grid-loading.component';
 
 @NgModule({
     declarations: [

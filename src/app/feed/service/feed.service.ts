@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
-import { tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { IUser } from 'src/app/shared/interfaces/IUser';
 import { selectUser } from 'src/app/store/selectors';
 import { IPostsServerResponse } from 'src/app/shared/interfaces/IPostsServerResponse';
-import * as feedActions from '../store/actions';
+import * as feedActions from '../store/feed.actions';
 import { IPost } from 'src/app/shared/interfaces/IPost';
-import { selectFeedPosts } from '../store/selectors';
+import * as feedFeature from '../store/feed.feature';
 
 const PAGE_SIZE = 9;
 
@@ -26,7 +26,7 @@ export class FeedService implements OnDestroy {
         this.getUserData$ = this.store.select(selectUser).subscribe(user => {
             this.user = user;
         })
-        this.postsSubs$ = this.store.select(selectFeedPosts).subscribe(posts => {
+        this.postsSubs$ = this.store.select(feedFeature.selectFeedPosts).subscribe(posts => {
             this.postsCount = posts.length;
         })
     }
@@ -49,9 +49,11 @@ export class FeedService implements OnDestroy {
         })
 
         return this.http.get<IPostsServerResponse>(`/api/collections/posts?page=${page}&pageSize=${PAGE_SIZE}&${whereQuery.join('&')}&sortBy=createdAt desc&populate=owner`)
-            .pipe(tap(res => {
-                if (res.data && res.data.length > 0) {
-                    this.store.dispatch(feedActions.loadPosts({ posts: res.data }))
+            .pipe(map(res => {
+                if (res.data) {
+                    return res.data;
+                } else {
+                    throw new Error();
                 }
             }))
     }

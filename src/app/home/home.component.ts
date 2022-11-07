@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import * as homeFeature from './store/reducers';
-import * as homeActions from "./store/actions";
+import * as homeFeature from './store/home.feature';
+import * as homeActions from "./store/home.actions";
 
 @Component({
     selector: 'app-home',

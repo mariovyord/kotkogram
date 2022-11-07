@@ -1,36 +1,36 @@
 import { createFeature, createReducer, on } from "@ngrx/store";
 import { IPost } from "src/app/shared/interfaces/IPost";
-import * as postsActions from "./actions";
+import * as feedActions from "./feed.actions";
 
-export interface IHomeState {
-    allPosts: IPost[],
+export interface IFeedState {
+    feedPosts: IPost[],
     loading: boolean,
 }
 
-const initialState: IHomeState = {
-    allPosts: [],
+const initialState: IFeedState = {
+    feedPosts: [],
     loading: false,
 }
 
-export const homeFeature = createFeature(
+export const feedFeature = createFeature(
     {
-        name: 'home',
+        name: 'feed',
         reducer: createReducer(
             initialState,
-            on(postsActions.loadPosts, (state) => ({
+            on(feedActions.loadPosts, (state) => ({
                 ...state,
                 loading: true
             })),
-            on(postsActions.loadPostsSuccess, (state, data) => ({
+            on(feedActions.loadPostsSuccess, (state, data) => ({
                 ...state,
-                allPosts: [...state.allPosts, ...data.posts],
+                feedPosts: [...state.feedPosts, ...data.posts],
                 loading: false
             })),
-            on(postsActions.loadPostsCancel, (state) => ({
+            on(feedActions.loadPostsCancel, (state) => ({
                 ...state,
                 loading: false
             })),
-            on(postsActions.loadPostsFailure, (state) => ({
+            on(feedActions.loadPostsFailure, (state) => ({
                 ...state,
                 loading: false
             })),
@@ -41,8 +41,9 @@ export const homeFeature = createFeature(
 export const {
     name, // feature name
     reducer, // feature reducer
-    selectHomeState, // feature selector
-    selectAllPosts, // selector for `books` property
+    selectFeedPosts, // feature selector
+    selectFeedState, // selector for `books` property
     selectLoading, // selector for `loading` property
-} = homeFeature;
+} = feedFeature;
+
 

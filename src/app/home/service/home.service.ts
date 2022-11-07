@@ -4,10 +4,10 @@ import { IPostsServerResponse } from 'src/app/shared/interfaces/IPostsServerResp
 import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import * as postsActions from '../store/actions';
+import * as postsActions from '../store/home.actions';
 import { selectUser } from 'src/app/store/selectors';
 import { IUser } from 'src/app/shared/interfaces/IUser';
-import { selectAllPosts } from '../store/reducers';
+import { selectAllPosts } from '../store/home.feature';
 
 const PAGE_SIZE = 9;
 

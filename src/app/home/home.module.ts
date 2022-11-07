@@ -6,9 +6,9 @@ import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { HomeService } from './service/home.service';
-import { homeFeature } from './store/reducers';
+import { homeFeature } from './store/home.feature';
 import { EffectsModule } from '@ngrx/effects';
-import { PostsEffects } from './store/effects';
+import { PostsEffects } from './store/home.effects';
 
 @NgModule({
     declarations: [

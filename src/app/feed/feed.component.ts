@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { FeedService } from './service/feed.service';
-import { selectFeedPosts } from './store/selectors';
+import * as feedActions from './store/feed.actions';
+import { feedFeature } from './store/feed.feature';
 
 @Component({
     selector: 'app-feed',
@@ -10,28 +10,22 @@ import { selectFeedPosts } from './store/selectors';
 export class FeedComponent implements OnInit {
     page = 0;
 
-    feedPosts$ = this.store.select(selectFeedPosts);
+    feedPosts$ = this.store.select(feedFeature.selectFeedPosts);
+    isLoading$ = this.store.select(feedFeature.selectLoading);
 
     constructor(
-        private feedService: FeedService,
         private store: Store<any>,
     ) { }
 
     ngOnInit() {
-        this.getFeedPosts()
+        this.store.dispatch(feedActions.loadPosts());
     }
 
     onScrollDown() {
-        this.getFeedPosts();
+        this.store.dispatch(feedActions.loadPosts());
     }
 
     onScrollUp() {
         console.log('UP')
     }
-
-    getFeedPosts() {
-        this.feedService.getAllFeedPosts().subscribe(() => { })
-    }
-
-
 }
