@@ -25,6 +25,23 @@ export const reducers = createReducer(
         ...state,
         comments: [...data.comments]
     })),
+    on(detailsActions.editComment, (state, data) => {
+        const editedComments = state.comments.map(comment => {
+            if (comment._id === data._id) {
+                return {
+                    ...comment,
+                    body: data.body,
+                }
+            } else {
+                return comment
+            }
+        })
+
+        return {
+            ...state,
+            comments: editedComments
+        }
+    }),
     on(detailsActions.editPost, (state, data) => {
         const editedPost = Object.assign({}, state.post);
         editedPost.description = data.description;

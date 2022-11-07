@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Inject, OnDestroy, ViewChild }
 import { PostsService } from 'src/app/shared/posts/posts.service';
 import { IPost } from 'src/app/shared/interfaces/IPost';
 import { NgForm } from '@angular/forms';
-import { Subscription, tap } from 'rxjs';
+import { Subscription, tap, map } from 'rxjs';
 import { UserService } from 'src/app/shared/user/user.service';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -58,7 +58,8 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
             }
         })
 
-        this.detailsService.getComments(this.postId).subscribe(() => { })
+        this.detailsService.getComments(this.postId)
+            .subscribe({})
     }
 
     ngOnDestroy(): void {

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, tap, map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { IOnePostServerResponse } from 'src/app/shared/interfaces/IOnePostServerResponse';
 import { Store } from '@ngrx/store';
@@ -9,7 +9,6 @@ import * as detailsActions from '../store/actions';
 import { ICommentsServerResponse } from 'src/app/shared/interfaces/ICommentsServerResponse';
 import { IOneCommentServerResponse } from 'src/app/shared/interfaces/IOneCommentServerResponse';
 import { IUser } from 'src/app/shared/interfaces/IUser';
-import { IPostsServerResponse } from 'src/app/shared/interfaces/IPostsServerResponse';
 
 const PAGE_SIZE = 9;
 
@@ -42,11 +41,21 @@ export class DetailsService implements OnDestroy {
 
     getComments(id: string) {
         return this.http.get<ICommentsServerResponse>(`/api/collections/comments?where=post=${id}&sortBy=createdAt desc&populate=owner`)
-            .pipe(tap(res => {
-                if (res.data && res.data.length > 0) {
-                    this.store.dispatch(detailsActions.loadComments({ comments: res.data }))
-                }
-            }));
+            .pipe(
+                tap(res => {
+                    if (res.data && res.data.length > 0) {
+
+                        this.store.dispatch(detailsActions.loadComments({
+                            comments: res.data.map(comment => {
+                                return {
+                                    ...comment,
+                                    isOwner: this.user?._id === comment.owner._id
+                                }
+                            })
+                        }))
+                    }
+                })
+            )
     }
 
     postComment(body: string, postId: string) {
@@ -64,6 +73,17 @@ export class DetailsService implements OnDestroy {
             })
         )
     }
+
+    editComment(commentId: string, data: { body: string }) {
+        return this.http.patch<IOneCommentServerResponse>(`/api/collections/comments/${commentId}`, {
+            body: data.body,
+        }).pipe(tap((res) => {
+            if (res.data) {
+                this.store.dispatch(detailsActions.editComment({ _id: res.data._id, body: res.data.body }))
+            }
+        }))
+    }
+
 
     editPost(postId: string, data: { description: string }) {
         return this.http.patch<IOnePostServerResponse>(`/api/collections/posts/${postId}`, {

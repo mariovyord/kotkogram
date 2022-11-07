@@ -5,5 +5,6 @@ export interface IComment {
     body: string,
     owner: IUser,
     post: string,
+    isOwner?: boolean,
 }
 

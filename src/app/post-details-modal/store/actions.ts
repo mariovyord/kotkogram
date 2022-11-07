@@ -19,6 +19,11 @@ export const editPost = createAction(
     props<{ description: string }>(),
 )
 
+export const editComment = createAction(
+    `${namespace} edit comment`,
+    props<{ _id: string, body: string }>(),
+)
+
 export const loadComments = createAction(
     `${namespace} load comments`,
     props<{ comments: IComment[] }>(),

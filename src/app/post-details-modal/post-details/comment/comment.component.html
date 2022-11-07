@@ -9,6 +9,34 @@
                 [routerLink]="'/profile/' + comment.owner._id">{{comment.owner.username}}</a>
         </h3>
     </div>
-    <p>{{comment.body}}</p>
+
+    <!-- COMMENT BODY -->
+    <div class="flex justify-between items-center relative w-full">
+        <span *ngIf="!isEditing">{{comment.body}}</span>
+        <button class="absolute top-0 right-0" mat-button *ngIf="!isEditing && comment.isOwner"
+            (click)="isEditing = !isEditing">Edit</button>
+    </div>
+    <!-- EDIT COMMENT FORM -->
+    <form *ngIf="isEditing && comment.isOwner" #f="ngForm" class="comment-form" (ngSubmit)="onSubmit()">
+        <mat-form-field style="width: 100%" appearance="outline">
+            <mat-label>Leave a comment</mat-label>
+            <textarea name="comment" id="comment" matInput [ngModel]="comment.body" [required]="true" minlength="3"
+                maxlength="280"></textarea>
+            <mat-error *ngIf="f.controls['comment']?.errors?.['required']">
+                Comment cannot be empty
+            </mat-error>
+            <mat-error *ngIf="f.controls['comment']?.errors?.['minlength']">
+                Minimum length is <strong>3</strong> characters
+            </mat-error>
+            <mat-error *ngIf="f.controls['comment']?.errors?.['maxlength']">
+                Maximum length is <strong>280</strong> characters
+            </mat-error>
+        </mat-form-field>
+        <div class="flex">
+            <button [disabled]="!f.valid" mat-button class="w-1/2 text-green-700">Save</button>
+            <button mat-button (click)="isEditing = false" class="w-1/2 text-red-700">Cancel</button>
+        </div>
+    </form>
+
 </div>
 <mat-divider></mat-divider>
