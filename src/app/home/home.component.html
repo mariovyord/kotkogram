@@ -1,7 +1,7 @@
-<div *ngIf="!(isLoading$|async)" infiniteScroll [infiniteScrollContainer]="'.sidenav-content'" [fromRoot]="true"
-    [infiniteScrollDistance]="2" [infiniteScrollUpDistance]="1.5" [infiniteScrollThrottle]="50"
-    (scrolled)="onScrollDown()" (scrolledUp)="onScrollUp()">
-    <app-cards-grid *ngIf="posts$" [posts]="(posts$ | async)!"></app-cards-grid>
+<div infiniteScroll [infiniteScrollContainer]="'.sidenav-content'" [fromRoot]="true" [infiniteScrollDistance]="2"
+    [infiniteScrollUpDistance]="1.5" [infiniteScrollThrottle]="50" (scrolled)="onScrollDown()"
+    (scrolledUp)="onScrollUp()">
+    <app-cards-grid-loading *ngIf="(isLoading$ | async)"></app-cards-grid-loading>
+    <app-cards-grid [posts]="(posts$ | async)!"></app-cards-grid>
     <router-outlet></router-outlet>
 </div>
-<app-cards-grid-loading *ngIf="(isLoading$|async)"></app-cards-grid-loading>

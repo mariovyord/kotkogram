@@ -1,12 +1,10 @@
 <div class="max-w-4xl flex mx-auto md:w-2/3" infiniteScroll [infiniteScrollContainer]="'.sidenav-content'"
     [fromRoot]="true" [infiniteScrollDistance]="2" [infiniteScrollUpDistance]="1.5" [infiniteScrollThrottle]="50"
     (scrolled)="onScrollDown()" (scrolledUp)="onScrollUp()">
-    <section *ngIf="!(isLoading$ | async)" class="mx-auto p-2 flex flex-col gap-3">
+    <section class="mx-auto p-2 flex flex-col gap-3">
+        <app-feed-loading *ngIf="(isLoading$ | async)"></app-feed-loading>
         <app-feed-card *ngFor="let post of (feedPosts$ | async)" [post]="post">
         </app-feed-card>
-    </section>
-    <section *ngIf="(isLoading$ | async)" class="mx-auto p-2 flex flex-col gap-3 w-full">
-        <app-feed-loading></app-feed-loading>
     </section>
     <section class="hidden md:block w-1/3">
 

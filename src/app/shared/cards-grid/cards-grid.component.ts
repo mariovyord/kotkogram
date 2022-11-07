@@ -14,4 +14,9 @@ export class CardsGridComponent implements OnInit {
     ngOnInit(): void {
     }
 
+    trackByFunc(index: number, item: IPost) {
+        if (!item) return null;
+        return item._id;
+    }
+
 }
