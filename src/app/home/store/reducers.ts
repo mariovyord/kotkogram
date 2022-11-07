@@ -23,7 +23,8 @@ export const homeFeature = createFeature(
             })),
             on(postsActions.loadPostsSuccess, (state, data) => ({
                 ...state,
-                allPosts: [...state.allPosts, ...data.posts]
+                allPosts: [...state.allPosts, ...data.posts],
+                loading: false
             })),
             on(postsActions.loadPostsCancel, (state) => ({
                 ...state,

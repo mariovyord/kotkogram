@@ -1,0 +1,77 @@
+:host {
+    max-width: 965px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+@media (max-width: 965px) {
+    :host {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    :host {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+.card {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    aspect-ratio: 1;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    background-color: #96969680;
+}
+
+.card:hover .overlay {
+    opacity: 1;
+}
+
+.overlay__buttons {
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.like-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 20px;
+
+
+}
+
+.like-btn:hover {
+    cursor: pointer;
+}
+
+
+
+
+

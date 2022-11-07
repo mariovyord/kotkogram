@@ -9,6 +9,7 @@ import * as homeActions from "./store/actions";
 })
 export class HomeComponent implements OnInit {
     posts$ = this.store.select(homeFeature.selectAllPosts);
+    isLoading$ = this.store.select(homeFeature.selectLoading);
 
     constructor(
         private store: Store<any>,
