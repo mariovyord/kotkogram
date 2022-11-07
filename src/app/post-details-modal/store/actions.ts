@@ -24,6 +24,11 @@ export const editComment = createAction(
     props<{ _id: string, body: string }>(),
 )
 
+export const deleteComment = createAction(
+    `${namespace} delete comment`,
+    props<{ _id: string }>(),
+)
+
 export const loadComments = createAction(
     `${namespace} load comments`,
     props<{ comments: IComment[] }>(),

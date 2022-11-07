@@ -42,6 +42,14 @@ export const reducers = createReducer(
             comments: editedComments
         }
     }),
+    on(detailsActions.deleteComment, (state, data) => {
+        const editedComments = state.comments.filter(comment => comment._id !== data._id)
+
+        return {
+            ...state,
+            comments: editedComments
+        }
+    }),
     on(detailsActions.editPost, (state, data) => {
         const editedPost = Object.assign({}, state.post);
         editedPost.description = data.description;

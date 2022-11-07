@@ -84,6 +84,12 @@ export class DetailsService implements OnDestroy {
         }))
     }
 
+    deleteComment(commentId: string) {
+        return this.http.delete(`/api/collections/comments/${commentId}`,)
+            .pipe(tap(() => {
+                this.store.dispatch(detailsActions.deleteComment({ _id: commentId }));
+            }))
+    }
 
     editPost(postId: string, data: { description: string }) {
         return this.http.patch<IOnePostServerResponse>(`/api/collections/posts/${postId}`, {
