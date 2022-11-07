@@ -6,10 +6,10 @@ import { Subscription } from 'rxjs';
 import { IGenericServerResponse } from 'src/app/shared/interfaces/IGenericServerResponse';
 import { Store } from '@ngrx/store';
 import { selectUser } from 'src/app/store/selectors';
-import * as profileActions from '../store/actions';
+import * as profileActions from '../store/profile.actions';
 import { IUser } from 'src/app/shared/interfaces/IUser';
 import { IPost } from 'src/app/shared/interfaces/IPost';
-import { selectProfilePosts } from '../store/selectors';
+import { selectProfilePosts } from '../store/profile.selectors';
 import { IUserServerResponse } from 'src/app/shared/interfaces/IUserServerResponse';
 import { loadUser } from 'src/app/store/actions';
 

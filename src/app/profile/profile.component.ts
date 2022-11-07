@@ -4,8 +4,8 @@ import { UserService } from '../shared/user/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IUser } from '../shared/interfaces/IUser';
 import { Store } from '@ngrx/store';
-import { selectPostsCount, selectProfilePosts, selectActivatedUser } from './store/selectors';
-import * as profileActions from './store/actions';
+import { selectPostsCount, selectProfilePosts, selectActivatedUser } from './store/profile.selectors';
+import * as profileActions from './store/profile.actions';
 import { ProfileService } from './service/profile.service';
 
 @Component({

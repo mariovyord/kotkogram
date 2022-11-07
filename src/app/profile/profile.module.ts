@@ -6,7 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../material.module';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { RouterModule } from '@angular/router';
-import { reducers } from './store/reducers';
+import { profileReducers } from './store/profile.reducers';
 import { StoreModule } from '@ngrx/store';
 import { ProfileService } from './service/profile.service';
 import { SettingsComponent } from './settings/settings.component';
@@ -26,7 +26,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         RouterModule,
         FormsModule,
         ReactiveFormsModule,
-        StoreModule.forFeature('profile', reducers),
+        StoreModule.forFeature('profile', profileReducers),
     ],
     exports: [
         ProfileComponent,

@@ -1,7 +1,7 @@
 import { createReducer, on } from "@ngrx/store";
 import { IPost } from "src/app/shared/interfaces/IPost";
 import { IUser } from "src/app/shared/interfaces/IUser";
-import * as postsActions from "./actions";
+import * as postsActions from "./profile.actions";
 
 export interface IProfileState {
     profilePosts: IPost[],
@@ -15,7 +15,7 @@ const initialState: IProfileState = {
     activatedUser: null,
 }
 
-export const reducers = createReducer(
+export const profileReducers = createReducer(
     initialState,
     on(postsActions.loadPosts, (state, payload) => ({
         ...state,
