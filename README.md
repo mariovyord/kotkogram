@@ -7,6 +7,7 @@ Angular SoftUni Exam Project.
 ## Tech Stack
 
 - Angular 14
+- NgRx
 - Angular Material
 - TailwindCSS
 
@@ -16,6 +17,17 @@ The app has its own dedicated REST API.
 
 - URL: *SoonTM*
 - GitHub: <https://github.com/mariovyord/kotkogram-api>
+
+## Features
+
+- [x] Home feed - incl. all posts  
+- [x] Personal feed - incl. posts of users you follow  
+- [x] Profile page - incl. user posts and personal data
+- [x] Details dialog - you can view post details in dialog from any page - home, feed or profile
+- [x] You can login, register or view home page as guest
+- [x] Users can like/unlike, create, edit and delete posts
+- [x] Users can create, edit and delete comments
+- [x] Users can follow other users
 
 ## Development server
 
