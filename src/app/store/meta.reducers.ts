@@ -1,8 +1,6 @@
 // console.log all actions
 import { ActionReducer, MetaReducer } from '@ngrx/store';
 import * as userActions from './user.actions';
-import * as detailsActions from '../post-details-modal/store/details.actions';
-import { IPost } from '../shared/interfaces/IPost';
 
 export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
     return function (state, action) {

@@ -53,7 +53,7 @@
                     </div>
                 </form>
             </div>
-            <!-- COMMENTS -->
+            <!-- CONTROLS -->
             <div class="flex" *ngIf="user">
                 <button (click)="onLike()" mat-icon-button>
                     <span class="text-sm">{{post.likes.length}}</span>
@@ -64,12 +64,13 @@
                 <button mat-icon-button (click)="togglePanel()">
                     <mat-icon class="scale-150" color="primary" aria-hidden="false" aria-label="like">comment</mat-icon>
                 </button>
-                <button *ngIf="user?._id === post.owner._id" mat-icon-button (click)="openDialog()">
+                <!-- <button *ngIf="user?._id === post.owner._id" mat-icon-button (click)="openDialog()">
                     <mat-icon class="scale-150 text-red-600" aria-hidden="false" aria-label="delete">delete</mat-icon>
-                </button>
+                </button> -->
             </div>
             <mat-divider></mat-divider>
         </div>
+        <!-- COMMENTS -->
         <div class="form-container">
             <mat-expansion-panel [expanded]="panelOpenState" class="mat-elevation-z0">
                 <form #f="ngForm" class="comment-form" (ngSubmit)="onSubmit(f)">

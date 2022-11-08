@@ -26,6 +26,7 @@ export const reducers = createReducer(
         comments: [...payload.comments]
     })),
     on(detailsActions.editComment, (state, payload) => {
+        console.log('state', state)
         const editedComments = state.comments.map(comment => {
             if (comment._id === payload._id) {
                 return {
