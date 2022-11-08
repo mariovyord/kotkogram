@@ -1,7 +1,7 @@
 import { createReducer, on } from "@ngrx/store";
 import { IComment } from "src/app/shared/interfaces/IComment";
 import { IPost } from "src/app/shared/interfaces/IPost";
-import * as detailsActions from "./actions";
+import * as detailsActions from "./details.actions";
 
 export interface IDetailsState {
     post: IPost | null,
@@ -41,6 +41,9 @@ export const reducers = createReducer(
             ...state,
             comments: editedComments
         }
+    }),
+    on(detailsActions.deletePost, () => {
+        return Object.assign({}, initialState);
     }),
     on(detailsActions.deleteComment, (state, payload) => {
         const editedComments = state.comments.filter(comment => comment._id !== payload._id)

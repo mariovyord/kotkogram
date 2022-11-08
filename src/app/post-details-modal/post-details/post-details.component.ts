@@ -12,8 +12,9 @@ import { selectUser } from 'src/app/store/user.selectors';
 import { IUser } from 'src/app/shared/interfaces/IUser';
 import * as userActions from '../../store/user.actions';
 import { DetailsService } from '../service/details.service';
-import { selectAllComments, selectPost } from '../store/selectors';
+import { selectAllComments, selectPost } from '../store/details.selectors';
 import { SnackbarService } from 'src/app/shared/snackbar/snackbar.service';
+import * as detailsActions from '../store/details.actions';
 
 @Component({
     selector: 'app-post-details',
@@ -131,9 +132,7 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
                 this.detailsService.deletePost(this.postId)
                     .subscribe({
                         next: () => {
-                            // TODO remove data from redux
-
-                            this.modal_principal_parent.emit();
+                            this.closeWithRedirect(this.user?._id || '');
                         },
                         error: () => { }
                     })

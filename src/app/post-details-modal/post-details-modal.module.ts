@@ -9,7 +9,7 @@ import { DialogModule } from '@angular/cdk/dialog';
 import { RouterModule } from '@angular/router';
 import { PostDetailsModalComponent } from './post-details-modal.component';
 import { StoreModule } from '@ngrx/store';
-import { reducers } from './store/reducers';
+import { reducers } from './store/details.reducers';
 import { DetailsService } from './service/details.service';
 
 @NgModule({

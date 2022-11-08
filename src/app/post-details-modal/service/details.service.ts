@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { IOnePostServerResponse } from 'src/app/shared/interfaces/IOnePostServerResponse';
 import { Store } from '@ngrx/store';
 import { selectUser } from 'src/app/store/user.selectors';
-import * as detailsActions from '../store/actions';
+import * as detailsActions from '../store/details.actions';
 import { ICommentsServerResponse } from 'src/app/shared/interfaces/ICommentsServerResponse';
 import { IOneCommentServerResponse } from 'src/app/shared/interfaces/IOneCommentServerResponse';
 import { IUser } from 'src/app/shared/interfaces/IUser';
@@ -104,8 +104,7 @@ export class DetailsService implements OnDestroy {
     deletePost(postId: string) {
         return this.http.delete(`/api/collections/posts/${postId}`,)
             .pipe(tap(() => {
-                // this.allPosts = this.allPosts.filter(x => x._id !== postId);
-                // this.feedPosts = this.feedPosts.filter(x => x._id !== postId);
+                this.store.dispatch(detailsActions.deletePost());
             }))
     }
 

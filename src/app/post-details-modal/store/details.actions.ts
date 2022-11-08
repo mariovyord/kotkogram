@@ -39,4 +39,9 @@ export const addComment = createAction(
     props<{ comment: IComment }>(),
 )
 
+export const deletePost = createAction(
+    `${namespace} delete post`,
+)
+
+
 
