@@ -15,13 +15,11 @@ export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
 export function clearState(reducer: ActionReducer<any>): ActionReducer<any> {
     return function (state, action) {
         if (action.type === userActions.clearUser.type) {
-            state.profile = undefined;
-            state.feed = undefined;
-            state.details = undefined;
+            state = undefined;
         }
 
         return reducer(state, action);
     };
 }
 
-export const metaReducers: MetaReducer<any>[] = [];
+export const metaReducers: MetaReducer<any>[] = [clearState];
