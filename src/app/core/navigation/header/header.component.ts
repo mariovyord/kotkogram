@@ -2,7 +2,7 @@ import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/shared/user/user.service';
-import { selectIsAuth, selectUser } from '../../../store/selectors';
+import { selectIsAuth, selectUser } from '../../../store/user.selectors';
 
 @Component({
     selector: 'app-header',

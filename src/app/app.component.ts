@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { loadUser } from './store/actions';
-import { selectUser } from './store/selectors';
+import { loadUser } from './store/user.actions';
+import { selectUser } from './store/user.selectors';
 
 @Component({
     selector: 'app-root',

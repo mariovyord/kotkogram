@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { IUser } from 'src/app/shared/interfaces/IUser';
 import { SnackbarService } from 'src/app/shared/snackbar/snackbar.service';
-import { selectUser } from 'src/app/store/selectors';
+import { selectUser } from 'src/app/store/user.selectors';
 import { editableUser, ProfileService } from '../service/profile.service';
 import { PasswordAsyncValidator } from './correct-password';
 

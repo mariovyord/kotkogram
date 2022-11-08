@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 import { UserService } from 'src/app/shared/user/user.service';
-import { selectUser } from 'src/app/store/selectors';
+import { selectUser } from 'src/app/store/user.selectors';
 
 @Injectable({
     providedIn: 'root'

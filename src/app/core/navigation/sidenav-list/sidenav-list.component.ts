@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { UserService } from 'src/app/shared/user/user.service';
-import { selectIsAuth, selectUser } from 'src/app/store/selectors';
+import { selectIsAuth, selectUser } from 'src/app/store/user.selectors';
 
 @Component({
     selector: 'app-sidenav-list',

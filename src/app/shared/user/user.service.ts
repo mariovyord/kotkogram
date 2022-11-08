@@ -6,7 +6,7 @@ import { IGenericServerResponse } from '../../shared/interfaces/IGenericServerRe
 import { tap, map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import * as userActions from '../../store/actions';
+import * as userActions from '../../store/user.actions';
 
 @Injectable({
     providedIn: 'root'

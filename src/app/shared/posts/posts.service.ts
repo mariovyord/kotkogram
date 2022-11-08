@@ -8,7 +8,7 @@ import { of, map, Subscription } from 'rxjs';
 import { IOnePostServerResponse } from 'src/app/shared/interfaces/IOnePostServerResponse';
 import { IGenericServerResponse } from 'src/app/shared/interfaces/IGenericServerResponse';
 import { Store } from '@ngrx/store';
-import { selectUser } from 'src/app/store/selectors';
+import { selectUser } from 'src/app/store/user.selectors';
 import { IUser } from '../interfaces/IUser';
 
 const PAGE_SIZE = 9;

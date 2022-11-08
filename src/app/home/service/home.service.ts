@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as postsActions from '../store/home.actions';
-import { selectUser } from 'src/app/store/selectors';
+import { selectUser } from 'src/app/store/user.selectors';
 import { IUser } from 'src/app/shared/interfaces/IUser';
 import { selectAllPosts } from '../store/home.feature';
 

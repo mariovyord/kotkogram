@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { IUser } from '../shared/interfaces/IUser';
 import { PostsService } from '../shared/posts/posts.service';
 import { SnackbarService } from '../shared/snackbar/snackbar.service';
-import { selectUser } from '../store/selectors';
+import { selectUser } from '../store/user.selectors';
 
 @Component({
     selector: 'app-create',

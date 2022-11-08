@@ -20,7 +20,8 @@ import { StoreModule } from '@ngrx/store';
 import { reducers } from './store/index';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
-import { UserEffects } from './store/effects';
+import { UserEffects } from './store/user.effects';
+import { metaReducers } from './store/meta.reducers';
 
 @NgModule({
     declarations: [
@@ -41,7 +42,7 @@ import { UserEffects } from './store/effects';
         HttpClientModule,
         FormsModule,
         HomeModule,
-        StoreModule.forRoot(reducers),
+        StoreModule.forRoot(reducers, { metaReducers }),
         EffectsModule.forRoot([UserEffects]),
         StoreDevtoolsModule.instrument({}),
     ],

@@ -1,6 +1,6 @@
 import { createSelector } from "@ngrx/store";
 import { IGlobalState } from ".";
-import { IUserState } from "./userReducer";
+import { IUserState } from "./user.reducer";
 
 export const selectUserState = (state: IGlobalState) => state.user;
 

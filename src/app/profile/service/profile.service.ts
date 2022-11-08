@@ -5,13 +5,13 @@ import { tap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { IGenericServerResponse } from 'src/app/shared/interfaces/IGenericServerResponse';
 import { Store } from '@ngrx/store';
-import { selectUser } from 'src/app/store/selectors';
+import { selectUser } from 'src/app/store/user.selectors';
 import * as profileActions from '../store/profile.actions';
 import { IUser } from 'src/app/shared/interfaces/IUser';
 import { IPost } from 'src/app/shared/interfaces/IPost';
 import { selectProfilePosts } from '../store/profile.selectors';
 import { IUserServerResponse } from 'src/app/shared/interfaces/IUserServerResponse';
-import { loadUser } from 'src/app/store/actions';
+import { loadUser } from 'src/app/store/user.actions';
 
 const PAGE_SIZE = 9;
 

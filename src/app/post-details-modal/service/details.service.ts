@@ -4,7 +4,7 @@ import { catchError, tap, map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { IOnePostServerResponse } from 'src/app/shared/interfaces/IOnePostServerResponse';
 import { Store } from '@ngrx/store';
-import { selectUser } from 'src/app/store/selectors';
+import { selectUser } from 'src/app/store/user.selectors';
 import * as detailsActions from '../store/actions';
 import { ICommentsServerResponse } from 'src/app/shared/interfaces/ICommentsServerResponse';
 import { IOneCommentServerResponse } from 'src/app/shared/interfaces/IOneCommentServerResponse';
