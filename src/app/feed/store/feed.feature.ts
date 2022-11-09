@@ -21,9 +21,9 @@ export const feedFeature = createFeature(
                 ...state,
                 loading: true
             })),
-            on(feedActions.loadPostsSuccess, (state, data) => ({
+            on(feedActions.loadPostsSuccess, (state, payload) => ({
                 ...state,
-                feedPosts: [...state.feedPosts, ...data.posts],
+                feedPosts: [...state.feedPosts, ...payload.posts],
                 loading: false
             })),
             on(feedActions.loadPostsCancel, (state) => ({
@@ -32,6 +32,11 @@ export const feedFeature = createFeature(
             })),
             on(feedActions.loadPostsFailure, (state) => ({
                 ...state,
+                loading: false
+            })),
+            on(feedActions.resetWithNewData, (state, payload) => ({
+                ...state,
+                feedPosts: [...payload.posts],
                 loading: false
             })),
         )

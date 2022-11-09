@@ -36,11 +36,10 @@ export class FeedService implements OnDestroy {
         this.postsSubs$.unsubscribe();
     }
 
-    getAllFeedPosts() {
+    getAllFeedPosts(wantedPage?: number) {
         if (!this.user) { throw new Error('Need valid user to see feed') }
 
-        const page = Math.ceil(this.postsCount / PAGE_SIZE + 1);
-        console.log(page);
+        const page = wantedPage || Math.ceil(this.postsCount / PAGE_SIZE + 1);
 
         const whereQuery: string[] = [];
 

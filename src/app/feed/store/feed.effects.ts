@@ -3,6 +3,7 @@ import { switchMap, takeUntil, catchError, map } from 'rxjs/operators';
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import * as feedActions from "./feed.actions";
 import { FeedService } from "../service/feed.service";
+import * as globalActions from '../../store/global.actions';
 
 @Injectable()
 export class FeedEffects {
@@ -16,7 +17,19 @@ export class FeedEffects {
                     catchError(() => [feedActions.loadPostsFailure()])
                 ),
         )
-    ))
+    ));
+
+    reloadFeedPosts$ = createEffect(() => this.actions$.pipe(
+        ofType(globalActions.invalidateData),
+        switchMap(
+            () => this.feedService.getAllFeedPosts(1)
+                .pipe(
+                    takeUntil(this.actions$.pipe(ofType(feedActions.loadPostsCancel))),
+                    map(posts => feedActions.resetWithNewData({ posts })),
+                    catchError(() => [feedActions.loadPostsFailure()])
+                ),
+        )
+    ));
 
     constructor(
         private actions$: Actions,

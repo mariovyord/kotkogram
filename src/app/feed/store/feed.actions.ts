@@ -19,3 +19,8 @@ export const loadPostsFailure = createAction(
 export const loadPostsCancel = createAction(
     `${namespace} load feed posts cancel`,
 )
+
+export const resetWithNewData = createAction(
+    `${namespace} reset feed posts with new data`,
+    props<{ posts: IPost[] }>(),
+)

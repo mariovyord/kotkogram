@@ -28,6 +28,11 @@ export const profileReducers = createReducer(
     on(postsActions.loadActivatedUser, (state, payload) => ({
         ...state,
         activatedUser: payload.user,
-    }))
+    })),
+    on(postsActions.resetWithNewData, (state, payload) => ({
+        ...state,
+        profilePosts: [...payload.posts],
+        loading: false
+    })),
 )
 

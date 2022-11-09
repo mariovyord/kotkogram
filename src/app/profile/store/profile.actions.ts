@@ -19,3 +19,8 @@ export const loadActivatedUser = createAction(
     props<{ user: IUser }>(),
 )
 
+export const resetWithNewData = createAction(
+    `${namespace} reset profile posts with new data`,
+    props<{ posts: IPost[] }>(),
+)
+

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { switchMap, takeUntil, catchError, map, tap } from 'rxjs/operators';
+import { switchMap, takeUntil, catchError, map } from 'rxjs/operators';
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import * as homeActions from "./home.actions";
 import { HomeService } from "../service/home.service";
