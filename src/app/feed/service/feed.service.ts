@@ -6,8 +6,6 @@ import { Store } from '@ngrx/store';
 import { IUser } from 'src/app/shared/interfaces/IUser';
 import { selectUser } from 'src/app/store/user.selectors';
 import { IPostsServerResponse } from 'src/app/shared/interfaces/IPostsServerResponse';
-import * as feedActions from '../store/feed.actions';
-import { IPost } from 'src/app/shared/interfaces/IPost';
 import * as feedFeature from '../store/feed.feature';
 
 const PAGE_SIZE = 9;

@@ -1,15 +1,14 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { IPostsServerResponse } from 'src/app/shared/interfaces/IPostsServerResponse';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { IGenericServerResponse } from 'src/app/shared/interfaces/IGenericServerResponse';
 import { Store } from '@ngrx/store';
 import { selectUser } from 'src/app/store/user.selectors';
 import * as profileActions from '../store/profile.actions';
 import { IUser } from 'src/app/shared/interfaces/IUser';
-import { IPost } from 'src/app/shared/interfaces/IPost';
-import { selectProfilePosts } from '../store/profile.selectors';
+import { selectActivatedUser, selectProfilePosts } from '../store/profile.feature';
 import { IUserServerResponse } from 'src/app/shared/interfaces/IUserServerResponse';
 import { loadUser } from 'src/app/store/user.actions';
 
@@ -26,6 +25,8 @@ export interface editableUser {
 export class ProfileService implements OnDestroy {
     getUserData$: Subscription;
     user: IUser | null | undefined;
+    activaredUser: IUser;
+    activaredUserSub$: Subscription;
     postsSubs$: Subscription;
     postsCount: number = 0;
 
@@ -33,6 +34,10 @@ export class ProfileService implements OnDestroy {
         private http: HttpClient,
         private store: Store<any>
     ) {
+        this.activaredUserSub$ = this.store.select(selectActivatedUser).subscribe(user => {
+            this.activaredUser = user!;
+        })
+
         this.getUserData$ = this.store.select(selectUser).subscribe(user => {
             this.user = user;
         })
@@ -46,14 +51,19 @@ export class ProfileService implements OnDestroy {
         this.postsSubs$.unsubscribe();
     }
 
-    getUserPosts(id: string) {
-        const page = Math.ceil(this.postsCount / PAGE_SIZE + 1);
+    getUserPosts(id?: string, wanterPage?: number) {
+        const page = wanterPage || Math.ceil(this.postsCount / PAGE_SIZE + 1);
 
-        return this.http.get<IPostsServerResponse>(`/api/collections/posts?page=${page}&pageSize=${PAGE_SIZE}&populate=owner&where=owner=${id}&sortBy=createdAt desc`).pipe(tap(res => {
-            if (res.data && res.data.length > 0) {
-                this.store.dispatch(profileActions.loadPosts({ posts: res.data }))
-            }
-        }))
+        return this.http.get<IPostsServerResponse>(`/api/collections/posts?page=${page}&pageSize=${PAGE_SIZE}&populate=owner&where=owner=${id || this.activaredUser._id}&sortBy=createdAt desc`)
+            .pipe(
+                map(res => {
+                    if (res.data && res.data.length > 0) {
+                        return res.data;
+                    } else {
+                        throw new Error();
+                    }
+                }),
+            )
     }
 
     getUserPostsCount(id: string) {

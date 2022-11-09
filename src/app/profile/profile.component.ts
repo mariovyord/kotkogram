@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { IPost } from 'src/app/shared/interfaces/IPost';
 import { UserService } from '../shared/user/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IUser } from '../shared/interfaces/IUser';
 import { Store } from '@ngrx/store';
-import { selectPostsCount, selectProfilePosts, selectActivatedUser } from './store/profile.selectors';
+import { selectUserPostsCount, selectProfilePosts, selectActivatedUser } from './store/profile.feature';
 import * as profileActions from './store/profile.actions';
 import { ProfileService } from './service/profile.service';
 
@@ -17,7 +15,7 @@ export class ProfileComponent implements OnInit {
 
     activatedUser$ = this.store.select(selectActivatedUser);
     posts$ = this.store.select(selectProfilePosts);
-    count$ = this.store.select(selectPostsCount);
+    count$ = this.store.select(selectUserPostsCount);
 
     constructor(
         private profileService: ProfileService,
@@ -30,7 +28,7 @@ export class ProfileComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.getAllUserPosts(this.activatedUserId!)
+        this.store.dispatch(profileActions.loadPosts({ activatedUserId: this.activatedUserId! }));
         this.getUserPostsCount(this.activatedUserId!)
         this.getUserData(this.activatedUserId!)
     }
@@ -40,12 +38,7 @@ export class ProfileComponent implements OnInit {
     }
 
     onScrollDown() {
-        this.getAllUserPosts(this.activatedUserId);
-    }
-
-    getAllUserPosts(userId: string) {
-        this.profileService.getUserPosts(userId)
-            .subscribe(() => { })
+        this.store.dispatch(profileActions.loadPosts({ activatedUserId: this.activatedUserId! }));
     }
 
     getUserPostsCount(userId: string) {

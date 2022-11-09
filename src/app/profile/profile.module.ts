@@ -6,11 +6,13 @@ import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../material.module';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { RouterModule } from '@angular/router';
-import { profileReducers } from './store/profile.reducers';
+import { profileFeature } from './store/profile.feature';
 import { StoreModule } from '@ngrx/store';
 import { ProfileService } from './service/profile.service';
 import { SettingsComponent } from './settings/settings.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EffectsModule } from '@ngrx/effects';
+import { ProfileEffects } from './store/profile.effects';
 
 @NgModule({
     declarations: [
@@ -26,7 +28,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         RouterModule,
         FormsModule,
         ReactiveFormsModule,
-        StoreModule.forFeature('profile', profileReducers),
+        StoreModule.forFeature(profileFeature),
+        EffectsModule.forFeature([ProfileEffects]),
     ],
     exports: [
         ProfileComponent,

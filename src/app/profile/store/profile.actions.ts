@@ -5,17 +5,30 @@ import { IUser } from "src/app/shared/interfaces/IUser";
 const namespace = '[PROFILE]'
 
 export const loadPosts = createAction(
-    `${namespace} load posts`,
+    `${namespace} load profile posts`,
+    props<{ activatedUserId: string }>(),
+)
+
+export const loadPostsSuccess = createAction(
+    `${namespace} load profile posts success`,
     props<{ posts: IPost[] }>(),
 )
 
+export const loadPostsFailure = createAction(
+    `${namespace} load profile posts failure`,
+)
+
+export const loadPostsCancel = createAction(
+    `${namespace} load profileposts cancel`,
+)
+
 export const loadPostsCount = createAction(
-    `${namespace} load number of posts`,
+    `${namespace} load profile number of posts`,
     props<{ count: number }>(),
 )
 
 export const loadActivatedUser = createAction(
-    `${namespace} load user data`,
+    `${namespace} load profile user data`,
     props<{ user: IUser }>(),
 )
 
