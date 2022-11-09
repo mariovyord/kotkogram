@@ -34,6 +34,11 @@ export const homeFeature = createFeature(
                 ...state,
                 loading: false
             })),
+            on(postsActions.resetWithNewData, (state, data) => ({
+                ...state,
+                allPosts: [...data.posts],
+                loading: false
+            })),
         )
     }
 )

@@ -15,6 +15,8 @@ import { DetailsService } from '../service/details.service';
 import { selectAllComments, selectPost } from '../store/details.selectors';
 import { SnackbarService } from 'src/app/shared/snackbar/snackbar.service';
 import * as detailsActions from '../store/details.actions';
+import * as globalActons from '../../store/global.actions';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 
 @Component({
     selector: 'app-post-details',
@@ -42,12 +44,15 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
         private dialog: MatDialog,
         private store: Store<any>,
         private snackbarService: SnackbarService,
+        private router: Router,
+        private route: ActivatedRoute,
         @Inject(MAT_DIALOG_DATA) public data: any
     ) {
         this.postId = data.postId;
     }
 
     ngOnInit(): void {
+
         this.getUserData$ = this.store.select(selectUser).subscribe(user => {
             this.user = user
         });
@@ -132,7 +137,8 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
                 this.detailsService.deletePost(this.postId)
                     .subscribe({
                         next: () => {
-                            this.closeWithRedirect(this.user?._id || '');
+                            this.store.dispatch(globalActons.invalidateData())
+                            this.modal_principal_parent.emit();
                         },
                         error: () => { }
                     })

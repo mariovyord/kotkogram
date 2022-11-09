@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PostDetailsComponent } from './post-details/post-details.component';
 
@@ -9,6 +9,8 @@ import { PostDetailsComponent } from './post-details/post-details.component';
 })
 export class PostDetailsModalComponent {
     postId: string;
+    dialogRef: MatDialogRef<PostDetailsComponent, any>;
+    redirectUrl = '../../';
 
     constructor(
         public dialog: MatDialog,
@@ -17,17 +19,25 @@ export class PostDetailsModalComponent {
     ) {
         this.postId = this.route.snapshot.params['id'];
         this.openDialog();
+
+        this.dialogRef.componentInstance.modal_principal_parent.subscribe((url) => {
+            if (url) {
+                this.redirectUrl = url;
+            }
+            this.dialogRef.close();
+        });
     }
 
     openDialog(): void {
-        const dialogRef = this.dialog.open(PostDetailsComponent, {
+        this.dialogRef = this.dialog.open(PostDetailsComponent, {
             data: {
                 postId: this.postId
             },
             autoFocus: false
         });
-        dialogRef.afterClosed().subscribe(() => {
-            this.router.navigate(['../../'], { relativeTo: this.route });
+
+        this.dialogRef.afterClosed().subscribe(() => {
+            this.router.navigate([this.redirectUrl], { relativeTo: this.route });
         });
     }
 }

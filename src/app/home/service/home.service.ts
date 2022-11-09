@@ -35,8 +35,8 @@ export class HomeService implements OnDestroy {
         this.postsSubs$.unsubscribe();
     }
 
-    getAllPosts() {
-        const page = Math.ceil(this.postsCount / PAGE_SIZE + 1);
+    getAllPosts(wantedPage?: number) {
+        const page = wantedPage || Math.ceil(this.postsCount / PAGE_SIZE + 1);
 
         return this.http.get<IPostsServerResponse>(`/api/collections/posts?page=${page}&pageSize=${PAGE_SIZE}&sortBy=createdAt desc&populate=owner`)
             .pipe(map(res => {
