@@ -1,0 +1,30 @@
+<div class="fixed bottom-0 sm:right-6 bg-white w-full sm:w-80 flex flex-col justify-between  rounded-t-md">
+    <section class=" bg-primary flex items-center pl-2 text-sm justify-between text-white rounded-t-md cursor-pointer"
+        (click)="showChat = !showChat">
+        <h3>Global chat</h3>
+        <button *ngIf="showChat" mat-icon-button color="primary" aria-label="Send message button">
+            <mat-icon style="color: white">close</mat-icon>
+        </button>
+        <button *ngIf="!showChat" mat-icon-button color="primary" aria-label="Send message button">
+            <mat-icon style="color: white">menu</mat-icon>
+        </button>
+    </section>
+    <section *ngIf="showChat" class="p-2">
+        <!-- Here goes the messages -->
+        <ul class="text-sm h-64 overflow-y-auto scroll-">
+            <li>Peter: Hello Mario, how are you?</li>
+            <li>Mario: Great, thanks!</li>
+        </ul>
+    </section>
+    <section *ngIf="showChat" class="px-2">
+        <form class="flex items-center ">
+            <mat-form-field appearance="outline" class="text-sm w-full">
+                <mat-label>Message</mat-label>
+                <input matInput type="text">
+            </mat-form-field>
+            <button mat-icon-button color="primary" aria-label="Send message button">
+                <mat-icon>send</mat-icon>
+            </button>
+        </form>
+    </section>
+</div>

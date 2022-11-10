@@ -22,6 +22,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from './store/user.effects';
 import { metaReducers } from './store/meta.reducers';
+import { ChatModule } from './chat/chat.module';
 
 @NgModule({
     declarations: [
@@ -42,6 +43,7 @@ import { metaReducers } from './store/meta.reducers';
         HttpClientModule,
         FormsModule,
         HomeModule,
+        ChatModule,
         StoreModule.forRoot(reducers, { metaReducers }),
         EffectsModule.forRoot([UserEffects]),
         StoreDevtoolsModule.instrument({}),

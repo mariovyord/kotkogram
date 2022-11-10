@@ -1,0 +1,12 @@
+/* ::ng-deep .mat-form-field {
+    height: 40px !important;
+    position:relative;
+}
+
+::ng-deep .mat-label {
+    bottom: 3px;
+}
+
+::ng-deep .mat-form-field-infix {
+    padding-top: 1px !important;
+} */
