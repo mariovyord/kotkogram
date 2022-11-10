@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
+import { OnInitEffects } from '@ngrx/effects';
 import { BehaviorSubject } from 'rxjs';
 import { io } from "socket.io-client";
 
 const SOCKET_URL = 'http://localhost:5000/socket/message';
 
-@Injectable()
-export class WebsocketsService {
+@Injectable({
+    providedIn: 'root',
+})
+export class ChatService {
     message$: BehaviorSubject<string> = new BehaviorSubject('');
     constructor() { }
 
