@@ -1,0 +1,7 @@
+<li *ngFor="let message of messageList" class="bg-slate-200 rounded-md mb-1 p-1">
+    <div class="text-xs flex justify-between text-slate-500">
+        <span> {{message.username}}</span>
+        <span> {{message.date}}</span>
+    </div>
+    <span> {{message.message}}</span>
+</li>

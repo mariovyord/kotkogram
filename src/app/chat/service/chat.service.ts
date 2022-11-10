@@ -5,17 +5,25 @@ import { io } from "socket.io-client";
 
 const SOCKET_URL = 'http://localhost:5000/socket/message';
 
+interface MessageObj {
+    message: string,
+    username: string,
+    date: string,
+}
+
 @Injectable({
     providedIn: 'root',
 })
 export class ChatService {
-    message$: BehaviorSubject<string> = new BehaviorSubject('');
-    constructor() { }
+    message$ = new BehaviorSubject<MessageObj | null>(null);
 
-    socket = io(SOCKET_URL);
+    socket = io(SOCKET_URL, {
+        transports: ['websocket', 'polling'],
+        withCredentials: true,
+    });
 
-    sendMessage(message: string) {
-        this.socket.emit('message', message);
+    sendMessage(messageObj: MessageObj) {
+        this.socket.emit('message', messageObj);
     }
 
     getNewMessage = () => {

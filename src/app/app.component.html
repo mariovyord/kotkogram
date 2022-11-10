@@ -9,7 +9,7 @@
         <app-header (sidenavToggle)="sidenav.toggle()"></app-header>
         <main>
             <router-outlet></router-outlet>
-            <app-chat></app-chat>
+            <app-chat *ngIf="(user$ | async)"></app-chat>
         </main>
     </mat-sidenav-content>
 </mat-sidenav-container>

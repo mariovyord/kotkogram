@@ -5,10 +5,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { BubbleComponent } from './bubble/bubble.component';
 
 @NgModule({
     declarations: [
-        ChatComponent
+        ChatComponent,
+        BubbleComponent
     ],
     imports: [
         CommonModule,

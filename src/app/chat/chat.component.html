@@ -1,7 +1,7 @@
 <div class="fixed bottom-0 sm:right-6 bg-white w-full sm:w-80 flex flex-col justify-between  rounded-t-md">
     <section class=" bg-primary flex items-center pl-2 text-sm justify-between text-white rounded-t-md cursor-pointer"
         (click)="showChat = !showChat">
-        <h3>Global chat</h3>
+        <h3>Global cat chat</h3>
         <button *ngIf="showChat" mat-icon-button color="primary" aria-label="Send message button">
             <mat-icon style="color: white">close</mat-icon>
         </button>
@@ -11,31 +11,31 @@
     </section>
     <section *ngIf="showChat" class="p-2">
         <!-- Here goes the messages -->
-        <ul class="text-sm h-64 overflow-y-auto scroll-">
-            <li *ngFor="let message of messageList">
-                {{message}}
-            </li>
+        <ul class="text-sm h-64 overflow-y-auto " #scrollMe>
+            <app-bubble [messageList]="messageList"></app-bubble>
         </ul>
     </section>
-    <section *ngIf="showChat" class="px-2">
-        <form #f="ngForm" (ngSubmit)="sendMessage()" class="flex items-center ">
+    <section *ngIf=" showChat" class="px-2">
+        <form #f="ngForm" (ngSubmit)="sendMessage()" class="flex items-center">
             <mat-form-field appearance="outline" class="text-sm w-full">
                 <mat-label>Message</mat-label>
                 <input matInput name="message" id="message" type="text" ngModel [required]="true" minlength="1"
                     maxlength="280">
-                <mat-error *ngIf="f.controls['message'].errors?.['required']">
+                <mat-error *ngIf="f.controls['message']?.errors?.['required']">
                     Message is <strong>required</strong>
                 </mat-error>
-                <mat-error *ngIf="f.controls['message'].errors?.['minlength']">
+                <mat-error *ngIf="f.controls['message']?.errors?.['minlength']">
                     Minimum length is <strong>3</strong> characters
                 </mat-error>
-                <mat-error *ngIf="f.controls['message'].errors?.['maxlength']">
+                <mat-error *ngIf="f.controls['message']?.errors?.['maxlength']">
                     Maximum length is <strong>280</strong> characters
                 </mat-error>
             </mat-form-field>
-            <button mat-icon-button color="primary" aria-label="Send message button" type="submit">
-                <mat-icon>send</mat-icon>
-            </button>
+            <div class="h-[59px] flex flex-col justify-center pb-5">
+                <button mat-icon-button color="primary" aria-label="Send message button" type="submit">
+                    <mat-icon>send</mat-icon>
+                </button>
+            </div>
         </form>
     </section>
 </div>

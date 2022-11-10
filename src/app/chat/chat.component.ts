@@ -1,10 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { IUser } from '../shared/interfaces/IUser';
 import { selectUser } from 'src/app/store/user.selectors';
 import { ChatService } from './service/chat.service';
 import { Subscription } from 'rxjs';
+
+interface SendMessageObj {
+    message: string,
+    username: string,
+    date?: string,
+}
 
 @Component({
     selector: 'app-chat',
@@ -13,9 +19,9 @@ import { Subscription } from 'rxjs';
 })
 export class ChatComponent implements OnInit {
     @ViewChild('f') form: NgForm;
+    messageList: SendMessageObj[] = [];
 
     showChat = false;
-    messageList: string[] = [];
     user: IUser | null | undefined;
     userSub$: Subscription;
 
@@ -27,15 +33,22 @@ export class ChatComponent implements OnInit {
     ngOnInit() {
         this.userSub$ = this.store.select(selectUser).subscribe(user => this.user = user!);
 
-        this.chatService.getNewMessage().subscribe((message: string) => {
-            this.messageList.push(message);
+        this.chatService.getNewMessage().subscribe((message: SendMessageObj | null) => {
+            if (message && message.message) {
+                this.messageList.unshift(message);
+            }
         })
     }
 
     sendMessage() {
         const { message } = this.form.value;
-        this.chatService.sendMessage(`${this.user?.firstName || 'Anonymous'}: ${message}`);
+        this.chatService.sendMessage({
+            username: this.user!.username,
+            date: new Date().toLocaleString(),
+            message,
+        });
         this.form.reset();
         this.form.controls['message'].setErrors(null);
     }
 }
+

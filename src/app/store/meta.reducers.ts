@@ -19,4 +19,4 @@ export function clearState(reducer: ActionReducer<any>): ActionReducer<any> {
     };
 }
 
-export const metaReducers: MetaReducer<any>[] = [debug];
+export const metaReducers: MetaReducer<any>[] = [];
