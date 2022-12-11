@@ -5,6 +5,10 @@
         <app-feed-loading *ngIf="(isLoading$ | async)"></app-feed-loading>
         <app-feed-card *ngFor="let post of (feedPosts$ | async)" [post]="post">
         </app-feed-card>
+        <div *ngIf="!(feedPosts$ | async)?.length">
+            <h1 class="text-2xl">Sadly, nothing to see here...</h1>
+            <h2><a class="primary italic hover:underline" routerLink="/create">Create first post!</a></h2>
+        </div>
     </section>
     <section class="hidden md:block w-1/3">
 
