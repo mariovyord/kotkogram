@@ -6,7 +6,7 @@
                 alt="owner portrait">
         </div>
         <h3><a class="text-primary font-semibold cursor-pointer hover:underline"
-                [routerLink]="'/profile/' + comment.owner._id">{{comment.owner.username}}</a>
+                (click)="redirectUser(comment.owner._id)">{{comment.owner.username}}</a>
         </h3>
     </div>
 

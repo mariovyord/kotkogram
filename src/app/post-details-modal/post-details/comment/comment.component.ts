@@ -26,6 +26,9 @@ export class CommentComponent {
         @Inject(MAT_DIALOG_DATA) public data: any
     ) { }
 
+    redirectUser($event: string) {
+        this.redirect.emit($event)
+    }
 
     onSubmit() {
         this.isEditing = false;

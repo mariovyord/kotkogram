@@ -28,7 +28,7 @@ export const profileFeature = createFeature(
             })),
             on(postsActions.loadPostsSuccess, (state, profile) => ({
                 ...state,
-                profilePosts: [...state.profilePosts, ...profile.posts],
+                profilePosts: [...profile.posts],
                 loading: false
             })),
             on(postsActions.loadPostsCancel, (state) => ({
