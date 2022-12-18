@@ -14,7 +14,10 @@ export class ProfileEffects {
                 .pipe(
                     takeUntil(this.actions$.pipe(ofType(profileActions.loadPostsCancel))),
                     map(posts => profileActions.loadPostsSuccess({ posts })),
-                    catchError(() => [profileActions.loadPostsFailure()])
+                    catchError((err) => {
+                        console.log(err)
+                        return [profileActions.loadPostsFailure()]
+                    })
                 ),
         )
     ))

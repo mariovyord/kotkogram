@@ -51,9 +51,9 @@ export class ProfileService implements OnDestroy {
         this.postsSubs$.unsubscribe();
     }
 
-    getUserPosts(id?: string, wanterPage?: number) {
-        const page = wanterPage || Math.ceil(this.postsCount / PAGE_SIZE + 1);
-
+    getUserPosts(id?: string, wantedPage?: number) {
+        const page = 1;
+        // const page = wantedPage || Math.ceil(this.postsCount / PAGE_SIZE + 1);
         return this.http.get<IPostsServerResponse>(`/api/collections/posts?page=${page}&pageSize=${PAGE_SIZE}&populate=owner&where=owner=${id || this.activaredUser._id}&sortBy=createdAt desc`)
             .pipe(
                 map(res => {

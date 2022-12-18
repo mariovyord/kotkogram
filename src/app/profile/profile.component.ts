@@ -6,6 +6,7 @@ import { selectUserPostsCount, selectProfilePosts, selectActivatedUser } from '.
 import * as profileActions from './store/profile.actions';
 import { ProfileService } from './service/profile.service';
 import { selectUser } from '../store/user.selectors';
+import { map, tap } from 'rxjs';
 
 @Component({
     selector: 'app-profile',
@@ -29,10 +30,16 @@ export class ProfileComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.route.params.subscribe(params => this.activatedUserId = params['userId']);
-        this.store.dispatch(profileActions.loadPosts({ activatedUserId: this.activatedUserId! }));
-        this.getUserPostsCount(this.activatedUserId!)
-        this.getUserData(this.activatedUserId!)
+        this.route.params
+            .pipe(
+                map(params => params['userId']),
+                tap(id => {
+                    this.activatedUserId = id
+                    this.store.dispatch(profileActions.loadPosts({ activatedUserId: id }));
+                    this.getUserPostsCount(id)
+                    this.getUserData(id)
+                })
+            ).subscribe()
         this.user$ = this.store.select(selectUser).subscribe();
     }
 

@@ -1,4 +1,4 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Injectable, Provider } from '@angular/core';
 import { environment } from "src/environments/environment";
@@ -12,6 +12,10 @@ export class AppInterceptor implements HttpInterceptor {
             return next.handle(req.clone({
                 url: req.url.replace('/api', API_URL),
                 withCredentials: true,
+                headers: req.headers
+                    .set('Cache-Control', 'no-cache')
+                    .set('Pragma', 'no-cache')
+                    .set('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT')
             }))
         }
 
@@ -24,3 +28,4 @@ export const appInterceportProvider: Provider = {
     useClass: AppInterceptor,
     multi: true,
 }
+
