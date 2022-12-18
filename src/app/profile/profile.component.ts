@@ -5,6 +5,9 @@ import { Store } from '@ngrx/store';
 import { selectUserPostsCount, selectProfilePosts, selectActivatedUser } from './store/profile.feature';
 import * as profileActions from './store/profile.actions';
 import { ProfileService } from './service/profile.service';
+import { Subscription } from 'rxjs';
+import { IUser } from '../shared/interfaces/IUser';
+import { selectUser } from '../store/user.selectors';
 
 @Component({
     selector: 'app-profile',
@@ -16,6 +19,8 @@ export class ProfileComponent implements OnInit {
     activatedUser$ = this.store.select(selectActivatedUser);
     posts$ = this.store.select(selectProfilePosts);
     count$ = this.store.select(selectUserPostsCount);
+    user: IUser;
+    userSub$: Subscription;
 
     constructor(
         private profileService: ProfileService,
@@ -31,6 +36,7 @@ export class ProfileComponent implements OnInit {
         this.store.dispatch(profileActions.loadPosts({ activatedUserId: this.activatedUserId! }));
         this.getUserPostsCount(this.activatedUserId!)
         this.getUserData(this.activatedUserId!)
+        this.userSub$ = this.store.select(selectUser).subscribe(user => this.user = user!);
     }
 
     onScrollUp() {

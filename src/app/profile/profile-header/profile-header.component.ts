@@ -8,6 +8,7 @@ import { IUser } from 'src/app/shared/interfaces/IUser';
 export class ProfileHeaderComponent {
     @Input() user: IUser;
     @Input() userPostsCount!: number;
+    @Input() isOwner: boolean;
 
     constructor() { }
 

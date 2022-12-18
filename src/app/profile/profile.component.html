@@ -1,7 +1,8 @@
 <div *ngIf="posts$ && activatedUser$ && count$" infiniteScroll [infiniteScrollContainer]="'.sidenav-content'"
     [fromRoot]="true" [infiniteScrollDistance]="2" [infiniteScrollUpDistance]="1.5" [infiniteScrollThrottle]="50"
     (scrolled)="onScrollDown()" (scrolledUp)="onScrollUp()">
-    <app-profile-header [user]="(activatedUser$ | async)!" [userPostsCount]="(count$ | async)!">
+    <app-profile-header [user]="(activatedUser$ | async)!" [userPostsCount]="(count$ | async)!"
+        [isOwner]="activatedUserId === user._id">
     </app-profile-header>
     <app-cards-grid [posts]="(posts$ | async)!"></app-cards-grid>
 </div>

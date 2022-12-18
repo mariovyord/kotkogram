@@ -5,6 +5,7 @@ import { CardsGridComponent } from './cards-grid/cards-grid.component';
 import { MaterialModule } from '../material.module';
 import { RouterModule } from '@angular/router';
 import { CardsGridLoadingComponent } from './cards-grid/cards-grid-loading/cards-grid-loading.component';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
     declarations: [
@@ -13,6 +14,7 @@ import { CardsGridLoadingComponent } from './cards-grid/cards-grid-loading/cards
         CardsGridLoadingComponent,
     ],
     imports: [
+        BrowserModule,
         CommonModule,
         MaterialModule,
         RouterModule,

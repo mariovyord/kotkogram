@@ -9,7 +9,7 @@
         <div class=" mb-4">
             <div class="flex align-middle justify-center sm:justify-start mb-2 gap-4">
                 <h1 class="text-center sm:text-left text-4xl">{{user.username}}</h1>
-                <a [routerLink]="'settings'" mat-button color="primary">Edit Profile</a>
+                <a *ngIf="isOwner" [routerLink]="'settings'" mat-button color="primary">Edit Profile</a>
             </div>
             <div class="flex justify-center sm:justify-start  gap-4">
                 <span>{{userPostsCount}} publications</span>
