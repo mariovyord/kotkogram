@@ -2,7 +2,7 @@
     [infiniteScrollContainer]="'.sidenav-content'" [fromRoot]="true" [infiniteScrollDistance]="2"
     [infiniteScrollUpDistance]="1.5" [infiniteScrollThrottle]="50">
     <app-profile-header [user]="(activatedUser$ | async)!" [userPostsCount]="(count$ | async)!"
-        [isOwner]="activatedUserId === (user$._id | async)">
+        [isOwner]="activatedUserId == userId">
     </app-profile-header>
     <app-cards-grid [posts]="(posts$ | async)!"></app-cards-grid>
 </div>

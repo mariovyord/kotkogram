@@ -19,6 +19,7 @@ export class ProfileComponent implements OnInit {
     posts$ = this.store.select(selectProfilePosts);
     count$ = this.store.select(selectUserPostsCount);
     user$: any;
+    userId: string | undefined;
 
     constructor(
         private profileService: ProfileService,
@@ -40,7 +41,7 @@ export class ProfileComponent implements OnInit {
                     this.getUserData(id)
                 })
             ).subscribe()
-        this.user$ = this.store.select(selectUser).subscribe();
+        this.user$ = this.store.select(selectUser).pipe(tap(user => this.userId = user?._id)).subscribe();
     }
 
     getUserPostsCount(userId: string) {
