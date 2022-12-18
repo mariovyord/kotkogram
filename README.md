@@ -15,7 +15,6 @@ Angular SoftUni Exam Project.
 
 The app has its own dedicated REST API.
 
-- URL: *SoonTM*
 - GitHub: <https://github.com/mariovyord/kotkogram-api>
 
 ## Features
